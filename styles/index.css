@@ -1,0 +1,38 @@
+.logo {
+    margin-top: -150px;
+    margin-bottom: 50pxx;
+}
+.logoimage {
+    width: 250px;
+    height: 250px;
+}
+
+.mainPage {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(5,5,5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mainForms {
+    display: flex;
+    background-color: aquamarine;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px;
+}
+
+.loginForm {
+    background-color: rgb(255, 255, 124);
+}
+
+.singupForm {
+    background-color: rgb(197, 252, 116);
+}
