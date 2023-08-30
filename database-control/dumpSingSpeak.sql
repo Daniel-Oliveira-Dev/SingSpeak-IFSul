@@ -25,7 +25,7 @@ CREATE TABLE usuario (
 idUsuario INTEGER AUTO_INCREMENT NOT NULL UNIQUE,
 username VARCHAR(25) NOT NULL UNIQUE,
 email VARCHAR(100) NOT NULL UNIQUE,
-senha VARCHAR(25) NOT NULL,
+senha VARCHAR(255) NOT NULL,
 dataCriacao DATE NOT NULL DEFAULT(CURRENT_DATE()),
 pontos BIGINT NOT NULL DEFAULT(0),
 idNivel INTEGER NOT NULL DEFAULT(1),
@@ -34,8 +34,8 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
 
 INSERT INTO usuario (idUsuario, username, email, senha) VALUES
-(1, "ApollyonDelta", "apollyondelta@gmail.com", "395248"),
-(2, "BLKZim", "miguelmigue806@gmail.com", "131431");
+(1, "ApollyonDelta", "apollyondelta@gmail.com", "$2y$10$2O6x7GQmN1pi/Gh8sZZZGutkt9zWAnn9cOHPPc2W2t69WMWruxk5S"),
+(2, "BLKZim", "miguelmigue806@gmail.com", "$2y$10$B1z7okgRRKgTu.39ZTMIKejCtGCv/hrgvoDZF.b8C0qXZMa3n85ne");
 
 -- Tabela de Logs
 CREATE TABLE log (
