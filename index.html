@@ -15,22 +15,22 @@
         </div>
         <div class="mainForms">
             <div class="singupForm">
-                <form method="post" id="signupForm">
+                <form id="signupForm" action="userCodes/registerUser.php" method="post">
                     <label for="signupUsername">Nome de Usuário</label> <br>
-                    <input type="text" placeholder="Username" id="signupUsername"> <br>
+                    <input type="text" placeholder="Username" id="signupUsername" name="signupUsername"> <br>
                     <label for="signupEmail">Endereço de Email</label> <br>
-                    <input type="email" placeholder="Email" id="signupEmail"> <br>
+                    <input type="email" placeholder="Email" id="signupEmail" name="signupEmail"> <br>
                     <label for="singupPassword">Senha de Acesso</label> <br>
-                    <input type="password" placeholder="Senha" id="singupPassword"> <br>
+                    <input type="password" placeholder="Senha" id="singupPassword" name="singupPassword"> <br>
                     <input type="submit" value="Cadastrar" id="signupSubmit">
                 </form>
             </div>
             <div class="loginForm">
-                <form method="post" id="loginForm">
+                <form id="loginForm" action="userCodes/acessUser.php" method="post">
                     <label for="sloginUsername">Nome de Usuário</label> <br>
-                    <input type="text" placeholder="Username" id="loginUsername"> <br>
+                    <input type="text" placeholder="Username" id="loginUsername" name="loginUsername"> <br>
                     <label for="loginPassword">Senha de Acesso</label> <br>
-                    <input type="password" placeholder="Senha" id="loginPassword"> <br>
+                    <input type="password" placeholder="Senha" id="loginPassword" name="loginPassword"> <br>
                     <input type="submit" value="Acessar" id="loginSubmit">
                 </form>
             </div>

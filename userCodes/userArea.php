@@ -20,9 +20,26 @@ function listAllUsers() {
     }
 }
 
-// Passa a senha para hashcode
-function hashPassword($password) {
-    return password_hash($password, PASSWORD_BCRYPT);
+// Valida a disponibilidade de um nome de usuário
+function validateUsername($username) {
+    include "../connection.php";
+    $usuarios = [];
+    try {
+        $statement = $conexao->prepare("SELECT * FROM usuario WHERE username LIKE :username");
+        $statement->bindParam(":username", $username);
+        $statement->execute();
+        $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($resultado as $row) {
+            $usuarios[] = $row;
+        }
+        
+        return ($usuarios[0]['username'] == null);
+
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+    
 }
 
 // Insere um novo usuário no banco com os parâmetros informados
