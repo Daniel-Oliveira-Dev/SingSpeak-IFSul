@@ -34,8 +34,8 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
 
 INSERT INTO usuario (idUsuario, username, email, senha) VALUES
-(1, "ApollyonDelta", "apollyondelta@gmail.com", "$2y$10$2O6x7GQmN1pi/Gh8sZZZGutkt9zWAnn9cOHPPc2W2t69WMWruxk5S"),
-(2, "BLKZim", "miguelmigue806@gmail.com", "$2y$10$B1z7okgRRKgTu.39ZTMIKejCtGCv/hrgvoDZF.b8C0qXZMa3n85ne");
+(1, "ApollyonDelta", "apollyondelta@gmail.com", "Hollow@2011"),
+(2, "BLKZim", "miguelmigue806@gmail.com", "BLK@0303");
 
 -- Tabela de Logs
 CREATE TABLE log (
