@@ -2,6 +2,6 @@
 
 $username = $_POST['signupUsername'];
 $email = $_POST['signupEmail'];
-$senha = $_POST['singupPassword'];
+$senha = $_POST['signupPassword'];
 
 ?>
