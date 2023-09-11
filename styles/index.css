@@ -1,6 +1,5 @@
 .logo {
-    margin-top: -150px;
-    margin-bottom: 50pxx;
+    margin-top: -100px;
 }
 .logoimage {
     width: 250px;
@@ -26,14 +25,19 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 100px;
+    padding: 15px;
+    width: 50%;
+    height: 33%;
+    margin-top: 5%;
 }
 
 .loginForm {
     background-color: rgb(255, 255, 124);
     width: 50%;
     height: 100%;
-    margin-left: -60px;
+    padding: 10px;
+    border: 3px solid;
+    border-radius: 10%;
 }
 
 .formBehind {
@@ -48,5 +52,7 @@
     background-color: rgb(197, 252, 116);
     width: 50%;
     height: 100%;
-    margin-left: 40px;
+    padding: 10px;
+    border: 3px solid;
+    border-radius: 10%;
 }

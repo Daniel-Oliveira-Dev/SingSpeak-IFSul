@@ -1,19 +1,34 @@
 <?php
 
-// Lista todas as informações de todos os usuários do banco
-function listAllUsers() {
-    include "../connection.php";
-    $usuarios = [];
+// Seleciona as informações do usuário e armazena na classe Usuário
+function logIn($username, $senha) {
+    include("../connection.php");
+    require_once("usuario.php");
     try {
-        $statement = $conexao->prepare("SELECT * FROM usuario");
+        $statement = $conexao->prepare("SELECT * FROM usuario WHERE username = :username AND senha = :senha");
+
+        $statement->bindParam(":username", $username);
+        $statement->bindParam(":senha", $senha);
+
         $statement->execute();
+
+        if ($statement->rowCount() == 0) {
+            return "Acesso negado!";
+        }
+
         $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach($resultado as $row) {
-            $usuarios[] = $row;
-        }
-        
-        return $usuarios;
+        $user = new Usuario(
+            $resultado[0]['idUsuario'], 
+            $resultado[0]['username'],
+            $resultado[0]['email'],
+            $resultado[0]['senha'],
+            $resultado[0]['dataCriacao'],
+            $resultado[0]['pontos'],
+            $resultado[0]['idNivel']
+        );
+
+        return $user;
 
     } catch (PDOException $err) {
         echo $err->getMessage();
@@ -50,23 +65,6 @@ function validateEmail($email) {
     } catch (PDOException $err) {
         echo $err->getMessage();
         return false;
-    }
-}
-
-// Insere um novo usuário no banco com os parâmetros informados
-function insertUser ($username, $email, $password) {
-    include "../connection.php";
-    try {
-        $statement = $conexao->prepare("INSERT INTO usuario (username, email, senha) 
-        VALUES (:username, :email, :senha)");
-
-        $statement->bindParam(":username", $username);
-        $statement->bindParam(":email", $email);
-        $statement->bindParam(":senha", $password);
-
-        $statement->execute();
-    } catch (PDOException $err) {
-        echo $err->getMessage();
     }
 }
 

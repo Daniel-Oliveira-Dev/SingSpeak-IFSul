@@ -17,20 +17,20 @@
             <div class="signupForm formFront">
                 <form id="signupForm" action="userCodes/registerUser.php" method="post">
                     <label for="signupUsername">Nome de Usuário</label> <br>
-                    <input type="text" placeholder="Username" id="signupUsername" name="signupUsername"> <br>
+                    <input type="text" placeholder="Username" id="signupUsername" name="signupUsername" size="15" maxlength="25"> <br>
                     <label for="signupEmail">Endereço de Email</label> <br>
-                    <input type="email" placeholder="Email" id="signupEmail" name="signupEmail"> <br>
+                    <input type="email" placeholder="Email" id="signupEmail" name="signupEmail" size="15" maxlength="100"> <br>
                     <label for="singupPassword">Senha de Acesso</label> <br>
-                    <input type="password" placeholder="Senha" id="signupPassword" name="signupPassword"> <br>
+                    <input type="password" placeholder="Senha" id="signupPassword" name="signupPassword" size="15" maxlength="255"> <br>
                     <input type="submit" value="Cadastrar" id="signupSubmit" disabled>
                 </form>
             </div>
             <div class="loginForm formBehind">
                 <form id="loginForm" action="userCodes/acessUser.php" method="post">
                     <label for="sloginUsername">Nome de Usuário</label> <br>
-                    <input type="text" placeholder="Username" id="loginUsername" name="loginUsername"> <br>
+                    <input type="text" placeholder="Username" id="loginUsername" name="loginUsername" size="15" maxlength="25"> <br>
                     <label for="loginPassword">Senha de Acesso</label> <br>
-                    <input type="password" placeholder="Senha" id="loginPassword" name="loginPassword"> <br>
+                    <input type="password" placeholder="Senha" id="loginPassword" name="loginPassword" size="15" maxlength="255"> <br>
                     <input type="submit" value="Acessar" name="loginSubmit" id="loginSubmit" disabled>
                 </form>
             </div>

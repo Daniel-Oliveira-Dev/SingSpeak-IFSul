@@ -3,7 +3,7 @@
  class Usuario {
     private $idUsuario;
     private $username;
-    private $email;
+    private $emails;
     private $senha;
     private $dataCriacao;
     private $pontos;
