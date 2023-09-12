@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-if (isset($_SESSION['acessGranted'])) {
-    $usuarioArray = $_SESSION['acessGranted'];
-    echo json_encode(['user' => $usuarioArray]);
+if (isset($_SESSION['accessGranted'])) {
+    $usuario = $_SESSION['accessGranted'];
+    echo json_encode(['user' => $usuario]);
     exit();
 } else {
     echo 'Sessão não encontrada';

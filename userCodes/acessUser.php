@@ -7,7 +7,7 @@ $senha = $_POST['loginPassword'];
 unset($_POST);
 
 // Valida o acesso verificando o banco de dados
-require_once "userArea.php";
+require "userArea.php";
 
 // Verifica se o acesso foi possível de se realizar. Se não for, encerra o código #PRECISA COMPLEMENTAR
 $tentativa = logIn($username, $senha);
@@ -19,7 +19,8 @@ if ($tentativa == "Acesso negado!") {
 }
 
 // Se o acesso validar, ele salva o usuário na sessão
-$_SESSION['acessGranted'] = $tentativa;
+logGenerator($username, "Login");
+$_SESSION['accessGranted'] = $tentativa;
 echo json_encode(['sucesso' => "Sucesso!"]);
 exit();
 ?>

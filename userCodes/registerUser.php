@@ -25,27 +25,11 @@ function validateUser($username, $email) {
     }
 }
 
-// Insere um novo usuário no banco com os parâmetros informados
-function insertUser ($username, $email, $password) {
-    include "../connection.php";
-    try {
-        $statement = $conexao->prepare("INSERT INTO usuario (username, email, senha) 
-        VALUES (:username, :email, :senha)");
-
-        $statement->bindParam(":username", $username);
-        $statement->bindParam(":email", $email);
-        $statement->bindParam(":senha", $password);
-
-        $statement->execute();
-    } catch (PDOException $err) {
-        echo $err->getMessage();
-    }
-}
-
 validateUser($username, $email);
 insertUser($username, $email, $senha);
 $tentativa = logIn($username, $senha);
-$_SESSION['acessGranted'] = $tentativa;
+logGenerator($username, "Login");
+$_SESSION['accessGranted'] = $tentativa;
 echo json_encode(['sucesso' => "Sucesso!"]);
 exit();
 

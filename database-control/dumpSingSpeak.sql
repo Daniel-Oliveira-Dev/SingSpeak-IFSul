@@ -38,9 +38,10 @@ INSERT INTO usuario (idUsuario, username, email, senha) VALUES
 (2, "BLKZim", "miguelmigue806@gmail.com", "BLK@0303");
 
 -- Tabela de Logs
-CREATE TABLE log (
+CREATE TABLE logControl (
 idLog INTEGER AUTO_INCREMENT NOT NULL UNIQUE,
-dataAcesso TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
+dataRegistro TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
+tipoRegistro ENUM("Login", "Logout") NOT NULL,
 idUsuario INTEGER NOT NULL,
 PRIMARY KEY (idLog),
 FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario)
