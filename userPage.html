@@ -9,15 +9,87 @@
         <link rel="stylesheet" href="styles/userpage.css">
     </head>
     <body>
-        <div>
-            <p id="infoUsername"> Seu nome de usuário é </p><br>
+        <!-- Container que contém todos as informações da Página -->
+        <div id="mainDiv" name="mainDiv" class="mainDiv">
+
+            <!-- Container com a imagem da Tela de Usuário -->
+            <div id="containerImage" name="containerImage" class="containerImage">
+                <div id="imageUserPage" name="imageUserPage" class="imageUserPage">
+                    <img id="imageUserPageFile" src="assets/logotipo.png" alt="Imagem do Usuário">
+                </div>
+            </div>
+
+            <!-- Container com os dados do usuário -->
+            <div id="containerUserInfo" name="containerUserInfo" class="containerUserInfo">
+                <p id="infoUsername"> Seu nome de usuário é </p><br>
                 <p id="infoEmail"> Seu email é </p><br>
-                    <p id="infoDataCriacao"> Você criou sua conta em </p><br>
-                        <p id="infoPontos"> Você tem estes pontos: </p><br>
-                            <p id="infoNivel"> Você é do nível </p><br>
-        </div>
-        <div id="buttonLogout" name="buttonLogout" class="buttonLogout">
-            Sair
+                <p id="infoDataCriacao"> Você criou sua conta em </p><br>
+            </div>
+
+            <!-- Container com o Rank e o Nível do Usuário -->
+            <div id="containerRankNivelUser" name="containerRankNivelUser" class="containerRankNivelUser">
+                <p id="infoPontos"> Você tem estes pontos: </p><br>
+                <p id="infoNivel"> Você é do nível </p><br>
+            </div>
+
+            <!-- Container com os Botões "Sair" e "Configurações" -->
+            <div id="containerButtons" name="containerButtons" class="containerButtons">
+                <div id="buttonLogout" name="buttonLogout" class="buttonLogout buttonUserPage">
+                    Sair
+                </div>
+                <div id="buttonConfig" name="buttonConfig" class="buttonConfig buttonUserPage">
+                    Configurações
+                </div>
+            </div>
+
+            <!-- Container para as opções de Configurações de Tela -->
+            <div id="optionsConfig" name="optionsConfig" class="optionsConfig hiddenForm">
+                <div id="optionsUsername" class="buttonUserPage">
+                    Alterar Username
+                </div>
+                <div id="optionsEmail" class="buttonUserPage">
+                    Alterar Email
+                </div>
+                <div id="optionsPassword" class="buttonUserPage">
+                    Alterar Senha
+                </div>
+                <div id="optionsDelete" class="buttonUserPage">
+                    Deletar Conta
+                </div>
+            </div>
+
+            <!-- Formulários Salvos na Memória -->
+            <div id="alterUsernameForm" name="alterUsernameForm" class="alterUsernameForm hiddenForm">
+                <form>
+                    <input id="newUsername" type="text"> <br>
+                    <input id="newUsernameConfirm" type="text"> <br>
+                    <input id="newUsernameSubmit" type="button">
+                </form>
+            </div>
+    
+            <div id="alterEmailForm" name="alterEmailForm" class="alterEmailForm hiddenForm">
+                <form>
+                    <input id="newEmail" type="text"> <br>
+                    <input id="newEmailConfirm" type="text"> <br>
+                    <input id="newEmailSubmit" type="button">
+                </form>
+            </div>
+    
+            <div id="alterPasswordForm" name="alterPasswordForm" class="alterPasswordForm hiddenForm">
+                <form>
+                    <input id="newPassword" type="text"> <br>
+                    <input id="newPasswordConfirm" type="text"> <br>
+                    <input id="newPasswordSubmit" type="button">
+                </form>
+            </div>
+    
+            <div id="deleteAccountForm" name="deleteAccountForm" class="deleteAccountForm hiddenForm">
+                <form>
+                    <input id="confirmPasswordOne" type="text"> <br>
+                    <input id="confirmPasswordTwo" type="text"> <br>
+                    <input id="confirmDeleteAccountButton" type="button">
+                </form>
+            </div>
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>

@@ -1,4 +1,108 @@
-.buttonLogout {
+body {
+    background-color: black;
+}
+
+/* Div principal da PÃƒÂ¡gina */
+.mainDiv {
     background-color: blueviolet;
-    padding: 5px;
+    margin: 20px 20% 0 20%;
+    padding-bottom: 10px;
+}
+
+/* Imagem da PÃƒÂ¡gina */
+.containerImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+#imageUserPageFile {
+    width: 100px;
+    height: 100px;
+}
+
+/* InformaÃƒÂ§ÃƒÂµes do UsuÃƒÂ¡rio */
+.containerUserInfo{
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+flex-direction: column;
+
+background-color: dimgray;
+
+margin: 10px 5%;
+
+border: solid;
+}
+
+/* Rank e NÃƒÂ­vel do UsuÃƒÂ¡rio */
+.containerRankNivelUser {
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-evenly;
+
+flex-direction: row;
+
+background-color: dimgray;
+
+border: solid;
+
+margin: 20px 5%;
+}
+
+/* OpÃƒÂ§ÃƒÂµes "Sair" e "ConfiguraÃƒÂ§ÃƒÂµes" */
+.containerButtons {
+
+display: flex;
+
+border: solid;
+
+background-color: dimgray;
+
+margin: 5px 5%;
+
+justify-content: space-between;
+}
+
+.buttonUserPage {
+    background-color: aqua;
+    display: flex;
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+}
+
+/* Aba de OpÃƒÂ§ÃƒÂµes de ConfiguraÃƒÂ§ÃƒÂµes */
+.optionsConfig {
+    
+}
+
+/* Controle dos FormulÃƒÂ¡rios */
+
+.buttonUserPage:hover {
+    cursor: pointer;
+}
+
+.hiddenForm {
+    display: none;
+    visibility: hidden;
+}
+
+.buttonLogout {
+    background-color: rgb(63, 189, 228);
+}
+
+.buttonConfig {
+    background-color: brown;
 }
