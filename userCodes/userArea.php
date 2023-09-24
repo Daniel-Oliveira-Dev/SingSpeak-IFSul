@@ -92,6 +92,72 @@ function insertUser ($username, $email, $password) {
     }
 }
 
+// Altera o nome de usuário dentro do banco
+function alterUsername ($oldUsername, $newUsername) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("UPDATE usuario SET username = :newuser WHERE username = :olduser");
+
+        $statement->bindParam(":olduser", $oldUsername);
+        $statement->bindParam(":newuser", $newUsername);
+
+        $statement->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+// Altera o endereço de email dentro do banco
+function alterEmail ($username, $newEmail) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("UPDATE usuario SET email = :newemail WHERE username = :user");
+
+        $statement->bindParam(":user", $username);
+        $statement->bindParam(":newemail", $newEmail);
+
+        $statement->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+// Altera a senha de um usuário dentro do banco
+function alterPassword ($username, $newPassword) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("UPDATE usuario SET senha = :newpassword WHERE username = :user");
+
+        $statement->bindParam(":user", $username);
+        $statement->bindParam(":newpassword", $newPassword);
+
+        $statement->execute();
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+// Deleta uma conta de dentro do banco - Versão apenas usuário e logs
+function deleteAccount($username) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("DELETE FROM logControl WHERE idUsuario = (SELECT idUsuario FROM usuario WHERE username = :username)");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+        
+        $statement = $conexao->prepare("DELETE FROM usuario WHERE username = :username");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
 // Cria um array com as informações públicas do usuário
 function assembleUser($username) {
     include("../connection.php");

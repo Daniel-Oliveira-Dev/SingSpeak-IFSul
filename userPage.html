@@ -13,7 +13,7 @@
         <div id="mainDiv" name="mainDiv" class="mainDiv">
 
             <!-- Container com a imagem da Tela de Usuário -->
-            <div id="containerImage" name="containerImage" class="containerImage">
+            <div id="containerHeader" name="containerHeader" class="containerHeader">
                 <div id="imageUserPage" name="imageUserPage" class="imageUserPage">
                     <img id="imageUserPageFile" src="assets/logotipo.png" alt="Imagem do Usuário">
                 </div>
@@ -43,7 +43,7 @@
             </div>
 
             <!-- Container para as opções de Configurações de Tela -->
-            <div id="optionsConfig" name="optionsConfig" class="optionsConfig hiddenForm">
+            <div id="optionsConfig" name="optionsConfig" class="optionsConfig hiddenElement">
                 <div id="optionsUsername" class="buttonUserPage">
                     Alterar Username
                 </div>
@@ -59,35 +59,43 @@
             </div>
 
             <!-- Formulários Salvos na Memória -->
-            <div id="alterUsernameForm" name="alterUsernameForm" class="alterUsernameForm hiddenForm">
-                <form>
-                    <input id="newUsername" type="text"> <br>
-                    <input id="newUsernameConfirm" type="text"> <br>
-                    <input id="newUsernameSubmit" type="button">
+            <div id="alterUsernameDiv" name="alterUsernameDiv" class="alterUsernameDiv configForm hiddenElement">
+                <form id="alterUsernameForm" name="alterUsernameForm" class="alterUsernameForm" action="/userCodes/alterUsername.php">
+                    <p> Alterar seu Username </p>
+                    <input id="passwordConfirmUser" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
+                    <input id="newUsername" type="text" size="15" maxlength="25" placeholder="Novo nome"> <br>
+                    <input id="newUsernameConfirm" type="text" size="15" maxlength="25" placeholder="Confirme novo nome"> <br>
+                    <input id="newUsernameSubmit" type="submit" value="Alterar Username" disabled>
                 </form>
             </div>
     
-            <div id="alterEmailForm" name="alterEmailForm" class="alterEmailForm hiddenForm">
-                <form>
-                    <input id="newEmail" type="text"> <br>
-                    <input id="newEmailConfirm" type="text"> <br>
-                    <input id="newEmailSubmit" type="button">
+            <div id="alterEmailDiv" name="alterEmailDiv" class="alterEmailDiv configForm hiddenElement">
+                <form id="alterEmailForm" name="alterEmailForm" class="alterEmailForm" action="userCodes/alterEmail.php">
+                    <p> Alterar seu Email </p>
+                    <input id="passwordConfirmEmail" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
+                    <input id="newEmail" type="text" size="15" maxlength="100" placeholder="Novo Email"> <br>
+                    <input id="newEmailConfirm" type="text" size="15" maxlength="100" placeholder="Confirme novo Email"> <br>
+                    <input id="newEmailSubmit" type="submit" value="Alterar Email" disabled>
                 </form>
             </div>
     
-            <div id="alterPasswordForm" name="alterPasswordForm" class="alterPasswordForm hiddenForm">
-                <form>
-                    <input id="newPassword" type="text"> <br>
-                    <input id="newPasswordConfirm" type="text"> <br>
-                    <input id="newPasswordSubmit" type="button">
+            <div id="alterPasswordDiv" name="alterPasswordDiv" class="alterPasswordDiv configForm hiddenElement">
+                <form id="alterPasswordForm" name="alterPasswordForm" class="alterPasswordForm" action="alterPassword">
+                    <p> Alterar sua Senha </p>
+                    <input id="oldPassword" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
+                    <input id="newPassword" type="password" size="15" maxlength="25" placeholder="Nova senha"> <br>
+                    <input id="newPasswordConfirm" type="password" size="15" maxlength="25" placeholder="Confirme nova senha"> <br>
+                    <input id="newPasswordSubmit" type="submit" value="Alterar Senha" disabled>
                 </form>
             </div>
     
-            <div id="deleteAccountForm" name="deleteAccountForm" class="deleteAccountForm hiddenForm">
-                <form>
-                    <input id="confirmPasswordOne" type="text"> <br>
-                    <input id="confirmPasswordTwo" type="text"> <br>
-                    <input id="confirmDeleteAccountButton" type="button">
+            <div id="deleteAccountDiv" name="deleteAccountDiv" class="deleteAccountDiv configForm hiddenElement">
+                <form id="deleteAccountForm" name="deleteAccountForm" class="deleteAccountForm">
+                    <p> Deletar sua Conta </p>
+                    <input id="confirmPasswordOne" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
+                    <input id="confirmPasswordTwo" type="password" size="15" maxlength="25" placeholder="Confirmar senha atual"> <br>
+                    <input id="confirmDeleteCheckbox" type="checkbox"> Confirmo que quero deletar minha conta! <br>
+                    <input id="confirmDeleteAccountButton" type="submit" value="Deletar Conta" disabled>
                 </form>
             </div>
         </div>

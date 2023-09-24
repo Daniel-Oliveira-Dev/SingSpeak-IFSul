@@ -2,15 +2,15 @@ body {
     background-color: black;
 }
 
-/* Div principal da PÃƒÂ¡gina */
+/* Div Principal*/
 .mainDiv {
     background-color: blueviolet;
     margin: 20px 20% 0 20%;
     padding-bottom: 10px;
 }
 
-/* Imagem da PÃƒÂ¡gina */
-.containerImage {
+/* Imagem */
+.containerHeader {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@ body {
     height: 100px;
 }
 
-/* InformaÃƒÂ§ÃƒÂµes do UsuÃƒÂ¡rio */
+/* User Info */
 .containerUserInfo{
 
 display: flex;
@@ -40,7 +40,7 @@ margin: 10px 5%;
 border: solid;
 }
 
-/* Rank e NÃƒÂ­vel do UsuÃƒÂ¡rio */
+/* Rank e Level */
 .containerRankNivelUser {
 
 display: flex;
@@ -58,7 +58,7 @@ border: solid;
 margin: 20px 5%;
 }
 
-/* OpÃƒÂ§ÃƒÂµes "Sair" e "ConfiguraÃƒÂ§ÃƒÂµes" */
+/* Sair e Configurar */
 .containerButtons {
 
 display: flex;
@@ -73,30 +73,15 @@ justify-content: space-between;
 }
 
 .buttonUserPage {
-    background-color: aqua;
     display: flex;
-    width: 100px;
-    height: 30px;
+    width: 110px;
+    height: 40px;
     margin: 5px;
     align-items: center;
     justify-content: center;
     color: rgb(0, 0, 0);
-}
-
-/* Aba de OpÃƒÂ§ÃƒÂµes de ConfiguraÃƒÂ§ÃƒÂµes */
-.optionsConfig {
-    
-}
-
-/* Controle dos FormulÃƒÂ¡rios */
-
-.buttonUserPage:hover {
-    cursor: pointer;
-}
-
-.hiddenForm {
-    display: none;
-    visibility: hidden;
+    text-align: center;
+    background-color: brown;
 }
 
 .buttonLogout {
@@ -105,4 +90,31 @@ justify-content: space-between;
 
 .buttonConfig {
     background-color: brown;
+}
+
+.buttonUserPage:hover {
+    cursor: pointer;
+}
+
+/* Opcoes de Configuracao */
+.optionsConfig {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    background: aqua;
+    flex-direction: row;
+    margin: 0 5%;
+}
+
+/* Forms Control*/
+.configForm{
+    background-color: pink;
+    margin: 5%;
+    padding: 5px;
+}
+
+.hiddenElement {
+    display: none;
+    visibility: hidden;
+    position: relative;
 }

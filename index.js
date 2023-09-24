@@ -6,7 +6,7 @@ function verifySession() {
   xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-              if (xhr.responseText !== 'Sessão não encontrada') {
+              if (xhr.responseText === 'Sessão ativa') {
                 window.location.href = '/SingSpeak/userpage.html';
               }
           }
