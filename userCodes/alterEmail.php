@@ -5,7 +5,6 @@ session_start();
 $username = $_SESSION['accessGranted'];
 $oldPassword = $_POST['oldPassword'];
 $newEmail = $_POST['newEmail'];
-$newEmailConfirm = $_POST['newEmailConfirm'];
 
 unset($_POST);
 
@@ -19,12 +18,6 @@ if (logIn($username, $oldPassword) === "Acesso negado!") {
 
 if (!validateEmail($newEmail)) {
     $erro = "Este endereço de email não está disponível!";
-    echo json_encode(['erro' => $erro]);
-    exit();
-}
-
-if ($newEmail != $newEmailConfirm) {
-    $erro = "Os endereços de email não são iguais!";
     echo json_encode(['erro' => $erro]);
     exit();
 }

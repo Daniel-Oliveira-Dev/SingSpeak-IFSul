@@ -13,7 +13,7 @@ require "userArea.php";
 $tentativa = logIn($username, $senha);
 
 if ($tentativa == "Acesso negado!") {
-    $erro = "Erro de acesso! Seu nome de usuário ou senha estão incorretos!";
+    $erro = "Erro de acesso! Seus dados estão incorretos ou sua conta foi desativada!";
     echo json_encode(['erro' => $erro]);
     exit();
 }

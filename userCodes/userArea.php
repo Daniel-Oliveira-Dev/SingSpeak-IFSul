@@ -20,10 +20,9 @@ function logGenerator($username, $action) {
 function logIn($username, $senha) {
     include("../connection.php");
     try {
-        $statement = $conexao->prepare("SELECT username FROM usuario WHERE username = :username AND senha = :senha");
+        $statement = $conexao->prepare("SELECT username, hash_senha, salt FROM usuario WHERE username = :username AND desativada = 'N'");
 
         $statement->bindParam(":username", $username);
-        $statement->bindParam(":senha", $senha);
 
         $statement->execute();
 
@@ -32,6 +31,13 @@ function logIn($username, $senha) {
         }
 
         $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $salt = $resultado[0]['salt'];
+        $senhaInformadaHash = hash('sha256', $senha . $salt);
+
+        if ($senhaInformadaHash != $resultado[0]['hash_senha']) {
+            return "Acesso negado!";
+        }
 
         $user = $resultado[0]['username'];
 
@@ -79,12 +85,16 @@ function validateEmail($email) {
 function insertUser ($username, $email, $password) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("INSERT INTO usuario (username, email, senha) 
-        VALUES (:username, :email, :senha)");
+        $statement = $conexao->prepare("INSERT INTO usuario (username, email, hash_senha, salt) 
+        VALUES (:username, :email, :hash_senha, :salt)");
+
+        $salt = bin2hex(random_bytes(25));
+        $hash_senha = hash('sha256', $password . $salt);
 
         $statement->bindParam(":username", $username);
         $statement->bindParam(":email", $email);
-        $statement->bindParam(":senha", $password);
+        $statement->bindParam(":hash_senha", $hash_senha);
+        $statement->bindParam(":salt", $salt);
 
         $statement->execute();
     } catch (PDOException $err) {
@@ -126,10 +136,14 @@ function alterEmail ($username, $newEmail) {
 function alterPassword ($username, $newPassword) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("UPDATE usuario SET senha = :newpassword WHERE username = :user");
+        $statement = $conexao->prepare("UPDATE usuario SET hash_senha = :newpassword, salt = :salting WHERE username = :user");
+
+        $salt = bin2hex(random_bytes(25));
+        $hash_senha = hash('sha256', $newPassword . $salt);
 
         $statement->bindParam(":user", $username);
-        $statement->bindParam(":newpassword", $newPassword);
+        $statement->bindParam(":salting", $salt);
+        $statement->bindParam(":newpassword", $hash_senha);
 
         $statement->execute();
     } catch (PDOException $err) {
@@ -138,16 +152,10 @@ function alterPassword ($username, $newPassword) {
 }
 
 // Deleta uma conta de dentro do banco - Versão apenas usuário e logs
-function deleteAccount($username) {
+function deactivateAccount($username) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("DELETE FROM logControl WHERE idUsuario = (SELECT idUsuario FROM usuario WHERE username = :username)");
-
-        $statement->bindParam(":username", $username);
-
-        $statement->execute();
-        
-        $statement = $conexao->prepare("DELETE FROM usuario WHERE username = :username");
+        $statement = $conexao->prepare("UPDATE usuario SET desativada = 'S' WHERE username = :username");
 
         $statement->bindParam(":username", $username);
 
@@ -176,10 +184,34 @@ function assembleUser($username) {
             $resultado[0]['email'],
             $resultado[0]['dataCriacao'],
             $resultado[0]['pontos'],
-            $resultado[0]['idNivel']
+            $resultado[0]['idNivel'],
+            userRankPlacement($username)
         );
 
         return $user;
+
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+    }
+}
+
+// Informa a posição do usuário no ranking
+function userRankPlacement($username) {
+    include("../connection.php");
+    try {
+        $statement = $conexao->prepare("SELECT COUNT(*) AS posicao FROM usuario WHERE pontos > (
+            SELECT pontos FROM usuario WHERE username = :username
+        ) ORDER BY idUsuario ASC");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+
+        $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $position = $resultado[0]['posicao'] + 1;
+
+        return $position;
 
     } catch (PDOException $err) {
         echo $err->getMessage();

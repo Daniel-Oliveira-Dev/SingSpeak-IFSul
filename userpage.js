@@ -5,7 +5,7 @@ function assignUserInfo(arrayUser) {
   document.getElementById("infoUsername").textContent += " " + arrayUser[0];
   document.getElementById("infoEmail").textContent += " " + arrayUser[1];
   document.getElementById("infoDataCriacao").textContent += " " + arrayUser[2];
-  document.getElementById("infoPontos").textContent += " " + arrayUser[3];
+  document.getElementById("infoPontos").textContent += " " + arrayUser[3] + " e está na posição " + arrayUser[5];
   document.getElementById("infoNivel").textContent += " " + arrayUser[4];
 }
 
@@ -114,11 +114,15 @@ $(function(){
     let newUsernameInput = $("#newUsername").val();
     let newUsernameConfirmInput = $("#newUsernameConfirm").val();
 
+    if (newUsernameConfirmInput != newUsernameInput) {
+      alert("Os nomes de usuário não coincidem!");
+      return;
+    }
+
     // Envia a solicitação AJAX para verificar o login
     $.post('userCodes/alterUsername.php', { 
       oldPassword: oldPasswordInput, 
-      newUsername: newUsernameInput, 
-      newUsernameConfirm: newUsernameConfirmInput 
+      newUsername: newUsernameInput 
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
@@ -148,11 +152,15 @@ $(function(){
     let newEmailInput = $("#newEmail").val();
     let newEmailConfirmInput = $("#newEmailConfirm").val();
 
+    if (newEmailInput != newEmailConfirmInput) {
+      alert("Os endereços de email não coincidem");
+      return;
+    }
+
     // Envia a solicitação AJAX para verificar o login
     $.post('userCodes/alterEmail.php', { 
       oldPassword: oldPasswordInput, 
-      newEmail: newEmailInput, 
-      newEmailConfirm: newEmailConfirmInput 
+      newEmail: newEmailInput 
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
@@ -182,11 +190,15 @@ $(function(){
     let newPasswordInput = $("#newPassword").val();
     let newPasswordConfirmInput = $("#newPasswordConfirm").val();
 
+    if (newPasswordInput != newPasswordConfirmInput) {
+      alert("As senhas não coincidem");
+      return;
+    }
+
     // Envia a solicitação AJAX para verificar o login
     $.post('userCodes/alterPassword.php', { 
       oldPassword: oldPasswordInput, 
-      newPassword: newPasswordInput, 
-      newPasswordConfirm: newPasswordConfirmInput 
+      newPassword: newPasswordInput
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML

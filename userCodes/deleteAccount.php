@@ -4,7 +4,6 @@ session_start();
 
 $username = $_SESSION['accessGranted'];
 $confirmPassword = $_POST['confirmPassword'];
-$confirmPassword = "123";
 
 unset($_POST);
 
@@ -16,7 +15,7 @@ if (logIn($username, $confirmPassword) === "Acesso negado!") {
     exit();
 }
 
-deleteAccount($username);
+deactivateAccount($username);
 unset($_SESSION['accessGranted']);
 echo json_encode(['sucesso' => "Deu certo!"]);
 exit();

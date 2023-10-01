@@ -14,9 +14,9 @@ function validateUser($username, $email) {
     $emailAvailable = validateEmail($email);
 
     if (!$usernameAvailable) {
-        $erro = "Erro de cadastro! Este nome de usuário já está sendo utilizado!";
+        $erro = "Erro de cadastro! Este nome de usuário não está disponível!";
     } elseif (!$emailAvailable) {
-        $erro = "Erro de cadastro! Este endereço de e-mail já está sendo utilizado!";
+        $erro = "Erro de cadastro! Este endereço de e-mail não está disponível!";
     }
 
     if (!$usernameAvailable || !$emailAvailable) {

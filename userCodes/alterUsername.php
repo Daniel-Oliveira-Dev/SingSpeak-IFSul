@@ -5,7 +5,6 @@ session_start();
 $oldUsername = $_SESSION['accessGranted'];
 $oldPassword = $_POST['oldPassword'];
 $newUsername = $_POST['newUsername'];
-$newUsernameConfirm = $_POST['newUsernameConfirm'];
 
 unset($_POST);
 
@@ -19,12 +18,6 @@ if (logIn($oldUsername, $oldPassword) === "Acesso negado!") {
 
 if (!validateUsername($newUsername)) {
     $erro = "Este nome de usuário não está disponível!";
-    echo json_encode(['erro' => $erro]);
-    exit();
-}
-
-if ($newUsername != $newUsernameConfirm) {
-    $erro = "Os nomes de usuário não são iguais!";
     echo json_encode(['erro' => $erro]);
     exit();
 }
