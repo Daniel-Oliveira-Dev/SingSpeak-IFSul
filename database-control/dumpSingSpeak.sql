@@ -47,30 +47,14 @@ CREATE TABLE logControl (
 idLog INTEGER AUTO_INCREMENT NOT NULL UNIQUE,
 dataRegistro TIMESTAMP NOT NULL DEFAULT(CURRENT_TIMESTAMP()),
 tipoRegistro ENUM("Login", "Logout") NOT NULL,
-primeiraDia BOOLEAN NOT NULL DEFAULT false,
 idUsuario INTEGER NOT NULL,
 PRIMARY KEY (idLog),
 FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario)
 );
 
--- Gatilho para Verificar o Primeiro Acesso do Dia
-DELIMITER $$
-CREATE TRIGGER verifyFirstAcessOfDay 
-BEFORE INSERT ON logControl FOR EACH ROW
-BEGIN
-    IF (NEW.tipoRegistro = "Login") THEN
-    IF (SELECT COUNT(*) FROM logControl WHERE idUsuario = NEW.idUsuario AND DATE(dataRegistro) = DATE(NEW.dataRegistro)) = 0 THEN
-        SET NEW.primeiraDia = TRUE;
-    ELSE
-        SET NEW.primeiraDia = FALSE;
-    END IF;
-    END IF;
-END $$
-DELIMITER ;
-
 -- Inserindo os Logins e Logouts dos Primeiros Usuários
 INSERT INTO logControl (tipoRegistro, dataRegistro, idUsuario) VALUES
-("Login", "2003-11-20 00:00:00", 1),("Logout", "2003-11-20 23:59:00", 1), ("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
+("Login", "2003-11-20 00:00:00", 1), ("Logout", "2003-11-20 23:59:00", 1), ("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
 
 
 -- Tabela de Músicas

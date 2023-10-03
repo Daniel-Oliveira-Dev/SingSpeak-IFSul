@@ -11,7 +11,7 @@ include "userArea.php";
 
 try {
     // Valida a senha
-    logIn($username, $confirmPassword)
+    logIn($username, $confirmPassword);
     // Desativa o usuário no banco de dados
     deactivateAccount($username);
     // Desconecta o usuário da sessão

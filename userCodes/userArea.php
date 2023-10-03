@@ -11,6 +11,45 @@ function logGenerator($username, $action) {
         $statement->bindParam(":tipoRegistro", $action);
 
         $statement->execute();
+
+        checkFirstOfDay($username);
+        
+    } catch (PDOException $err) {
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
+    }
+}
+
+// Verifica se o usuário terá o bônus diário
+function checkFirstOfDay($username) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("SELECT dataRegistro FROM logControl 
+        WHERE idUsuario = (SELECT idUsuario FROM usuario WHERE username LIKE :username) 
+        AND DATE(dataRegistro) = DATE(CURRENT_DATE())");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+
+        if ($statement->rowCount() == 0) {
+            givePoints($username, 15);
+        }
+        
+    } catch (PDOException $err) {
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
+    }
+}
+
+// Adiciona os pontos ao usuário
+function givePoints($username, $addPontos) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("UPDATE usuario SET pontos = (pontos + :points) WHERE username = :username");
+
+        $statement->bindParam(":username", $username);
+        $statement->bindParam(":points", $addPontos);
+
+        $statement->execute();
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -57,7 +96,7 @@ function validateUsername($username) {
         $statement->bindParam(":username", $username);
         $statement->execute();
 
-        if ($statement->rowCount() != 0) {
+        if ($statement->rowCount() > 0) {
             throw new Exception("Erro de cadastro! Este nome de usuário não está disponível!");
         }
 

@@ -12,9 +12,9 @@ include "userArea.php";
 
 try {
     // Valida a senha
-    logIn($username, $oldPassword)
+    logIn($username, $oldPassword);
     // Valida o endereço de email
-    validateEmail($email);
+    validateEmail($newEmail);
     // Altera o email do usuário no banco de dados
     alterEmail($username, $newEmail);
     echo json_encode(['sucesso' => "Sucesso!"]);

@@ -12,7 +12,7 @@ include "userArea.php";
 
 try {
     // Valida a senha
-    logIn($username, $oldPassword)
+    logIn($username, $oldPassword);
     // Altera a senha do usuário no banco de dados
     alterPassword($username, $newPassword);
     // Desconecta o usuário da sessão
