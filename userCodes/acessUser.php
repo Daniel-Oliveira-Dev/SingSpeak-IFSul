@@ -9,18 +9,18 @@ unset($_POST);
 // Valida o acesso verificando o banco de dados
 require "userArea.php";
 
-// Verifica se o acesso foi possível de se realizar. Se não for, encerra o código #PRECISA COMPLEMENTAR
-$tentativa = logIn($username, $senha);
-
-if ($tentativa == "Acesso negado!") {
-    $erro = "Erro de acesso! Seus dados estão incorretos ou sua conta foi desativada!";
-    echo json_encode(['erro' => $erro]);
+try {
+    // Tenta realizar o login no banco de dados
+    $tentativa = logIn($username, $senha);
+    // Gera o log de acesso do usuário
+    logGenerator($username, "Login");
+    // Inicia a sessão localmente
+    $_SESSION['accessGranted'] = $tentativa;
+    echo json_encode(['sucesso' => "Sucesso!"]);
+    exit();
+} catch (Exception $e) {
+    echo json_encode(['erro' => $e->getMessage()]);
     exit();
 }
 
-// Se o acesso validar, ele salva o usuário na sessão
-logGenerator($username, "Login");
-$_SESSION['accessGranted'] = $tentativa;
-echo json_encode(['sucesso' => "Sucesso!"]);
-exit();
 ?>

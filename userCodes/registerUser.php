@@ -9,28 +9,24 @@ unset($_POST);
 
 include "userArea.php";
 
-function validateUser($username, $email) {
-    $usernameAvailable = validateUsername($username);
-    $emailAvailable = validateEmail($email);
-
-    if (!$usernameAvailable) {
-        $erro = "Erro de cadastro! Este nome de usuário não está disponível!";
-    } elseif (!$emailAvailable) {
-        $erro = "Erro de cadastro! Este endereço de e-mail não está disponível!";
-    }
-
-    if (!$usernameAvailable || !$emailAvailable) {
-        echo json_encode(['erro' => $erro]);
-        exit();
-    }
+try {
+    // Valida o nome de usuário
+    validateUsername($username);
+    // Valida o endereço de email
+    validateEmail($email);
+    // Insere o usuário no banco de dados
+    insertUser($username, $email, $senha);
+    // Tenta realizar o login no banco de dados
+    $tentativa = logIn($username, $senha);
+    // Gera o log de acesso do usuário
+    logGenerator($username, "Login");
+    // Inicia a sessão localmente
+    $_SESSION['accessGranted'] = $tentativa;
+    echo json_encode(['sucesso' => "Sucesso!"]);
+    exit();
+} catch (Exception $e) {
+    echo json_encode(['erro' => $e->getMessage()]);
+    exit();
 }
-
-validateUser($username, $email);
-insertUser($username, $email, $senha);
-$tentativa = logIn($username, $senha);
-logGenerator($username, "Login");
-$_SESSION['accessGranted'] = $tentativa;
-echo json_encode(['sucesso' => "Sucesso!"]);
-exit();
 
 ?>

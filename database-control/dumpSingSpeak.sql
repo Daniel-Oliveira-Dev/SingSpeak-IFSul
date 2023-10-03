@@ -42,21 +42,6 @@ INSERT INTO usuario (idUsuario, username, email, hash_senha, salt, pontos) VALUE
 (1, "ApollyonDelta", "apollyondelta@gmail.com", "6a8549ffa9e5f3d33212d4f6a6489efac54c044fee7b5e50f17bd758bfc7c3d2", "28366fe35c44e1fb7f5b4dd70e41129fd4b339f3451c514566", 842593),
 (2, "BLKZim", "miguelmigue806@gmail.com", "4499777917cff991370c40bcbab8ca2e511781acdeb29f4b2197e8114cb77723", "54d66750191b072fec7c6b70572775cc80a15b7620a89c68ee", 167310);
 
--- Gatilho para Aumento de Nível quando Usuário receber Pontos
-DELIMITER $$
-CREATE TRIGGER levelUpWhenPointsUp 
-BEFORE UPDATE ON usuario FOR EACH ROW
-BEGIN
-    IF NEW.pontos >= (SELECT pontuacaoMin FROM nivel WHERE idNivel = 3) THEN
-        SET NEW.idNivel = 3;
-    ELSEIF NEW.pontos >= (SELECT pontuacaoMin FROM nivel WHERE idNivel = 2) THEN
-        SET NEW.idNivel = 2;
-	ELSEIF NEW.pontos < (SELECT pontuacaoMin FROM nivel WHERE idNivel = 2) THEN
-        SET NEW.idNivel = 1;
-    END IF;
-END $$
-DELIMITER ;
-
 -- Tabela de Logs
 CREATE TABLE logControl (
 idLog INTEGER AUTO_INCREMENT NOT NULL UNIQUE,
@@ -76,7 +61,6 @@ BEGIN
     IF (NEW.tipoRegistro = "Login") THEN
     IF (SELECT COUNT(*) FROM logControl WHERE idUsuario = NEW.idUsuario AND DATE(dataRegistro) = DATE(NEW.dataRegistro)) = 0 THEN
         SET NEW.primeiraDia = TRUE;
-        UPDATE usuario SET pontos = (pontos + 15) WHERE idUsuario = NEW.idUsuario;
     ELSE
         SET NEW.primeiraDia = FALSE;
     END IF;
@@ -85,8 +69,8 @@ END $$
 DELIMITER ;
 
 -- Inserindo os Logins e Logouts dos Primeiros Usuários
-INSERT INTO logControl (tipoRegistro, idUsuario) VALUES
-("Login", 1), ("Login", 2), ("Logout", 1), ("Logout", 2);
+INSERT INTO logControl (tipoRegistro, dataRegistro, idUsuario) VALUES
+("Login", "2003-11-20 00:00:00", 1),("Logout", "2003-11-20 23:59:00", 1), ("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
 
 
 -- Tabela de Músicas

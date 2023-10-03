@@ -5,7 +5,7 @@ function assignUserInfo(arrayUser) {
   document.getElementById("infoUsername").textContent += " " + arrayUser[0];
   document.getElementById("infoEmail").textContent += " " + arrayUser[1];
   document.getElementById("infoDataCriacao").textContent += " " + arrayUser[2];
-  document.getElementById("infoPontos").textContent += " " + arrayUser[3] + " e está na posição " + arrayUser[5];
+  document.getElementById("infoPontos").textContent += " " + arrayUser[3] + " pontos e está na posição " + arrayUser[5];
   document.getElementById("infoNivel").textContent += " " + arrayUser[4];
 }
 
@@ -57,7 +57,12 @@ $(function(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-              window.location.href = '/SingSpeak/index.html';
+                const response = JSON.parse(xhr.responseText);
+                if (response.sucesso) {
+                    window.location.href = '/SingSpeak/index.html';
+                } else {
+                    alert(response.erro);
+                }
             }
         }
     };
@@ -65,6 +70,7 @@ $(function(){
     xhr.open('GET', 'userCodes/logout.php', true);
     xhr.send();
   });
+
 
   // Ativa e desativa os botões de Configurações
   $("#buttonConfig").click(function () {
@@ -192,6 +198,11 @@ $(function(){
 
     if (newPasswordInput != newPasswordConfirmInput) {
       alert("As senhas não coincidem");
+      return;
+    }
+
+    if (newPasswordInput === oldPasswordInput) {
+      alert("Sua nova senha precisa ser diferente da atual!");
       return;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-// Gera o Log do usuário ao acessar ou deixar o sistema
+// Gera o log de saída ou de entrada do usuário
 function logGenerator($username, $action) {
     include "../connection.php";
     try {
@@ -11,12 +11,13 @@ function logGenerator($username, $action) {
         $statement->bindParam(":tipoRegistro", $action);
 
         $statement->execute();
+        
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Verifica se o usuário existe no sistema e retorna o username se for verdadeiro
+// Realiza uma tentativa de login no sistema
 function logIn($username, $senha) {
     include("../connection.php");
     try {
@@ -27,7 +28,7 @@ function logIn($username, $senha) {
         $statement->execute();
 
         if ($statement->rowCount() == 0) {
-            return "Acesso negado!";
+            throw new Exception("Erro de acesso! Esta conta não existe ou foi desativada!");
         }
 
         $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -36,7 +37,7 @@ function logIn($username, $senha) {
         $senhaInformadaHash = hash('sha256', $senha . $salt);
 
         if ($senhaInformadaHash != $resultado[0]['hash_senha']) {
-            return "Acesso negado!";
+            throw new Exception("Erro de acesso! Seus dados estão incorretos!");
         }
 
         $user = $resultado[0]['username'];
@@ -44,11 +45,11 @@ function logIn($username, $senha) {
         return $user;
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Valida a disponibilidade de um nome de usuário - Retorn "true" se o username estiver liberado
+// Verifica se um nome de usuário é válido no sistema
 function validateUsername($username) {
     include "../connection.php";
     try {
@@ -56,16 +57,16 @@ function validateUsername($username) {
         $statement->bindParam(":username", $username);
         $statement->execute();
 
-        return ($statement->rowCount() == 0);
+        if ($statement->rowCount() != 0) {
+            throw new Exception("Erro de cadastro! Este nome de usuário não está disponível!");
+        }
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
-        return false;
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
-    
 }
 
-// Valida a disponibilidade de um endereço de email - Retorna "true" se o email estiver liberado
+// Verifica se um endereço de email é válido no sistema
 function validateEmail($email) {
     include "../connection.php";
     try {
@@ -73,16 +74,17 @@ function validateEmail($email) {
         $statement->bindParam(":email", $email);
         $statement->execute();
 
-        return ($statement->rowCount() == 0);
+        if ($statement->rowCount() != 0) {
+            throw new Exception("Erro de cadastro! Este endereço de email não está disponível!");
+        }
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
-        return false;
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Insere um novo usuário no banco com os parâmetros informados
-function insertUser ($username, $email, $password) {
+// Insere um usuário no banco de dados
+function insertUser($username, $email, $password) {
     include "../connection.php";
     try {
         $statement = $conexao->prepare("INSERT INTO usuario (username, email, hash_senha, salt) 
@@ -98,12 +100,12 @@ function insertUser ($username, $email, $password) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Altera o nome de usuário dentro do banco
-function alterUsername ($oldUsername, $newUsername) {
+// Altera o nome de usuário de um usuário no banco de dados
+function alterUsername($oldUsername, $newUsername) {
     include "../connection.php";
     try {
         $statement = $conexao->prepare("UPDATE usuario SET username = :newuser WHERE username = :olduser");
@@ -113,12 +115,12 @@ function alterUsername ($oldUsername, $newUsername) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Altera o endereço de email dentro do banco
-function alterEmail ($username, $newEmail) {
+// Altera o endereço de email de um usuário no banco de dados
+function alterEmail($username, $newEmail) {
     include "../connection.php";
     try {
         $statement = $conexao->prepare("UPDATE usuario SET email = :newemail WHERE username = :user");
@@ -128,12 +130,12 @@ function alterEmail ($username, $newEmail) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Altera a senha de um usuário dentro do banco
-function alterPassword ($username, $newPassword) {
+// Altera a senha de um usuário no banco de dados
+function alterPassword($username, $newPassword) {
     include "../connection.php";
     try {
         $statement = $conexao->prepare("UPDATE usuario SET hash_senha = :newpassword, salt = :salting WHERE username = :user");
@@ -147,11 +149,11 @@ function alterPassword ($username, $newPassword) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Deleta uma conta de dentro do banco - Versão apenas usuário e logs
+// Muda a variável "Desativada" do usuário para "S" no banco de dados
 function deactivateAccount($username) {
     include "../connection.php";
     try {
@@ -162,11 +164,11 @@ function deactivateAccount($username) {
         $statement->execute();
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Cria um array com as informações públicas do usuário
+// Junta as informações públicas do usuário para montar seu perfil
 function assembleUser($username) {
     include("../connection.php");
     try {
@@ -191,11 +193,11 @@ function assembleUser($username) {
         return $user;
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 
-// Informa a posição do usuário no ranking
+// Retorna a colocação do usuário no ranking geral de pontos do sistema
 function userRankPlacement($username) {
     include("../connection.php");
     try {
@@ -214,7 +216,7 @@ function userRankPlacement($username) {
         return $position;
 
     } catch (PDOException $err) {
-        echo $err->getMessage();
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
     }
 }
 

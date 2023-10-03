@@ -10,20 +10,18 @@ unset($_POST);
 
 include "userArea.php";
 
-if (logIn($username, $oldPassword) === "Acesso negado!") {
-    $erro = "Sua senha está incorreta!";
-    echo json_encode(['erro' => $erro]);
+try {
+    // Valida a senha
+    logIn($username, $oldPassword)
+    // Valida o endereço de email
+    validateEmail($email);
+    // Altera o email do usuário no banco de dados
+    alterEmail($username, $newEmail);
+    echo json_encode(['sucesso' => "Sucesso!"]);
+    exit();
+} catch (Exception $e) {
+    echo json_encode(['erro' => $e->getMessage()]);
     exit();
 }
-
-if (!validateEmail($newEmail)) {
-    $erro = "Este endereço de email não está disponível!";
-    echo json_encode(['erro' => $erro]);
-    exit();
-}
-
-alterEmail($username, $newEmail);
-echo json_encode(['sucesso' => "Deu certo!"]);
-exit();
 
 ?>

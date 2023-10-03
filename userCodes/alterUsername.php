@@ -10,21 +10,20 @@ unset($_POST);
 
 include "userArea.php";
 
-if (logIn($oldUsername, $oldPassword) === "Acesso negado!") {
-    $erro = "Sua senha está incorreta!";
-    echo json_encode(['erro' => $erro]);
+try {
+    // Valida a senha
+    logIn($username, $oldPassword)
+    // Valida o nome de usuário
+    validateUsername($newUsername);
+    // Altera o nome do usuário no banco de dados
+    alterUsername($oldUsername, $newUsername);
+    // Reconecta o usuário na sessão com o novo nome de usuário
+    $_SESSION['accessGranted'] = $newUsername;
+    echo json_encode(['sucesso' => "Sucesso!"]);
+    exit();
+} catch (Exception $e) {
+    echo json_encode(['erro' => $e->getMessage()]);
     exit();
 }
-
-if (!validateUsername($newUsername)) {
-    $erro = "Este nome de usuário não está disponível!";
-    echo json_encode(['erro' => $erro]);
-    exit();
-}
-
-$_SESSION['accessGranted'] = $newUsername;
-alterUsername($oldUsername, $newUsername);
-echo json_encode(['sucesso' => "Deu certo!"]);
-exit();
 
 ?>

@@ -65,7 +65,8 @@ $(function(){
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
         alert(response.erro);
-      } else {
+      } 
+      if (response.sucesso) {
         // O login foi bem-sucedido, redirecionar para a página de usuário
         window.location.href = '/SingSpeak/userpage.html';
       }
@@ -86,7 +87,8 @@ $(function(){
       if (response.erro) {
           // Exibir a mensagem de erro na página HTML
           alert(response.erro);
-      } else {
+      } 
+      if (response.sucesso) {
           // O registro foi bem-sucedido, redirecionar para a página de usuário ou fazer outra ação
           window.location.href = '/SingSpeak/userpage.html';
       }
