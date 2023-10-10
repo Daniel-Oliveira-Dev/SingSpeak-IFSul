@@ -1,18 +1,15 @@
 <?php
 
-// Gera o log de saída ou de entrada do usuário
-function logGenerator($username, $action) {
+// Adiciona os pontos ao usuário
+function givePoints($username, $addPontos) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("INSERT INTO logControl (tipoRegistro, idUsuario) 
-        VALUES (:tipoRegistro, (SELECT idUsuario FROM usuario WHERE username LIKE :username))");
+        $statement = $conexao->prepare("UPDATE usuario SET pontos = (pontos + :points) WHERE username = :username");
 
         $statement->bindParam(":username", $username);
-        $statement->bindParam(":tipoRegistro", $action);
+        $statement->bindParam(":points", $addPontos);
 
         $statement->execute();
-
-        checkFirstOfDay($username);
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -25,7 +22,7 @@ function checkFirstOfDay($username) {
     try {
         $statement = $conexao->prepare("SELECT dataRegistro FROM logControl 
         WHERE idUsuario = (SELECT idUsuario FROM usuario WHERE username LIKE :username) 
-        AND DATE(dataRegistro) = DATE(CURRENT_DATE())");
+        AND DATE(dataRegistro) = DATE(CURRENT_DATE()) AND tipoRegistro = 'Login'");
 
         $statement->bindParam(":username", $username);
 
@@ -40,14 +37,17 @@ function checkFirstOfDay($username) {
     }
 }
 
-// Adiciona os pontos ao usuário
-function givePoints($username, $addPontos) {
+// Gera o log de saída ou de entrada do usuário
+function logGenerator($username, $action) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("UPDATE usuario SET pontos = (pontos + :points) WHERE username = :username");
+        checkFirstOfDay($username);
+
+        $statement = $conexao->prepare("INSERT INTO logControl (tipoRegistro, idUsuario) 
+        VALUES (:tipoRegistro, (SELECT idUsuario FROM usuario WHERE username LIKE :username))");
 
         $statement->bindParam(":username", $username);
-        $statement->bindParam(":points", $addPontos);
+        $statement->bindParam(":tipoRegistro", $action);
 
         $statement->execute();
         
