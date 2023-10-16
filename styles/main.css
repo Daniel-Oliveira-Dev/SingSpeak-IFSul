@@ -11,6 +11,10 @@
     width: 60%;
 }
 
+.userInfo {
+    background-color: lightgreen;
+}
+
 .musicList {
     
 background-color: brown;
@@ -27,18 +31,31 @@ justify-content: center;
 .musicModel {
     
 background-color: lightgray;
+    
+display: flex;
+    
+flex-direction: row;
+    
+align-content: center;
+    
+align-items: center;
+    
+justify-content: space-between;
+}
+
+.unavailableMusic {
+    color: red;
+    background-color: lightpink;
 }
 
 .musicName {
     
+margin: 3px 20px;
 }
 
 .playButton {
     
-}
-
-.musicArtist {
-    
+margin: 3px 20px;
 }
 
 .rightSide {

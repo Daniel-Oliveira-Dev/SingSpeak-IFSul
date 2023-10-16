@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - SingSpeak</title>
+    <title>SingSpeak</title>
     <link rel="icon" href="assets/logotipo.png">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <div class="mainDiv">
         <div class="leftSide">
+            <div class="userInfo" id="userInfo" data-idnivel="">
+                <div class="username"> Olá, </div>
+                <div class="userlevel"> Nível: </div>
+            </div>
             <div class="musicList" id="musicList">
-                <div class="musicModel" id="musicModel">
+                <div class="musicModel" id="musicModel" data-artist="" data-idnivel="" data-cover="">
                     <div class="musicName" id="musicName"> Nome da Música </div>
                     <div class="playButton"> Clique </div>
                 </div>
@@ -23,6 +27,9 @@
             <div class="musicInfo">
                 <div class="musicArtist"> Artista </div>
                 <div class="userMaxPoints"> Pontuação Máxima </div>
+            </div>
+            <div class="buttonLogout" id="buttonLogout">
+                Sair
             </div>
         </div>
     </div>

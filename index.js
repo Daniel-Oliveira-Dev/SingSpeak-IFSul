@@ -7,7 +7,7 @@ function verifySession() {
       if (xhr.readyState === 4) {
           if (xhr.status === 200) {
               if (xhr.responseText === 'Sessão ativa') {
-                window.location.href = '/SingSpeak/userpage.html';
+                window.location.href = '/SingSpeak/main.html';
               }
           }
       }
@@ -68,7 +68,7 @@ $(function(){
       } 
       if (response.sucesso) {
         // O login foi bem-sucedido, redirecionar para a página de usuário
-        window.location.href = '/SingSpeak/userpage.html';
+        window.location.href = '/SingSpeak/main.html';
       }
     }, 'json');
   });
@@ -90,7 +90,7 @@ $(function(){
       } 
       if (response.sucesso) {
           // O registro foi bem-sucedido, redirecionar para a página de usuário ou fazer outra ação
-          window.location.href = '/SingSpeak/userpage.html';
+          window.location.href = '/SingSpeak/main.html';
       }
   }, 'json');
   });

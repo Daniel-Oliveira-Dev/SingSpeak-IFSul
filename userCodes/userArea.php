@@ -10,6 +10,25 @@ function givePoints($username, $addPontos) {
         $statement->bindParam(":points", $addPontos);
 
         $statement->execute();
+
+        //checkPointsToUpdateLevel($username);
+        
+    } catch (PDOException $err) {
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
+    }
+}
+
+// =asda=sd=ad=a=sda=dad=sa=da=d=ad=ad=a=da=d=ad=ad=a=da=da=d=a
+// Verifica se a pontuação do usuário do usuário modifica seu nível
+function checkPointsToUpdateLevel($username) {
+    include "../connection.php";
+    try {
+        $statement = $conexao->prepare("SELECT pontos, idnivel FROM usuario WHERE username = :username");
+
+        $statement->bindParam(":username", $username);
+        $statement->execute();
+
+        $resultadoUser = $statement->fetchAll(PDO::FETCH_ASSOC);
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -253,6 +272,26 @@ function userRankPlacement($username) {
         $position = $resultado[0]['posicao'] + 1;
 
         return $position;
+
+    } catch (PDOException $err) {
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
+    }
+}
+
+// Retorna o nivel do usuário e a nomenclatura dele
+function getUserLevel($username) {
+    include("../connection.php");
+    try {
+        $statement = $conexao->prepare("SELECT u.username, u.idNivel, n.nomenclatura FROM usuario u
+        JOIN nivel n ON u.idnivel = n.idnivel WHERE u.username = :username");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+
+        $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultado[0];
 
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
