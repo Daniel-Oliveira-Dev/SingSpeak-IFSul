@@ -52,10 +52,16 @@ justify-content: space-between;
     
 margin: 3px 20px;
 }
+.musicName:hover {
+    cursor: pointer;
+}
 
 .playButton {
     
 margin: 3px 20px;
+}
+.playButton:hover {
+    cursor: pointer;
 }
 
 .rightSide {

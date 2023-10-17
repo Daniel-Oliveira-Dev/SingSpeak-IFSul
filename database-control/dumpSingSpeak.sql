@@ -64,7 +64,7 @@ nome VARCHAR(100) NOT NULL UNIQUE,
 artista VARCHAR(50) NOT NULL,
 letra TEXT NOT NULL,
 ano SMALLINT NOT NULL,
-linkYouTube VARCHAR(255) NOT NULL,
+codYouTube VARCHAR(255) NOT NULL,
 musicCover VARCHAR(100) NOT NULL,
 idNivel INTEGER NOT NULL,
 
@@ -73,10 +73,10 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
 
 -- Inserindo Músicas no Sistema (Letra temporariamente indisponível)
-INSERT INTO musica (nome, artista, letra, ano, linkYouTube, idNivel, musicCover) VALUES 
-("Twinkle Twinkle Little Star", "Jane Taylor", "letraTwinkle.txt", 1806, "https://www.youtube.com/watch?v=-JRJibhgwUQ&pp=ygUidHdpbmtsZSB0d2lua2xlIGxpdHRsZSBzdGFyIGx5cmljcw%3D%3D", 1, "assets/musicCovers/twinkle_twinkle.jpg"),
-("Payphone", "Maroon 5", "letraPayphone.txt", 2012, "https://www.youtube.com/watch?v=fuP4Lkt1vAo&pp=ygUPcGF5cGhvbmUgbHlyaWNz", 2, "assets/musicCovers/payphone.jpg"),
-("Believer", "Imagine Dragons", "letraBeliever.txt", 2017, "https://www.youtube.com/watch?v=W0DM5lcj6mw&pp=ygUPYmVsaWV2ZXIgbHlyaWNz", 3, "assets/musicCovers/believer.jpg");
+INSERT INTO musica (nome, artista, letra, ano, codYouTube, idNivel, musicCover) VALUES 
+("Twinkle Twinkle Little Star", "Jane Taylor", "letraTwinkle.txt", 1806, "-JRJibhgwUQ?si=TGPurYofchkmiglt", 1, "assets/musicCovers/twinkle_twinkle.jpg"),
+("Payphone", "Maroon 5", "letraPayphone.txt", 2012, "fuP4Lkt1vAo?si=5NCefVvnCLQA3j76", 2, "assets/musicCovers/payphone.jpg"),
+("Believer", "Imagine Dragons", "letraBeliever.txt", 2017, "W0DM5lcj6mw?si=gsuA9fkmNu4zBzV7", 3, "assets/musicCovers/believer.jpg");
 
 -- Tabela de Acesso do Usuário para a Música
 CREATE TABLE usuarioAcessaMusica (

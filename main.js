@@ -16,7 +16,7 @@ function getMusicList(userLevel) {
     xhr.send();
   }
 
-  // Verifica se a sessão está definida
+// Verifica se a sessão está definida
 function verifySession() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -33,7 +33,7 @@ function verifySession() {
     xhr.send();
   }
 
-  // Seleciona as informações públicas do usuário para a página utilizar
+// Seleciona as informações públicas do usuário para a página utilizar
   function assembleUser() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -48,18 +48,20 @@ function verifySession() {
     xhr.open('GET', 'userCodes/getMusicPageUserInfo.php', true);
     xhr.send();
   }
-
   
-  // Insere as informações do usuário na página
+// Insere as informações do usuário na página
   function assignUserInfo(userArray) {
     $(".username").append(userArray.username);
     $(".userlevel").append(userArray.nomenclatura);
     $(".userInfo").attr("data-idnivel", userArray.idNivel);
+    // Carrega as músicas depois do usuário ser carregado
+    getMusicList();
   }
 
-  // Listar músicas baseadas no array
+// Listar músicas baseadas no array
   function listMusics(arrayMusics) {
     let divOriginal = $("#musicModel");
+    divOriginal.remove();
 
     arrayMusics.forEach(music => {
         let divClone = divOriginal.clone();
@@ -75,26 +77,39 @@ function verifySession() {
         divClone.appendTo("#musicList"); // Adicione a div clonada à lista de músicas
     });
 
-    divOriginal.remove();
-    
-    // Define os atributos para os botões de play
-    $(".playButton").click(function(){
+    // Define os atributos para exibir os detalhes da música clicada
+    $(".musicName").click(function(){
         let artistToShow = $(this).closest(".musicModel").attr("data-artist");
         let coverToShow = $(this).closest(".musicModel").attr("data-cover");
         $(".musicArtist").text(artistToShow);
         $(".selectMusicCover img").attr("src", coverToShow);
     });
+
+    // Encaminha o usuário para a página da música selecionada
+    $(".playButton").click(function(){
+        let nomeMusic = $(this).closest(".musicModel").find(".musicName").text();
+        goToPlayPage(nomeMusic);
+    })
     }
+
+// Envia o formulário para a página
+function goToPlayPage(nomeMusic) {
+    // Envia a solicitação AJAX para verificar o login
+    $.post('musicCodes/loadMusicPage.php', { 
+      nomeMusic: nomeMusic
+    }, function(response) {
+      if (response.sucesso) {
+        window.location.href = "musicPages/musicMainPage.html";
+      }
+    }, 'json');
+}
 
 // Carregamento inicial da página
 $(function(){
     // Verifica a sessão do usuário
     verifySession();
-    // Pega os dados do usuário para a página de login
+    // Pega os dados do usuário para a página de login e lista as músicas
     assembleUser();
-
-    // Lista as músicas do sistema
-    getMusicList();
     
     // Encerra a sessão se o usuário clicar no botão "Sair"
     $("#buttonLogout").click(function () {
