@@ -71,6 +71,10 @@ $(function(){
     xhr.send();
   });
 
+  // Redireciona para a página de músicas
+  $(".buttonMusics").click(function () {
+    window.location.href = '/SingSpeak/main.html';
+  })
 
   // Ativa e desativa os botões de Configurações
   $("#buttonConfig").click(function () {

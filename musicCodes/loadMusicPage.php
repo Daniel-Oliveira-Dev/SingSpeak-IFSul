@@ -2,11 +2,11 @@
 
 session_start();
 
-$nomeMusic = $_POST['nomeMusic'];
+$idMusica = $_POST['idMusica'];
 
 unset($_POST);
 
-$_SESSION['loadedMusic'] = $nomeMusic;
+$_SESSION['loadedMusic'] = $idMusica;
 if (isset($_SESSION['loadedMusic'])) {
     echo json_encode(['sucesso' => "Sucesso!"]);
     exit();

@@ -4,7 +4,7 @@
 function listAllMusics() {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("SELECT nome, artista, idNivel, musicCover 
+        $statement = $conexao->prepare("SELECT idMusica, nome, artista, idNivel, musicCover 
         FROM musica ORDER BY idNivel ASC, nome ASC");
         $statement->execute();
 
@@ -18,12 +18,12 @@ function listAllMusics() {
 }
 
 // Retorna a música em um array baseado no nome da música
-function assembleMusic($nomeMusica) {
+function assembleMusic($idMusica) {
     include "../connection.php";
     try {
-        $statement = $conexao->prepare("SELECT * FROM musica WHERE nome = :nomeMusica");
+        $statement = $conexao->prepare("SELECT * FROM musica WHERE idMusica = :idMusica");
 
-        $statement->bindParam(":nomeMusica", $nomeMusica);
+        $statement->bindParam(":idMusica", $idMusica);
         $statement->execute();
 
         $retorno = $statement->fetchAll(PDO::FETCH_ASSOC);

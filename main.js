@@ -51,8 +51,8 @@ function verifySession() {
   
 // Insere as informações do usuário na página
   function assignUserInfo(userArray) {
-    $(".username").append(userArray.username);
     $(".userlevel").append(userArray.nomenclatura);
+    $(".sideBarUsername").text(userArray.username);
     $(".userInfo").attr("data-idnivel", userArray.idNivel);
     // Carrega as músicas depois do usuário ser carregado
     getMusicList();
@@ -66,6 +66,7 @@ function verifySession() {
     arrayMusics.forEach(music => {
         let divClone = divOriginal.clone();
         divClone.find(".musicName").text(music.nome);
+        divClone.attr("data-idMusica", music.idMusica);
         divClone.attr("data-artist", music.artista);
         divClone.attr("data-idnivel", music.idNivel);
         divClone.attr("data-cover", music.musicCover);
@@ -87,16 +88,16 @@ function verifySession() {
 
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
-        let nomeMusic = $(this).closest(".musicModel").find(".musicName").text();
-        goToPlayPage(nomeMusic);
+        let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
+        goToPlayPage(idMusica);
     })
     }
 
 // Envia o formulário para a página
-function goToPlayPage(nomeMusic) {
+function goToPlayPage(idMusica) {
     // Envia a solicitação AJAX para verificar o login
     $.post('musicCodes/loadMusicPage.php', { 
-      nomeMusic: nomeMusic
+        idMusica: idMusica
     }, function(response) {
       if (response.sucesso) {
         window.location.href = "musicPages/musicMainPage.html";
@@ -130,4 +131,22 @@ $(function(){
         xhr.open('GET', 'userCodes/logout.php', true);
         xhr.send();
     });
+
+    // Abre a Sidebar
+    $(".sideBarButton").click(function () {
+        $(".sideBar").toggleClass("open");
+    })
+
+    // Redireciona para a página de músicas
+    $(".sideBarUsername").click(function () {
+        window.location.href = '/SingSpeak/userpage.html';
+    })
+
+    $(".sideBarUserPage").click(function () {
+        window.location.href = '/SingSpeak/userpage.html';
+    })
+
+    $(".sideBarMusicPage").click(function () {
+        window.location.href = '/SingSpeak/main.html';
+    })
 });

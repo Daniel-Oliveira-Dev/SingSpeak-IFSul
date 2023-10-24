@@ -25,7 +25,11 @@ function assembleMusic() {
                 if (xhr.status === 200) {
                     let responseJson = JSON.parse(xhr.responseText);
                     if (responseJson.erro) {
-                        alert(responseJson.erro);
+                        $("body").css("visibility", "hidden");
+                        setTimeout(function() {
+                            alert(responseJson.erro);
+                        }, 10);
+                        window.location.href = '/SingSpeak/main.html';
                     }
                     if (responseJson.musicArray) {
                         assignMusicInfo(responseJson.musicArray);
@@ -57,4 +61,42 @@ $(function(){
 
     // Busca as informações da música
     assembleMusic();
+
+    // Encerra a sessão se o usuário clicar no botão "Sair"
+    $("#buttonLogout").click(function () {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.sucesso) {
+                        window.location.href = '../index.html';
+                    } else {
+                        alert(response.erro);
+                    }
+                }
+            }
+        };
+
+        xhr.open('GET', '../userCodes/logout.php', true);
+        xhr.send();
+    });
+
+    // Abre a Sidebar
+    $(".sideBarButton").click(function () {
+        $(".sideBar").toggleClass("open");
+    })
+
+    // Redireciona para a página de músicas
+    $(".sideBarUsername").click(function () {
+        window.location.href = '/SingSpeak/userpage.html';
+    })
+
+    $(".sideBarUserPage").click(function () {
+        window.location.href = '/SingSpeak/userpage.html';
+    })
+
+    $(".sideBarMusicPage").click(function () {
+        window.location.href = '/SingSpeak/main.html';
+    })
 })
