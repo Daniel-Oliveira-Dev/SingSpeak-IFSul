@@ -73,10 +73,12 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
 
 -- Inserindo Músicas no Sistema (Letra temporariamente indisponível)
-INSERT INTO musica (nome, artista, letra, ano, codYouTube, idNivel, musicCover) VALUES 
-("Twinkle Twinkle Little Star", "Jane Taylor", "letraTwinkle.txt", 1806, "-JRJibhgwUQ?si=TGPurYofchkmiglt", 1, "assets/musicCovers/twinkle_twinkle.jpg"),
-("Payphone", "Maroon 5", "letraPayphone.txt", 2012, "fuP4Lkt1vAo?si=5NCefVvnCLQA3j76", 2, "assets/musicCovers/payphone.jpg"),
-("Believer", "Imagine Dragons", "letraBeliever.txt", 2017, "W0DM5lcj6mw?si=gsuA9fkmNu4zBzV7", 3, "assets/musicCovers/believer.jpg");
+INSERT INTO musica (idMusica, nome, artista, letra, ano, codYouTube, idNivel, musicCover) VALUES 
+(1, "Twinkle Twinkle Little Star", "Jane Taylor", "letraTwinkle.txt", 1806, "-JRJibhgwUQ?si=TGPurYofchkmiglt", 1, "twinkle_twinkle.jpg"),
+(2, "Payphone", "Maroon 5", "letraPayphone.txt", 2012, "fuP4Lkt1vAo?si=5NCefVvnCLQA3j76", 2, "payphone.jpg"),
+(3, "Believer", "Imagine Dragons", "letraBeliever.txt", 2017, "W0DM5lcj6mw?si=gsuA9fkmNu4zBzV7", 3, "believer.jpg"),
+(4, "Hello, Goodbye", "The Beatles", "letraHello.txt", "1967", "TL6XovDlBnw?si=SIn13cFidzA4zzhn", 1, "hello_goodbye.jpg"),
+(5, "Photograph", "Ed Sheeran", "letraPhotograph.txt", "2014", "HpphFd_mzXE?si=hXFjpc29N2zTdsZK", 2, "photograph.jpg");
 
 -- Tabela de Acesso do Usuário para a Música
 CREATE TABLE usuarioAcessaMusica (
@@ -100,6 +102,11 @@ PRIMARY KEY (idUsuarioGravaMusica),
 FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario),
 FOREIGN KEY (idMusica) REFERENCES musica (idMusica)
 );
+
+-- Inserindo Gravações
+INSERT INTO usuarioGravaMusica (pontuacaoAdquirida, idUsuario, idMusica) VALUES
+(123, 1, 1), (231, 1, 1), (213, 1, 1), (132, 1, 1), (312, 1, 1),
+(412, 2, 1), (312, 2, 1), (412, 2, 1), (541, 2, 1), (123, 2, 1);
 
 -- Tabela de Questões
 CREATE TABLE questao (

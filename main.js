@@ -1,7 +1,7 @@
 // Funções
 
 // Retorna as músicas presentes no Banco de Dados
-function getMusicList(userLevel) {
+function getMusicList() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -14,7 +14,32 @@ function getMusicList(userLevel) {
   
     xhr.open('GET', 'musicCodes/getMusicList.php', true);
     xhr.send();
-  }
+}
+
+// Busca as informações de uma música específica
+function showMusic(idMusica) {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let responseJson = JSON.parse(xhr.responseText);
+                if (responseJson.musicArray) {
+                    let coverToShow = "assets/musicCovers/".concat(responseJson.musicArray.musicCover);
+                    $(".musicArtist").text(responseJson.musicArray.artista);
+                    $(".selectMusicCover img").attr("src", coverToShow);
+                }
+            }
+        }
+    };
+
+    // Criar um objeto FormData e adicionar o idMusica a ele
+    let formData = new FormData();
+    formData.append('idMusica', idMusica);
+
+    // Definir o método como POST e enviar o FormData
+    xhr.open('POST', './musicCodes/showMusic.php', true);
+    xhr.send(formData);
+}
 
 // Verifica se a sessão está definida
 function verifySession() {
@@ -31,10 +56,10 @@ function verifySession() {
   
     xhr.open('GET', 'userCodes/verifySession.php', true);
     xhr.send();
-  }
+}
 
 // Seleciona as informações públicas do usuário para a página utilizar
-  function assembleUser() {
+function assembleUser() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -47,19 +72,19 @@ function verifySession() {
   
     xhr.open('GET', 'userCodes/getMusicPageUserInfo.php', true);
     xhr.send();
-  }
+}
   
 // Insere as informações do usuário na página
-  function assignUserInfo(userArray) {
+function assignUserInfo(userArray) {
     $(".userlevel").append(userArray.nomenclatura);
     $(".sideBarUsername").text(userArray.username);
     $(".userInfo").attr("data-idnivel", userArray.idNivel);
     // Carrega as músicas depois do usuário ser carregado
     getMusicList();
-  }
+}
 
 // Listar músicas baseadas no array
-  function listMusics(arrayMusics) {
+function listMusics(arrayMusics) {
     let divOriginal = $("#musicModel");
     divOriginal.remove();
 
@@ -67,9 +92,7 @@ function verifySession() {
         let divClone = divOriginal.clone();
         divClone.find(".musicName").text(music.nome);
         divClone.attr("data-idMusica", music.idMusica);
-        divClone.attr("data-artist", music.artista);
         divClone.attr("data-idnivel", music.idNivel);
-        divClone.attr("data-cover", music.musicCover);
 
         if ($("#userInfo").attr("data-idnivel") < music.idNivel) {
             divClone.addClass("unavailableMusic");
@@ -80,10 +103,8 @@ function verifySession() {
 
     // Define os atributos para exibir os detalhes da música clicada
     $(".musicName").click(function(){
-        let artistToShow = $(this).closest(".musicModel").attr("data-artist");
-        let coverToShow = $(this).closest(".musicModel").attr("data-cover");
-        $(".musicArtist").text(artistToShow);
-        $(".selectMusicCover img").attr("src", coverToShow);
+        let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
+        showMusic(idMusica);
     });
 
     // Encaminha o usuário para a página da música selecionada
@@ -91,7 +112,7 @@ function verifySession() {
         let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
         goToPlayPage(idMusica);
     })
-    }
+}
 
 // Envia o formulário para a página
 function goToPlayPage(idMusica) {

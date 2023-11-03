@@ -45,13 +45,18 @@ function assembleMusic() {
 // Insere as informações da música na tela
 function assignMusicInfo(musicArray) {
     $(".musicTitle").text(musicArray.nome);
-    let srcCover = "../" + musicArray.musicCover;
+    let srcCover = "../assets/musicCovers/" + musicArray.musicCover;
     $(".musicCover").find("img").attr("src", srcCover);
     let srcYouTube = "https://www.youtube.com/embed/" + musicArray.codYouTube;
     $("#ytPlayer").attr("src", srcYouTube);
     $(".musicArtistYear").text(musicArray.artista + ", " + musicArray.ano);
     $(".musicInfo").attr("data-idmusica", musicArray.idMusica);
     $(".musicInfo").attr("data-idnivel", musicArray.idNivel);
+}
+
+// Lista o ranking de pontos
+function rankRecordings(rankArray) {
+
 }
 
 // Carregamento inicial da página
