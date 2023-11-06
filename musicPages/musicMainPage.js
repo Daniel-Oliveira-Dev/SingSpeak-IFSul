@@ -17,6 +17,28 @@ function verifySession() {
     xhr.send();
 }
 
+// Seleciona as informações públicas do usuário para a página utilizar
+function assembleUser() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let responseJson = JSON.parse(xhr.responseText);
+                console.log(responseJson.userArray);
+                assignUserInfo(responseJson.userArray);
+            }
+        }
+    };
+  
+    xhr.open('GET', '../userCodes/getMusicPageUserInfo.php', true);
+    xhr.send();
+}
+
+// Insere as informações do usuário na página
+function assignUserInfo(userArray) {
+    $(".sideBarUsername").text(userArray.username);
+}
+
 // Retorna a música selecionada
 function assembleMusic() {
         let xhr = new XMLHttpRequest();
@@ -52,11 +74,44 @@ function assignMusicInfo(musicArray) {
     $(".musicArtistYear").text(musicArray.artista + ", " + musicArray.ano);
     $(".musicInfo").attr("data-idmusica", musicArray.idMusica);
     $(".musicInfo").attr("data-idnivel", musicArray.idNivel);
+
+    getMusicRanking();
+}
+
+// Retorna o array com o ranking do servidor
+function getMusicRanking() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let responseJson = JSON.parse(xhr.responseText);
+                if (responseJson.rankArray && responseJson.rankArray.length > 0) {
+                    rankRecordings(responseJson.rankArray);
+                } else {
+                    $(".posicaoUsername").text("Sem registros nesta música!");
+                }
+            }
+        }
+    };
+
+    xhr.open('GET', '../musicCodes/getRankingOfMusic.php', true);
+    xhr.send();
 }
 
 // Lista o ranking de pontos
 function rankRecordings(rankArray) {
+    let divOriginal = $(".posicaoRanking");
+    divOriginal.remove();
 
+    let posicao = 1;
+    rankArray.forEach(rank => {
+        let divClone = divOriginal.clone();
+        divClone.find(".posicaoUsername").text(posicao + "º - " + rank.username);
+        divClone.find(".posicaoPontuacao").text(rank.pontuacaoAdquirida + " pontos");
+        posicao++;
+
+        divClone.appendTo(".ranking");
+    });
 }
 
 // Carregamento inicial da página
@@ -66,6 +121,9 @@ $(function(){
 
     // Busca as informações da música
     assembleMusic();
+
+    // Retorna os dados do usuário
+    assembleUser();
 
     // Encerra a sessão se o usuário clicar no botão "Sair"
     $("#buttonLogout").click(function () {

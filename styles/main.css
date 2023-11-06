@@ -112,6 +112,13 @@ margin: 3px 20px;
     align-items: center;
 }
 
+.selectedMusicInfo{
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .selectMusicCover {
 
 }
@@ -123,6 +130,11 @@ margin: 3px 20px;
 
 .musicInfo {
 
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
 }
 
 .musicArtist {

@@ -28,6 +28,14 @@ function showMusic(idMusica) {
                     $(".musicArtist").text(responseJson.musicArray.artista);
                     $(".selectMusicCover img").attr("src", coverToShow);
                 }
+                if (responseJson.maiorPontuacao && responseJson.maiorPontuacao.length > 0 && responseJson.maiorPontuacao[0].hasOwnProperty("pontuacaoAdquirida")) {
+                    $(".userMaxPoints").text("Pontuação Máxima: " + responseJson.maiorPontuacao[0].pontuacaoAdquirida);
+                } else {
+                    $(".userMaxPoints").text("Sem pontos nessa música!");
+                }                
+                if (responseJson.erro) {
+                    alert(responseJson.erro);
+                }
             }
         }
     };
@@ -104,13 +112,25 @@ function listMusics(arrayMusics) {
     // Define os atributos para exibir os detalhes da música clicada
     $(".musicName").click(function(){
         let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
-        showMusic(idMusica);
+
+        if(idMusica == $(".selectedMusicInfo").attr("data-idMusica")) {
+            $(".selectedMusicInfo").css("visibility", "hidden");
+            $(".selectedMusicInfo").attr("data-idMusica", "");
+        } else {
+            showMusic(idMusica);
+            $(".selectedMusicInfo").css("visibility", "visible");
+            $(".selectedMusicInfo").attr("data-idMusica", idMusica);
+        }
     });
 
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
-        let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
-        goToPlayPage(idMusica);
+        if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
+            alert("Você precisa subir de música para acessar essa música!");
+        } else {
+            let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
+            goToPlayPage(idMusica);
+        }
     })
 }
 

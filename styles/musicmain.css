@@ -61,17 +61,13 @@
     
     .rightDiv {
     
-    width: 70%;
+width: 70%;
     
-    display: flex;
+display: flex;
     
-    flex-direction: column;
+flex-direction: column;
     
-    align-items: center;
-    
-    justify-content: center;
-    
-    align-content: center;
+align-items: center;
     }
     
     .musicCover > img {
@@ -79,4 +75,43 @@
         height: 150px;
     }
 
+    .ranking {
+
+display: flex;
+
+flex-direction: column;
+
+flex-wrap: nowrap;
+
+align-items: center;
+
+}
+
+    .posicaoRanking {
+
+display: flex;
+
+flex-direction: column;
+
+flex-wrap: nowrap;
+
+align-items: center;
+
+padding: 3px 0px;
+
+border-bottom: solid;
+
+border-bottom-width: 1px;
+
+width: 100%;
+
+}
+
+    .posicaoUsername {
+
+    }
+
+    .posicaoPontuacao {
+        
+    }
     
