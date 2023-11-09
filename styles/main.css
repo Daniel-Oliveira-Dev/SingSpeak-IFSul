@@ -1,11 +1,40 @@
-.mainDiv {
-    background-color: aquamarine;
+/* === Parte Principal === */
+
+html, body {
+    margin: 0;
+    padding: 0;
     height: 100%;
+}
+
+.mainDiv {
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     align-items: stretch;
-    justify-content: center;
+    flex-wrap: nowrap;
 }
+
+.leftSide {
+    background-color: hsl(0deg 0% 0%);
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.rightSide {
+    display: flex;
+    background-color: hsl(0deg 0% 0%);
+    width: 40%;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === Sidebar === */
 
 .closedSideBar {
     background-color: blueviolet;
@@ -24,7 +53,7 @@
     background-color: orange;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 15%;
     height: 100%;
     flex-direction: column;
@@ -46,86 +75,152 @@ justify-content: space-between;
     visibility: visible;
 }
 
-.leftSide {
-    background-color:lightcoral;
-    width: 50%;
-}
+/* === Lado Esquerdo === */
 
+/* Info do User */
 .userInfo {
-    background-color: lightgreen;
+    background-color: hsl(0deg 5.88% 93.33%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    width: 60%;
+    height: 45px;
+    font-size: larger;
+    margin: 0 0 30px 0;
 }
 
-.musicList {
-    
-background-color: brown;
+.sideBarButton {
     
 display: flex;
     
-flex-direction: column;
+align-items: center;
     
-align-items: flex-start;
-    
-justify-content: center;
+flex-direction: row;
+}
+
+.userlevel {
+
+}
+
+/* Lista de Musicas */
+
+.musicList {
+    background-color: hsl(0deg 0% 0%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 80%;
 }
 
 .musicModel {
     
-background-color: lightgray;
+background-color: black;
+    
+color: white;
     
 display: flex;
     
 flex-direction: row;
     
-align-content: center;
-    
 align-items: center;
     
 justify-content: space-between;
+    
+width: 80%;
+    
+margin: 10px 0;
+    
+height: 60px;
+    
+border: 3px solid antiquewhite;
+    
+border-radius: 30px;
+    
+border-left: none;
+    
+border-top-left-radius: 0;
+    
+border-bottom-left-radius: 0;
 }
 
-.unavailableMusic {
-    color: red;
-    background-color: lightpink;
+.musicModel:hover {
+    width: 100%;
+    color: black;
+    background-color: white;
+    border-color: black;
 }
+
+/* Partes da Lista */
 
 .musicName {
     
 margin: 3px 20px;
+    
+font-size: larger;
+    
+width: 100%;
+    
+height: 100%;
+    
+display: flex;
+    
+align-items: center;
+    
+justify-content: flex-start;
 }
 .musicName:hover {
     cursor: pointer;
 }
 
-.playButton {
-    
-margin: 3px 20px;
+.playButtonArea {
+    margin: 3px 20px;
 }
+
+.playButton {
+    font-size: larger;
+    font-weight: 900;
+}
+
 .playButton:hover {
     cursor: pointer;
 }
 
-.rightSide {
-    display: flex;
-    background-color: yellow;
-    width: 40%;
-    flex-direction: column;
-    align-items: center;
+/* Indisponivel */
+
+.unavailableMusic {
+    color: white(255, 255, 255);
+    border-color: rgb(129, 4, 4);
+    color: rgb(129, 4, 4);
+    
 }
+
+.unavailableMusic:hover {
+    cursor: not-allowed;
+    background-color: rgb(129, 4, 4);
+    cursor: not-allowed;
+}
+
+/* === Lado Direito === */
 
 .selectedMusicInfo{
     visibility: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 50px 0;
 }
 
 .selectMusicCover {
-
 }
 
 .selectMusicCoverImage{
-    width: 150px;
-    height: 150px;
+    width: 225px;
+    height: 225px;
+    object-fit: contain;
+    border-radius: 100%;
 }
 
 .musicInfo {
@@ -135,10 +230,27 @@ display: flex;
 flex-direction: column;
 
 align-items: center;
+
+color: white;
+
+background-color: hsl(0deg 0% 23.14%);
+
+height: 90px;
+
+width: 100%;
+
+margin: 40px 0;
+
+justify-content: space-evenly;
+
+border-radius: 35px;
 }
 
 .musicArtist {
 
+font-size: x-large;
+
+font-weight: bolder;
 }
 
 .userMaxPoints {

@@ -1,62 +1,35 @@
+/* === Parte Principal === */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .mainDiv {
-
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 100%;
     display: flex;
-    
     flex-direction: row;
-    
-    justify-content: center;
-    }
-
-    .closedSideBar {
-        background-color: blueviolet;
-        display: flex;
-        justify-content: flex-end;
-        width: 100%;
-    }
-    
-    .sideOption:hover {
-        cursor: pointer;
-    }
-    
-    .sideBar {
-        display: flex;
-        visibility: hidden;
-        background-color: orange;
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 15%;
-        height: 100%;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .topSideBar {
-        
-    display: flex;
-        
-    align-items: center;
-        
-    flex-direction: row;
-        
-    justify-content: space-between;
-    }
-    
-    .open {
-        visibility: visible;
-    }
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
     
     .leftDiv {
     
-    width: 30%;
+width: 40%;
     
-    display: flex;
+display: flex;
     
-    flex-direction: column;
+flex-direction: column;
     
-    align-content: center;
+align-items: center;
     
-    align-items: center;
+background-color: darkslategray;
+    
+margin: 10px 25px;
     }
     
     .rightDiv {
@@ -71,8 +44,7 @@ align-items: center;
     }
     
     .musicCover > img {
-        width: 150px;
-        height: 150px;
+        width: 100%;
     }
 
     .ranking {
@@ -85,6 +57,7 @@ flex-wrap: nowrap;
 
 align-items: center;
 
+margin: 0 10%;
 }
 
     .posicaoRanking {
@@ -99,19 +72,21 @@ align-items: center;
 
 padding: 3px 0px;
 
-border-bottom: solid;
-
-border-bottom-width: 1px;
-
 width: 100%;
-
 }
 
     .posicaoUsername {
 
-    }
+text-align: center;
+
+
+
+border-bottom: 1px solid;
+
+}
 
     .posicaoPontuacao {
         
+text-align: center;
     }
     
