@@ -36,43 +36,62 @@ html, body {
 
 /* === Sidebar === */
 
-.closedSideBar {
-    background-color: blueviolet;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-
-.sideOption:hover {
-    cursor: pointer;
-}
-
 .sideBar {
-    display: flex;
+    display: none;
     visibility: hidden;
-    background-color: orange;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 15%;
+    color: white;
+    width: 25%;
     height: 100%;
     flex-direction: column;
     align-items: center;
+    background-color: #494949;
+    justify-content: space-between;
+    font-size: larger;
+    font-weight: 600;
+    border-right: 1px solid cadetblue;
 }
 
-.topSideBar {
-    
-display: flex;
-    
-align-items: center;
-    
-flex-direction: row;
-    
-justify-content: space-between;
+.sideBarButton:hover {
+    cursor: pointer;
 }
 
-.open {
+.openSideBar {
+    display: flex;
     visibility: visible;
+}
+
+.sideBarOption {
+
+display: flex;
+
+padding: 5px 0;
+
+flex-direction: row;
+
+align-items: center;
+
+flex-wrap: nowrap;
+
+justify-content: flex-start;
+}
+
+.sideBarOption > span {
+    margin-right: 5px;
+}
+
+.sideBarLinks {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sideBarUsername {
+
+padding: 10px 0;
 }
 
 /* === Lado Esquerdo === */
@@ -98,10 +117,21 @@ display: flex;
 align-items: center;
     
 flex-direction: row;
+    
+justify-content: center;
+    
+height: 45px;
 }
 
 .userlevel {
 
+width: 100%;
+
+text-align: center;
+
+font-size: larger;
+
+font-family: fangsong;
 }
 
 /* Lista de Musicas */
@@ -112,12 +142,12 @@ flex-direction: row;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 80%;
+    width: 100%;
 }
 
 .musicModel {
     
-background-color: black;
+background-color: #494949;
     
 color: white;
     
@@ -170,6 +200,8 @@ display: flex;
 align-items: center;
     
 justify-content: flex-start;
+    
+font-family: fantasy;
 }
 .musicName:hover {
     cursor: pointer;
@@ -191,16 +223,13 @@ justify-content: flex-start;
 /* Indisponivel */
 
 .unavailableMusic {
-    color: white(255, 255, 255);
-    border-color: rgb(129, 4, 4);
-    color: rgb(129, 4, 4);
-    
+    border-color: rgb(255 255 255);
+    color: rgb(141 141 141);
+    border-color: #898889;
 }
 
 .unavailableMusic:hover {
-    cursor: not-allowed;
-    background-color: rgb(129, 4, 4);
-    cursor: not-allowed;
+    background-color: rgb(213 213 213);
 }
 
 /* === Lado Direito === */

@@ -104,6 +104,7 @@ function listMusics(arrayMusics) {
 
         if ($("#userInfo").attr("data-idnivel") < music.idNivel) {
             divClone.addClass("unavailableMusic");
+            divClone.find(".playButton").text("lock");
         }
 
         divClone.appendTo("#musicList"); // Adicione a div clonada à lista de músicas
@@ -120,12 +121,14 @@ function listMusics(arrayMusics) {
             showMusic(idMusica);
             $(".selectedMusicInfo").css("visibility", "visible");
             $(".selectedMusicInfo").attr("data-idMusica", idMusica);
+            
         }
     });
 
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
+            $(".userlevel").addClass("animate__animated animate__heartBeat");
             alert("Você precisa subir de música para acessar essa música!");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
@@ -175,8 +178,15 @@ $(function(){
 
     // Abre a Sidebar
     $(".sideBarButton").click(function () {
-        $(".sideBar").toggleClass("open");
-    })
+        $(".sideBar").toggleClass("openSideBar");
+
+        if ($(".sideBarButton span").text() == "double_arrow") {
+            $(".sideBarButton span").text("keyboard_double_arrow_left");
+        } else {
+            $(".sideBarButton span").text("double_arrow");
+        }
+    });
+    
 
     // Redireciona para a página de músicas
     $(".sideBarUsername").click(function () {

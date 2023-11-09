@@ -8,19 +8,41 @@
     <link rel="icon" href="assets/logotipo.png">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
     <div class="mainDiv">
-        <div class="leftSide">
+        <div class="sideBar animate__animated">
+            <div class="sideBarTop">
+                <div class="sideBarLinks">
+                    <div class="sideBarUserPage sideBarOption">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        Minha Conta
+                    </div>
+                    <div class="sideBarMusicPage sideBarOption">
+                        <span class="material-symbols-outlined">lyrics</span>
+                        Músicas
+                    </div>
+                    <div class="buttonLogout sideBarOption" id="buttonLogout">
+                        <span class="material-symbols-outlined">logout</span>
+                        Sair
+                    </div>
+                </div>
+            </div>
+            <div class="sideBarUsername">
+                Nome de Usuário
+            </div>
+        </div>
+        <div class="leftSide animate__animated">
             <div class="userInfo" id="userInfo" data-idnivel="">
                 <div class="sideBarButton sideOption">
-                    <span class="material-symbols-outlined">menu</span>
+                    <span class="material-symbols-outlined">double_arrow</span>
                 </div>
-                <div class="userlevel"> Nível: </div>
+                <div class="userlevel"> Nível </div>
             </div>
             <div class="musicList" id="musicList">
-                <div class="musicModel" id="musicModel" data-artist="" data-idnivel="" data-cover="" data-idMusica="">
-                    <div class="musicName" id="musicName"> Nome da Música </div>
+                <div class="musicModel" id="musicModel" data-idnivel="" data-idMusica="">
+                    <div class="musicName" id="musicName"></div>
                     <div class="playButtonArea"> <span class="material-symbols-outlined playButton">play_circle</span> </div>
                 </div>
             </div>
@@ -29,33 +51,11 @@
             <div class="selectedMusicInfo" data-idMusica="">
                 <div class="selectMusicCover"> <img class="selectMusicCoverImage" src="assets/logotipo.png" alt="Logotipo do SingSpeak" class="logoimage"> </div>
                 <div class="musicInfo">
-                    <div class="musicArtist"> Artista </div>
-                    <div class="userMaxPoints"> Pontuação Máxima </div>
+                    <div class="musicArtist"></div>
+                    <div class="userMaxPoints"></div>
                 </div>
             </div>
             
-        </div>
-        <div class="sideBar">
-            <div class="topSideBar">
-                <div class="logoSingSpeak">
-                    Logo
-                </div>
-                <div class="sideBarButton sideOption">
-                    <span class="material-symbols-outlined">menu</span>
-                </div>
-            </div>
-            <div class="sideBarUsername sideOption">
-                Nome de Usuário
-            </div>
-            <div class="sideBarUserPage sideOption">
-                Página do Usuário 
-            </div>
-            <div class="sideBarMusicPage sideOption">
-                Músicas
-            </div>
-            <div class="buttonLogout sideOption" id="buttonLogout">
-                Sair
-            </div>
         </div>
     </div>
 </body>
