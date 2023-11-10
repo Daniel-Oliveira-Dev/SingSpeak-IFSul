@@ -29,6 +29,7 @@ $(function(){
     $(this).removeClass("formBehind").addClass("formFront");
     $(".signupForm").removeClass("formFront").addClass("formBehind");
   });
+
   $(".signupForm").click(function(){
     $(this).removeClass("formBehind").addClass("formFront");
     $(".loginForm").removeClass("formFront").addClass("formBehind");
