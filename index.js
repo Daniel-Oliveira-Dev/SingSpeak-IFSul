@@ -17,6 +17,18 @@ function verifySession() {
   xhr.send();
 }
 
+// Ativa o pop up com a mensagem identificada
+function popUpOpen (mensagem) {
+  $(".popup").removeClass("animate__bounceOutUp");
+  $(".popupContent").text(mensagem);
+  $(".popup").css("visibility", "visible");
+  $(".popup").addClass("animate__bounceInDown");
+  $(".popupCloseButtonIcon").click(function() {
+    $(".popup").removeClass("animate__bounceInDown");
+    $(".popup").addClass("animate__bounceOutUp");
+  });
+}
+
 // Funções jQuery
 
 // Carrega as funções quando a página é carregada
@@ -65,7 +77,7 @@ $(function(){
     $.post('userCodes/acessUser.php', { loginUsername: username, loginPassword: password }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
-        alert(response.erro);
+        popUpOpen(response.erro);
       } 
       if (response.sucesso) {
         // O login foi bem-sucedido, redirecionar para a página de usuário
@@ -87,7 +99,7 @@ $(function(){
     $.post('userCodes/registerUser.php', { signupUsername: username, signupEmail: email, signupPassword: password }, function(response) {
       if (response.erro) {
           // Exibir a mensagem de erro na página HTML
-          alert(response.erro);
+          popUpOpen(response.erro);
       } 
       if (response.sucesso) {
           // O registro foi bem-sucedido, redirecionar para a página de usuário ou fazer outra ação

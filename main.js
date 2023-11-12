@@ -16,6 +16,18 @@ function getMusicList() {
     xhr.send();
 }
 
+// Ativa o pop up com a mensagem identificada
+function popUpOpen (mensagem) {
+    $(".popup").removeClass("animate__bounceOutUp");
+    $(".popupContent").text(mensagem);
+    $(".popup").css("visibility", "visible");
+    $(".popup").addClass("animate__bounceInDown");
+    $(".popupCloseButtonIcon").click(function() {
+      $(".popup").removeClass("animate__bounceInDown");
+      $(".popup").addClass("animate__bounceOutUp");
+    });
+  }
+
 // Busca as informações de uma música específica
 function showMusic(idMusica) {
     let xhr = new XMLHttpRequest();
@@ -34,7 +46,7 @@ function showMusic(idMusica) {
                     $(".userMaxPoints").text("Sem pontos nessa música!");
                 }                
                 if (responseJson.erro) {
-                    alert(responseJson.erro);
+                    popUpOpen(responseJson.erro);
                 }
             }
         }
@@ -128,8 +140,8 @@ function listMusics(arrayMusics) {
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
+            popUpOpen("Você precisa subir de música para acessar essa música!");
             $(".userlevel").addClass("animate__animated animate__heartBeat");
-            alert("Você precisa subir de música para acessar essa música!");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
             goToPlayPage(idMusica);
@@ -166,7 +178,7 @@ $(function(){
                     if (response.sucesso) {
                         window.location.href = '/SingSpeak/index.html';
                     } else {
-                        alert(response.erro);
+                        popUpOpen(response.erro);
                     }
                 }
             }

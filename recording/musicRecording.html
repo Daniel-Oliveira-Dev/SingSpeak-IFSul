@@ -3,12 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload de Áudio</title>
+  <title>Envio de Caminho para Deepgram</title>
 </head>
 <body>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="audio" accept="audio/*">
-    <button type="submit">Enviar</button>
-  </form>
+
+  <h1>Envio de Caminho para Deepgram</h1>
+
+  <button id="startRecording">Iniciar Gravação</button>
+  <button id="stopRecording" disabled>Parar Gravação e Enviar</button>
+
+  <script>
+    let mediaRecorder;
+    let chunks = [];
+
+    document.getElementById('startRecording').addEventListener('click', startRecording);
+    document.getElementById('stopRecording').addEventListener('click', stopRecording);
+
+    function startRecording() {
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then((stream) => {
+          mediaRecorder = new MediaRecorder(stream);
+
+          mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) {
+              chunks.push(e.data);
+            }
+          };
+
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'audio/wav' });
+            const formData = new FormData();
+            formData.append('audio', blob, 'recording.wav');
+
+            fetch('http://localhost:3000/upload', {
+              method: 'POST',
+              body: formData,
+              timeout: 120000,
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Erro:', error));
+          };
+
+          mediaRecorder.start();
+          document.getElementById('startRecording').disabled = true;
+          document.getElementById('stopRecording').disabled = false;
+        })
+        .catch((err) => {
+          console.error('Erro ao iniciar gravação:', err);
+        });
+    }
+
+    function stopRecording() {
+      mediaRecorder.stop();
+      document.getElementById('startRecording').disabled = false;
+      document.getElementById('stopRecording').disabled = true;
+    }
+  </script>
+
 </body>
 </html>

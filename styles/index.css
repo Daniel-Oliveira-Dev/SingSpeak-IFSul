@@ -1,3 +1,34 @@
+/* === Popup Windown */
+
+.popup {
+    visibility: hidden;
+    position: fixed;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    border: 1px solid #898889;
+    border-radius: 25px;
+    background-color: white;
+}
+
+.popupContent {
+    text-align: center;
+    padding: 5px 0;
+}
+
+.popupCloseButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.popupCloseButtonIcon:hover {
+    cursor: pointer;
+}
+
 .logo {
     margin-top: 10px;
 }
