@@ -74,6 +74,7 @@ function assignMusicInfo(musicArray) {
     $(".musicArtistYear").text(musicArray.artista + ", " + musicArray.ano);
     $(".musicInfo").attr("data-idmusica", musicArray.idMusica);
     $(".musicInfo").attr("data-idnivel", musicArray.idNivel);
+    $(document). prop( 'title' , musicArray.nome);
 
     getMusicRanking();
 }
@@ -143,6 +144,11 @@ $(function(){
 
         xhr.open('GET', '../userCodes/logout.php', true);
         xhr.send();
+    });
+
+    // Acessa o gravador de música
+    $(".playButtonIcon").click(function () {
+        window.location.href = 'http://localhost:3000';
     });
 
     // Abre a Sidebar

@@ -266,6 +266,8 @@ font-family: fantasy;
 
 /* === Lado Direito === */
 
+/* Musica Selecionada */
+
 .selectedMusicInfo{
     visibility: hidden;
     display: flex;

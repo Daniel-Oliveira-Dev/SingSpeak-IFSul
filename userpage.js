@@ -7,6 +7,7 @@ function assignUserInfo(arrayUser) {
   document.getElementById("infoDataCriacao").textContent += " " + arrayUser[2];
   document.getElementById("infoPontos").textContent += " " + arrayUser[3] + " pontos e está na posição " + arrayUser[5];
   document.getElementById("infoNivel").textContent += " " + arrayUser[4];
+  $(document). prop( 'title' , arrayUser[0]);
 }
 
 // Verifica se a sessão está definida

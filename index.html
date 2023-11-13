@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
-    <div class="mainPage">
+    <div class="mainDiv">
         <div class="popup animate__animated">
             <div class="popupCloseButton"><span class="material-symbols-outlined popupCloseButtonIcon">cancel</span></div>
             <div class="popupContent"></div>
@@ -20,7 +20,7 @@
                 <img src="assets/logotipo.png" alt="Logotipo do SingSpeak" class="logoimage">
         </div>
         <div class="mainForms">
-            <div class="signupForm formFront">
+            <div class="signupForm formFront accessForms">
                 <form id="signupForm" action="userCodes/registerUser.php" method="post">
                     <label for="signupUsername">Nome de Usuário</label> <br>
                     <input type="text" placeholder="Username" id="signupUsername" name="signupUsername" size="15" maxlength="25"> <br>
@@ -31,7 +31,7 @@
                     <input type="submit" value="Cadastrar" id="signupSubmit" disabled>
                 </form>
             </div>
-            <div class="loginForm formBehind">
+            <div class="loginForm formBehind accessForms">
                 <form id="loginForm" action="userCodes/acessUser.php" method="post">
                     <label for="loginUsername">Nome de Usuário</label> <br>
                     <input type="text" placeholder="Username" id="loginUsername" name="loginUsername" size="15" maxlength="25"> <br>

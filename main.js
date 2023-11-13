@@ -141,12 +141,12 @@ function listMusics(arrayMusics) {
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
             popUpOpen("Você precisa subir de música para acessar essa música!");
-            $(".userlevel").addClass("animate__animated animate__heartBeat");
+            $(".userlevel").addClass("animate__animated animate__shakeX");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
             goToPlayPage(idMusica);
         }
-    })
+    });
 }
 
 // Envia o formulário para a página
@@ -198,17 +198,18 @@ $(function(){
             $(".sideBarButton span").text("double_arrow");
         }
     });
-    
 
     // Redireciona para a página de músicas
     $(".sideBarUsername").click(function () {
         window.location.href = '/SingSpeak/userpage.html';
     })
 
+    // Redireciona para a página de usuário
     $(".sideBarUserPage").click(function () {
         window.location.href = '/SingSpeak/userpage.html';
     })
 
+    // Redireciona para a página de músicas
     $(".sideBarMusicPage").click(function () {
         window.location.href = '/SingSpeak/main.html';
     })

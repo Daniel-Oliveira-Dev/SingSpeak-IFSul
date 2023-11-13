@@ -19,7 +19,7 @@ html, body {
     
     .leftDiv {
     
-width: 40%;
+width: 15%;
     
 display: flex;
     
@@ -34,16 +34,23 @@ margin: 10px 25px;
     
     .rightDiv {
     
-width: 70%;
+width: 75%;
     
 display: flex;
     
 flex-direction: column;
     
 align-items: center;
+
+background-color: blueviolet;
+margin: 10px 25px;
     }
     
-    .musicCover > img {
+    .musicCover {
+        
+    }
+
+    .musicCoverImage {
         width: 100%;
     }
 

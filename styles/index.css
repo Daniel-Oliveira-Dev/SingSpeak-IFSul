@@ -1,3 +1,22 @@
+/* === Parte Principal === */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.mainDiv {
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
 /* === Popup Windown */
 
 .popup {
@@ -29,6 +48,8 @@
     cursor: pointer;
 }
 
+/* === Logo do Sistema === */
+
 .logo {
     margin-top: 10px;
 }
@@ -37,38 +58,46 @@
     height: 250px;
 }
 
-.mainPage {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgb(0, 0, 0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
+/* === Formularios === */
 
 .mainForms {
     display: flex;
-    background-color: aquamarine;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     padding: 15px;
     width: 50%;
     height: 33%;
     margin-top: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.accessForms {
+
+padding: 10px 5px;
+
+border: 1px solid white;
+
+border-radius: 25px;
 }
 
 .loginForm {
+    display: flex;
+    text-align: right;
     background-color: rgb(255, 255, 124);
     width: 50%;
     height: 100%;
-    padding: 10px;
-    border: 3px solid;
-    border-radius: 10%;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.signupForm {
+    display: flex;
+    background-color: rgb(197, 252, 116);
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
 }
 
 .formBehind {
@@ -77,13 +106,4 @@
 
 .formFront {
     z-index: 1;
-}
-
-.signupForm {
-    background-color: rgb(197, 252, 116);
-    width: 50%;
-    height: 100%;
-    padding: 10px;
-    border: 3px solid;
-    border-radius: 10%;
 }

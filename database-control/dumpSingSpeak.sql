@@ -105,7 +105,7 @@ FOREIGN KEY (idMusica) REFERENCES musica (idMusica)
 -- Inserindo Gravações
 INSERT INTO usuarioGravaMusica (pontuacaoAdquirida, idUsuario, idMusica) VALUES
 (4123, 1, 2), (3209, 2, 2), (8549, 2, 2), (1412, 1, 2),
-(4671, 1, 1), (6523, 2, 1), (5123, 2, 1), (5123, 4, 2);
+(4671, 1, 1), (6523, 2, 1), (5123, 2, 1), (5123, 1, 2);
 
 /* Esta parte foi desconsiderada por falta de tempo!
 
