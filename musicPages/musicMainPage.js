@@ -150,22 +150,17 @@ $(function(){
     $(".playButtonIcon").click(function () {
         window.location.href = 'http://localhost:3000';
     });
-
-    // Abre a Sidebar
-    $(".sideBarButton").click(function () {
-        $(".sideBar").toggleClass("open");
-    })
-
+    
     // Redireciona para a página de músicas
     $(".sideBarUsername").click(function () {
-        window.location.href = '/SingSpeak/userpage.html';
+        window.location.href = '../userCodes/userpage.html';
     })
 
     $(".sideBarUserPage").click(function () {
-        window.location.href = '/SingSpeak/userpage.html';
+        window.location.href = '../userCodes/userpage.html';
     })
 
     $(".sideBarMusicPage").click(function () {
-        window.location.href = '/SingSpeak/main.html';
+        window.location.href = 'main.html';
     })
 })

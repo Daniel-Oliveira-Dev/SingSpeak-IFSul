@@ -2,7 +2,7 @@
 
 // Adiciona os pontos ao usuário
 function givePoints($username, $addPontos) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("UPDATE usuario SET pontos = (pontos + :points) WHERE username = :username");
 
@@ -21,7 +21,7 @@ function givePoints($username, $addPontos) {
 // =asda=sd=ad=a=sda=dad=sa=da=d=ad=ad=a=da=d=ad=ad=a=da=da=d=a
 // Verifica se a pontuação do usuário do usuário modifica seu nível
 function checkPointsToUpdateLevel($username) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT pontos, idnivel FROM usuario WHERE username = :username");
 
@@ -37,7 +37,7 @@ function checkPointsToUpdateLevel($username) {
 
 // Verifica se o usuário terá o bônus diário
 function checkFirstOfDay($username) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT dataRegistro FROM logControl 
         WHERE idUsuario = (SELECT idUsuario FROM usuario WHERE username LIKE :username) 
@@ -58,7 +58,7 @@ function checkFirstOfDay($username) {
 
 // Gera o log de saída ou de entrada do usuário
 function logGenerator($username, $action) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         checkFirstOfDay($username);
 
@@ -77,7 +77,7 @@ function logGenerator($username, $action) {
 
 // Realiza uma tentativa de login no sistema
 function logIn($username, $senha) {
-    include("../connection.php");
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT username, hash_senha, salt FROM usuario WHERE username = :username AND desativada = 'N'");
 
@@ -109,7 +109,7 @@ function logIn($username, $senha) {
 
 // Verifica se um nome de usuário é válido no sistema
 function validateUsername($username) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT username FROM usuario WHERE username = :username");
         $statement->bindParam(":username", $username);
@@ -126,7 +126,7 @@ function validateUsername($username) {
 
 // Verifica se um endereço de email é válido no sistema
 function validateEmail($email) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT email FROM usuario WHERE email = :email");
         $statement->bindParam(":email", $email);
@@ -143,7 +143,7 @@ function validateEmail($email) {
 
 // Insere um usuário no banco de dados
 function insertUser($username, $email, $password) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("INSERT INTO usuario (username, email, hash_senha, salt) 
         VALUES (:username, :email, :hash_senha, :salt)");
@@ -164,7 +164,7 @@ function insertUser($username, $email, $password) {
 
 // Altera o nome de usuário de um usuário no banco de dados
 function alterUsername($oldUsername, $newUsername) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("UPDATE usuario SET username = :newuser WHERE username = :olduser");
 
@@ -179,7 +179,7 @@ function alterUsername($oldUsername, $newUsername) {
 
 // Altera o endereço de email de um usuário no banco de dados
 function alterEmail($username, $newEmail) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("UPDATE usuario SET email = :newemail WHERE username = :user");
 
@@ -194,7 +194,7 @@ function alterEmail($username, $newEmail) {
 
 // Altera a senha de um usuário no banco de dados
 function alterPassword($username, $newPassword) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("UPDATE usuario SET hash_senha = :newpassword, salt = :salting WHERE username = :user");
 
@@ -213,7 +213,7 @@ function alterPassword($username, $newPassword) {
 
 // Muda a variável "Desativada" do usuário para "S" no banco de dados
 function deactivateAccount($username) {
-    include "../connection.php";
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("UPDATE usuario SET desativada = 'S' WHERE username = :username");
 
@@ -228,7 +228,7 @@ function deactivateAccount($username) {
 
 // Junta as informações públicas do usuário para montar seu perfil
 function assembleUser($username) {
-    include("../connection.php");
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT username, email, dataCriacao, pontos, idNivel 
         FROM usuario WHERE username = :username");
@@ -257,7 +257,7 @@ function assembleUser($username) {
 
 // Retorna a colocação do usuário no ranking geral de pontos do sistema
 function userRankPlacement($username) {
-    include("../connection.php");
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT COUNT(*) AS posicao FROM usuario WHERE pontos > (
             SELECT pontos FROM usuario WHERE username = :username
@@ -280,7 +280,7 @@ function userRankPlacement($username) {
 
 // Retorna o nivel do usuário e a nomenclatura dele
 function getUserLevel($username) {
-    include("../connection.php");
+    include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT u.username, u.idNivel, n.nomenclatura FROM usuario u
         JOIN nivel n ON u.idnivel = n.idnivel WHERE u.username = :username");

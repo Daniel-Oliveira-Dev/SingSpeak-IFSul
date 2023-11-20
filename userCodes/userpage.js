@@ -2,12 +2,12 @@
 
 // Insere as informações do usuário na página
 function assignUserInfo(arrayUser) {
-  document.getElementById("infoUsername").textContent += " " + arrayUser[0];
-  document.getElementById("infoEmail").textContent += " " + arrayUser[1];
-  document.getElementById("infoDataCriacao").textContent += " " + arrayUser[2];
-  document.getElementById("infoPontos").textContent += " " + arrayUser[3] + " pontos e está na posição " + arrayUser[5];
-  document.getElementById("infoNivel").textContent += " " + arrayUser[4];
-  $(document). prop( 'title' , arrayUser[0]);
+  $("#infoUsername").text($("#infoUsername").text() + " " + arrayUser[0]);
+  $("#infoEmail").text($("#infoEmail").text() + " " + arrayUser[1]);
+  $("#infoDataCriacao").text($("#infoDataCriacao").text() + " " + arrayUser[2]);
+  $("#infoPontos").text($("#infoPontos").text() + " " + arrayUser[3] + " pontos e está na posição " + arrayUser[5]);
+  $("#infoNivel").text($("#infoNivel").text() + " " + arrayUser[4]);
+  $(document).prop('title', arrayUser[0]);
 }
 
 // Verifica se a sessão está definida
@@ -23,7 +23,7 @@ function verifySession() {
       }
   };
 
-  xhr.open('GET', 'userCodes/verifySession.php', true);
+  xhr.open('GET', 'verifySession.php', true);
   xhr.send();
 }
 
@@ -38,7 +38,7 @@ function assembleUser() {
       }
   };
 
-  xhr.open('GET', 'userCodes/getUserPageInfo.php', true);
+  xhr.open('GET', 'getUserPageInfo.php', true);
   xhr.send();
 }
 
@@ -60,7 +60,7 @@ $(function(){
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 if (response.sucesso) {
-                    window.location.href = '/SingSpeak/index.html';
+                    window.location.href = '../index.html';
                 } else {
                     alert(response.erro);
                 }
@@ -68,13 +68,13 @@ $(function(){
         }
     };
 
-    xhr.open('GET', 'userCodes/logout.php', true);
+    xhr.open('GET', 'logout.php', true);
     xhr.send();
   });
 
   // Redireciona para a página de músicas
   $(".buttonMusics").click(function () {
-    window.location.href = '/SingSpeak/main.html';
+    window.location.href = '../musicPages/main.html';
   })
 
   // Ativa e desativa os botões de Configurações
@@ -131,7 +131,7 @@ $(function(){
     }
 
     // Envia a solicitação AJAX para verificar o login
-    $.post('userCodes/alterUsername.php', { 
+    $.post('alterUsername.php', { 
       oldPassword: oldPasswordInput, 
       newUsername: newUsernameInput 
     }, function(response) {
@@ -169,7 +169,7 @@ $(function(){
     }
 
     // Envia a solicitação AJAX para verificar o login
-    $.post('userCodes/alterEmail.php', { 
+    $.post('alterEmail.php', { 
       oldPassword: oldPasswordInput, 
       newEmail: newEmailInput 
     }, function(response) {
@@ -212,7 +212,7 @@ $(function(){
     }
 
     // Envia a solicitação AJAX para verificar o login
-    $.post('userCodes/alterPassword.php', { 
+    $.post('alterPassword.php', { 
       oldPassword: oldPasswordInput, 
       newPassword: newPasswordInput
     }, function(response) {
@@ -221,7 +221,7 @@ $(function(){
         alert(response.erro);
       }
       if (response.sucesso) {
-        window.location.href = '/SingSpeak/index.html';
+        window.location.href = '../index.html';
       }
     }, 'json');
   });
@@ -249,7 +249,7 @@ $(function(){
     }
 
     // Envia a solicitação AJAX para verificar o login
-    $.post('userCodes/deleteAccount.php', { 
+    $.post('deleteAccount.php', { 
       confirmPassword: confirmPasswordOneInput,
     }, function(response) {
       if (response.erro) {
@@ -257,7 +257,7 @@ $(function(){
         alert(response.erro);
       }
       if (response.sucesso) {
-        window.location.href = '/SingSpeak/index.html';
+        window.location.href = '../index.html';
       }
     }, 'json');
   });

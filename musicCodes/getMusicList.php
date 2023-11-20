@@ -1,5 +1,9 @@
 <?php
 
+session_start();
+
+unset($_SESSION['loadedMusic']);
+
 include_once "musicArea.php";
 
 try {

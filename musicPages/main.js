@@ -12,7 +12,7 @@ function getMusicList() {
         }
     };
   
-    xhr.open('GET', 'musicCodes/getMusicList.php', true);
+    xhr.open('GET', '../musicCodes/getMusicList.php', true);
     xhr.send();
 }
 
@@ -26,7 +26,7 @@ function popUpOpen (mensagem) {
       $(".popup").removeClass("animate__bounceInDown");
       $(".popup").addClass("animate__bounceOutUp");
     });
-  }
+}
 
 // Busca as informações de uma música específica
 function showMusic(idMusica) {
@@ -36,7 +36,7 @@ function showMusic(idMusica) {
             if (xhr.status === 200) {
                 let responseJson = JSON.parse(xhr.responseText);
                 if (responseJson.musicArray) {
-                    let coverToShow = "assets/musicCovers/".concat(responseJson.musicArray.musicCover);
+                    let coverToShow = "../assets/musicCovers/".concat(responseJson.musicArray.musicCover);
                     $(".musicArtist").text(responseJson.musicArray.artista);
                     $(".selectMusicCover img").attr("src", coverToShow);
                 }
@@ -57,7 +57,7 @@ function showMusic(idMusica) {
     formData.append('idMusica', idMusica);
 
     // Definir o método como POST e enviar o FormData
-    xhr.open('POST', './musicCodes/showMusic.php', true);
+    xhr.open('POST', '../musicCodes/showMusic.php', true);
     xhr.send(formData);
 }
 
@@ -74,7 +74,7 @@ function verifySession() {
         }
     };
   
-    xhr.open('GET', 'userCodes/verifySession.php', true);
+    xhr.open('GET', '../userCodes/verifySession.php', true);
     xhr.send();
 }
 
@@ -90,7 +90,7 @@ function assembleUser() {
         }
     };
   
-    xhr.open('GET', 'userCodes/getMusicPageUserInfo.php', true);
+    xhr.open('GET', '../userCodes/getMusicPageUserInfo.php', true);
     xhr.send();
 }
   
@@ -111,6 +111,7 @@ function listMusics(arrayMusics) {
     arrayMusics.forEach(music => {
         let divClone = divOriginal.clone();
         divClone.find(".musicName").text(music.nome);
+        divClone.find(".musicLevel").text(music.nomenclatura);
         divClone.attr("data-idMusica", music.idMusica);
         divClone.attr("data-idnivel", music.idNivel);
 
@@ -123,7 +124,7 @@ function listMusics(arrayMusics) {
     });
 
     // Define os atributos para exibir os detalhes da música clicada
-    $(".musicName").click(function(){
+    $(".musicBasicInfo").click(function(){
         let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
 
         if(idMusica == $(".selectedMusicInfo").attr("data-idMusica")) {
@@ -140,7 +141,7 @@ function listMusics(arrayMusics) {
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
-            popUpOpen("Você precisa subir de música para acessar essa música!");
+            popUpOpen("Você precisa subir de nível para acessar essa música!");
             $(".userlevel").addClass("animate__animated animate__shakeX");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
@@ -156,7 +157,10 @@ function goToPlayPage(idMusica) {
         idMusica: idMusica
     }, function(response) {
       if (response.sucesso) {
-        window.location.href = "musicPages/musicMainPage.html";
+        window.location.href = "./musicPages/musicMainPage.html";
+      }
+      if (response.erro) {
+        popUpOpen(response.erro);
       }
     }, 'json');
 }
@@ -176,7 +180,7 @@ $(function(){
                 if (xhr.status === 200) {
                     const response = JSON.parse(xhr.responseText);
                     if (response.sucesso) {
-                        window.location.href = '/SingSpeak/index.html';
+                        window.location.href = '../index.html';
                     } else {
                         popUpOpen(response.erro);
                     }
@@ -184,7 +188,7 @@ $(function(){
             }
         };
 
-        xhr.open('GET', 'userCodes/logout.php', true);
+        xhr.open('GET', '../userCodes/logout.php', true);
         xhr.send();
     });
 
@@ -201,16 +205,16 @@ $(function(){
 
     // Redireciona para a página de músicas
     $(".sideBarUsername").click(function () {
-        window.location.href = '/SingSpeak/userpage.html';
+        window.location.href = '/SingSpeak/userCodes/userpage.html';
     })
 
     // Redireciona para a página de usuário
     $(".sideBarUserPage").click(function () {
-        window.location.href = '/SingSpeak/userpage.html';
+        window.location.href = '/SingSpeak/userCodes/userpage.html';
     })
 
     // Redireciona para a página de músicas
     $(".sideBarMusicPage").click(function () {
-        window.location.href = '/SingSpeak/main.html';
+        window.location.href = '/SingSpeak/musicPages/main.html';
     })
 });

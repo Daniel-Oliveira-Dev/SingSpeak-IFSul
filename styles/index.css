@@ -67,43 +67,83 @@ html, body {
     width: 50%;
     height: 33%;
     margin-top: 5%;
+    margin-left: 5%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
+
 .accessForms {
-
-padding: 10px 5px;
-
-border: 1px solid white;
-
-border-radius: 25px;
+    display: flex;
+    flex-direction: row; /* Mudei de 'column' para 'row' */
+    padding: 10px 5px;
+    border-radius: 25px;
+    text-align: left;
+    justify-content: space-evenly;
+    position: relative;
+    transition: 3s ease, transform 3s ease;
+    margin: 0;
 }
 
 .loginForm {
     display: flex;
-    text-align: right;
-    background-color: rgb(255, 255, 124);
-    width: 50%;
+    background-color: #292929;
+    width: 45%;
     height: 100%;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    color: #a2a2a2;
+    font-size: 18px;
+    border: 1px solid #515151;
+    margin: 0;
 }
 
 .signupForm {
     display: flex;
-    background-color: rgb(197, 252, 116);
-    width: 50%;
+    background-color: #292929;
+    width: 45%;
     height: 100%;
     flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: nowrap;
+    align-items: center;
+    color: #a2a2a2;
+    font-size: 18px;
+    border: 1px solid #515151;
+    margin: 0;
 }
 
-.formBehind {
-    z-index: 0;
+#loginSubmit{
+    border: 1px solid white;
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    padding: 10px;
 }
 
-.formFront {
+#signupSubmit{
+    border: 1px solid white;
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+input{
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom:solid 1px white;
+    padding-top: 5px;
+    margin-bottom: 10px;
+}
+
+.selectedSignup {
+    background-color: blueviolet;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.selectedLogin {
+    background-color: blueviolet;
+    transform: translateX(50%);
     z-index: 1;
 }

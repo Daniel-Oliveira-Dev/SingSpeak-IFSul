@@ -7,7 +7,7 @@ function verifySession() {
       if (xhr.readyState === 4) {
           if (xhr.status === 200) {
               if (xhr.responseText === 'Sessão ativa') {
-                window.location.href = '/SingSpeak/main.html';
+                window.location.href = '/SingSpeak/musicPages/main.html';
               }
           }
       }
@@ -49,24 +49,24 @@ $(function(){
   // Verifica se os campos de login estão preenchidos para liberar o botão de Acessar
   $("#loginForm input").change(function(){
     if($("#loginPassword").val() && $("#loginUsername").val()) {
-      $("#loginSubmit").prop("disabled", false);
+      $(".loginSubmit").prop("disabled", false);
     } else {
-      $("#loginSubmit").prop("disabled", true);
+      $(".loginSubmit").prop("disabled", true);
     }
   });
 
   // Verifica se os campos de cadastro estão preenchidos para liberar o botão de Cadastrar
   $("#signupForm input").change(function(){
     if($("#signupPassword").val() && $("#signupUsername").val() && $("#signupEmail").val()) {
-      $("#signupSubmit").prop("disabled", false);
+      $(".signupSubmit").prop("disabled", false);
     } else {
-      $("#signupSubmit").prop("disabled", true);
+      $(".signupSubmit").prop("disabled", true);
     }
   });
 
   // Envia o formulário para verificar o login
-   $("#loginForm").submit(function(event) {
-    event.preventDefault(); // Evita o comportamento padrão do formulário
+   $(".loginSubmit").click(function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
 
     // Obtenha os valores dos campos de entrada
     let username = $("#loginUsername").val();
@@ -80,14 +80,14 @@ $(function(){
       } 
       if (response.sucesso) {
         // O login foi bem-sucedido, redirecionar para a página de usuário
-        window.location.href = '/SingSpeak/main.html';
+        window.location.href = '/SingSpeak/musicPages/main.html';
       }
     }, 'json');
   });
 
   // Envia o formulário para verificar o cadastro
-  $("#signupForm").submit(function(event) {
-    event.preventDefault(); // Evita o comportamento padrão do formulário
+  $(".signupSubmit").click(function(event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
 
     // Obtenha os valores dos campos de entrada
     let username = $("#signupUsername").val();
@@ -102,7 +102,7 @@ $(function(){
       } 
       if (response.sucesso) {
           // O registro foi bem-sucedido, redirecionar para a página de usuário ou fazer outra ação
-          window.location.href = '/SingSpeak/main.html';
+          window.location.href = '/SingSpeak/musicPages/main.html';
       }
   }, 'json');
   });

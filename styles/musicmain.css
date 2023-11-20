@@ -45,14 +45,80 @@ align-items: center;
 background-color: blueviolet;
 margin: 10px 25px;
     }
-    
-    .musicCover {
-        
-    }
 
+    /* === Sidebar === */
+
+.sideBar {
+    display: none;
+    visibility: hidden;
+    margin-left: 25px;
+    color: white;
+    width: 15%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #494949;
+    justify-content: space-between;
+    font-size: larger;
+    font-weight: 600;
+    border-right: 1px solid cadetblue;
+}
+
+.sideBarButton:hover {
+    cursor: pointer;
+}
+
+.openSideBar {
+    display: flex;
+    visibility: visible;
+}
+
+.sideBarOption {
+
+display: flex;
+
+padding: 5px 0;
+
+flex-direction: row;
+
+align-items: center;
+
+flex-wrap: nowrap;
+
+justify-content: flex-start;
+}
+
+.sideBarOption > span {
+    margin-right: 5px;
+}
+
+.sideBarLinks {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sideBarUsername {
+
+padding: 10px 0;
+}
+
+
+/* === Capa e Ranking === */
+
+/* Capa da Música */
+
+    .musicCover {
+    }
     .musicCoverImage {
         width: 100%;
     }
+
+/* Ranking de Pontos */
 
     .ranking {
 
@@ -96,4 +162,57 @@ border-bottom: 1px solid;
         
 text-align: center;
     }
+
+/* === Youtube Video === */
+
+.youtubeVid {
+
+}
+
+/* === Play Area === */
+
+.playArea{
+
+display: flex;
+
+align-items: center;
+
+justify-content: space-around;
+
+flex-direction: row;
+}
+
+.playOptions {
+
+margin: 0 20px;
+}
+
+.playButtonIcon {
+    font-size: 110px !important;
+}
+
+.playButtonIcon:hover {
+    cursor: pointer;
+    font-size: 115px !important;
+    color: wheat;
+}
+
+.musicInfo {
+
+display: flex;
+
+flex-direction: column;
+
+align-items: flex-start;
+
+justify-content: center;
+}
+
+.musicTitle {
+
+font-weight: bolder;
+}
+
+.musicArtistYear {
     
+}

@@ -2,10 +2,10 @@
 
 // Lista as músicas na página inicial
 function listAllMusics() {
-    include "../connection.php";
+    include "../database-control/connection.php";
     try {
-        $statement = $conexao->prepare("SELECT idMusica, nome, artista, idNivel, musicCover 
-        FROM musica ORDER BY idNivel ASC, nome ASC");
+        $statement = $conexao->prepare("SELECT m.idMusica, m.nome, m.artista, m.idNivel, n.nomenclatura 
+        FROM musica m JOIN nivel n ON m.idNivel = n.idNivel ORDER BY m.idNivel ASC, m.nome ASC");
         $statement->execute();
 
         $retorno = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -19,7 +19,7 @@ function listAllMusics() {
 
 // Retorna a música em um array baseado no nome da música
 function assembleMusic($idMusica) {
-    include "../connection.php";
+    include "../database-control/connection.php";
     try {
         $statement = $conexao->prepare("SELECT * FROM musica WHERE idMusica = :idMusica");
 
@@ -37,7 +37,7 @@ function assembleMusic($idMusica) {
 
 // Retorna um array com as 10 maiores pontuações em uma música
 function getMusicRanking($idMusica) {
-    include "../connection.php";
+    include "../database-control/connection.php";
     try {
         $statement = $conexao->prepare("SELECT g.pontuacaoAdquirida, u.username FROM usuariogravamusica g
         JOIN usuario u ON u.idUsuario = g.idUsuario WHERE g.idMusica = :idMusica
@@ -57,7 +57,7 @@ function getMusicRanking($idMusica) {
 
 // Retorna a maior pontuação do usuário na música informada
 function getUserHighestScore($username, $idMusica) {
-    include "../connection.php";
+    include "../database-control/connection.php";
     try {
         $statement = $conexao->prepare("SELECT g.pontuacaoAdquirida FROM usuariogravamusica g
         JOIN usuario u ON u.idUsuario = g.idUsuario
@@ -71,6 +71,21 @@ function getUserHighestScore($username, $idMusica) {
         $retorno = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         return $retorno;
+
+    } catch (PDOException $err) {
+        throw new Exception("Erro na execução da query: " . $err->getMessage());
+    }
+}
+
+// Cria um log para o acesso de um usuário em uma música
+function accessMusicLog($username, $idMusica) {
+    include "../database-control/connection.php";
+    try {
+        $statement = $conexao->prepare("INSERT INTO usuarioAcessaMusica (idUsuario, idMusica) VALUES
+        ((SELECT idUsuario FROM usuario WHERE username LIKE :username), :idMusica)");
+        $statement->bindParam(":username", $username);
+        $statement->bindParam(":idMusica", $idMusica);
+        $statement->execute();
 
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());

@@ -32,7 +32,6 @@ desativada ENUM("S", "N") NOT NULL DEFAULT("N"),
 dataCriacao DATE NOT NULL DEFAULT(CURRENT_DATE()),
 pontos BIGINT NOT NULL DEFAULT(0),
 idNivel INTEGER NOT NULL DEFAULT(1),
-
 PRIMARY KEY (idUsuario),
 FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
@@ -54,7 +53,8 @@ FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario)
 
 -- Inserindo os Logins e Logouts dos Primeiros Usuários
 INSERT INTO logControl (tipoRegistro, dataRegistro, idUsuario) VALUES
-("Login", "2003-11-20 00:00:00", 1), ("Logout", "2003-11-20 23:59:00", 1), ("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
+("Login", "2003-11-20 00:00:00", 1), ("Logout", "2003-11-20 23:59:00", 1), 
+("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
 
 
 -- Tabela de Músicas
@@ -67,7 +67,6 @@ ano SMALLINT NOT NULL,
 codYouTube VARCHAR(255) NOT NULL,
 musicCover VARCHAR(100) NOT NULL,
 idNivel INTEGER NOT NULL,
-
 PRIMARY KEY (idMusica),
 FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
@@ -76,8 +75,10 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 INSERT INTO musica (idMusica, nome, artista, letra, ano, codYouTube, idNivel, musicCover) VALUES 
 (1, "Payphone", "Maroon 5", "letraPayphone.txt", 2012, "fuP4Lkt1vAo?si=5NCefVvnCLQA3j76", 2, "payphone.jpg"),
 (2, "Believer", "Imagine Dragons", "letraBeliever.txt", 2017, "W0DM5lcj6mw?si=gsuA9fkmNu4zBzV7", 3, "believer.jpg"),
-(3, "Hello, Goodbye", "The Beatles", "letraHello.txt", "1967", "TL6XovDlBnw?si=SIn13cFidzA4zzhn", 1, "hello_goodbye.jpg"),
-(4, "Photograph", "Ed Sheeran", "letraPhotograph.txt", "2014", "HpphFd_mzXE?si=hXFjpc29N2zTdsZK", 2, "photograph.jpg");
+(3, "Hello, Goodbye", "The Beatles", "letraHelloGoodbye.txt", 1967, "TL6XovDlBnw?si=SIn13cFidzA4zzhn", 1, "hello_goodbye.jpg"),
+(4, "Photograph", "Ed Sheeran", "letraPhotograph.txt", 2014, "HpphFd_mzXE?si=hXFjpc29N2zTdsZK", 2, "photograph.jpg"),
+(5, "Without Me", "Eminem", "letraWithoutMe.txt", 2002, "-8xhmV3JoG4?si=3gpzXj6BIl5DSBdH", 3, "without_me.jpg"),
+(6, "Hey Jude", "The Beatles", "letraHeyJude.txt", 1968, "pcqDfTrk5LA?si=tc9PJipO7qBqu5-n", 1, "hey_jude.jpg");
 
 -- Tabela de Acesso do Usuário para a Música
 CREATE TABLE usuarioAcessaMusica (
@@ -101,11 +102,6 @@ PRIMARY KEY (idUsuarioGravaMusica),
 FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario),
 FOREIGN KEY (idMusica) REFERENCES musica (idMusica)
 );
-
--- Inserindo Gravações
-INSERT INTO usuarioGravaMusica (pontuacaoAdquirida, idUsuario, idMusica) VALUES
-(4123, 1, 2), (3209, 2, 2), (8549, 2, 2), (1412, 1, 2),
-(4671, 1, 1), (6523, 2, 1), (5123, 2, 1), (5123, 1, 2);
 
 /* Esta parte foi desconsiderada por falta de tempo!
 
