@@ -107,8 +107,8 @@ function rankRecordings(rankArray) {
     let posicao = 1;
     rankArray.forEach(rank => {
         let divClone = divOriginal.clone();
-        divClone.find(".posicaoUsername").text(posicao + "º - " + rank.username);
-        divClone.find(".posicaoPontuacao").text(rank.pontuacaoAdquirida + " pontos");
+        divClone.find(".posicaoPontuacao").text(posicao + "º - " + rank.pontuacaoAdquirida + " pontos");
+        divClone.find(".posicaoUsername").text(rank.username);
         posicao++;
 
         divClone.appendTo(".ranking");

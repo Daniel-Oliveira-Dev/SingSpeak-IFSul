@@ -13,15 +13,18 @@
 <body>
     <div class="mainDiv">
         <div class="popup animate__animated">
-            <div class="popupCloseButton"><span class="material-symbols-outlined popupCloseButtonIcon">cancel</span></div>
             <div class="popupContent"></div>
         </div>
         <div class="logo">
                 <img src="assets/logotipo.png" alt="Logotipo do SingSpeak" class="logoimage">
+                <div class="logotitle">
+                    <div class="logoname">SingSpeak</div>
+                    <div class="logomoto">Aprenda Inglês Cantando!</div>
+                </div>
         </div>
         <div class="mainForms">
-            <div class="signupForm formFront accessForms selectedSignup">
-                    <form id="signupForm" action="userCodes/registerUser.php" method="post">
+            <div class="signupFormBox accessForms">
+                    <form class="signupForm" action="userCodes/registerUser.php" method="post">
                         <label for="signupUsername">Nome de Usuário</label> <br>
                         <input type="text"  id="signupUsername" name="signupUsername" size="15" maxlength="25"> <br>
                         <label for="signupEmail">Endereço de Email</label> <br>
@@ -31,18 +34,19 @@
                     </form>
                     <button type="submit" class="signupSubmit" disabled>Cadastrar</button>
                 </div>
-            <div class="loginForm formBehind accessForms">
-                <form id="loginForm" action="userCodes/acessUser.php" method="post">
+            <div class="loginFormBox accessForms">
+                <form class="loginForm" action="userCodes/acessUser.php" method="post">
                     <label for="loginUsername">Nome de Usuário</label> <br>
                     <input type="text"  id="loginUsername" name="loginUsername" size="15" maxlength="25"> <br>
                     <label for="loginPassword">Senha de Acesso</label> <br>
                     <input type="password"  id="loginPassword" name="loginPassword" size="15" maxlength="25"> <br>
                 </form>
-                <button type="submit" name="loginSubmit" class="loginSubmit" disabled>Acessar</button>
+                <button type="submit" class="loginSubmit" disabled>Acessar</button>
             </div>
         </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.core.min.js"></script>
 <script src="index.js"></script>
 </html>

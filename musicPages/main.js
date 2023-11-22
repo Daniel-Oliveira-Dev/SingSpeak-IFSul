@@ -18,14 +18,19 @@ function getMusicList() {
 
 // Ativa o pop up com a mensagem identificada
 function popUpOpen (mensagem) {
-    $(".popup").removeClass("animate__bounceOutUp");
+    new Howl({
+        src: ['../assets/sounds/error.mp3'],
+        volume: 1.0 // Volume (de 0.0 a 1.0)
+    }).play();
+    $(".popup").removeClass("animate__hinge");
     $(".popupContent").text(mensagem);
     $(".popup").css("visibility", "visible");
-    $(".popup").addClass("animate__bounceInDown");
-    $(".popupCloseButtonIcon").click(function() {
-      $(".popup").removeClass("animate__bounceInDown");
-      $(".popup").addClass("animate__bounceOutUp");
-    });
+    $(".popup").addClass("animate__rubberBand");
+    setTimeout(function () {
+        $(".popup").removeClass("animate__rubberBand");
+        $(".popup").addClass("animate__hinge");
+        $(".userlevel").removeClass("animate__shakeX");
+    }, 3000);
 }
 
 // Busca as informações de uma música específica
@@ -142,10 +147,16 @@ function listMusics(arrayMusics) {
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
             popUpOpen("Você precisa subir de nível para acessar essa música!");
-            $(".userlevel").addClass("animate__animated animate__shakeX");
+            $(".userlevel").addClass("animate__shakeX");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
-            goToPlayPage(idMusica);
+            new Howl({
+                src: ['../assets/sounds/decide.mp3'],
+                volume: 0.5, // Volume (de 0.0 a 1.0)
+                onend: function() {
+                    goToPlayPage(idMusica);
+                }
+            }).play();
         }
     });
 }
@@ -153,11 +164,11 @@ function listMusics(arrayMusics) {
 // Envia o formulário para a página
 function goToPlayPage(idMusica) {
     // Envia a solicitação AJAX para verificar o login
-    $.post('musicCodes/loadMusicPage.php', { 
+    $.post('../musicCodes/loadMusicPage.php', { 
         idMusica: idMusica
     }, function(response) {
       if (response.sucesso) {
-        window.location.href = "./musicPages/musicMainPage.html";
+        window.location.href = "musicMainPage.html";
       }
       if (response.erro) {
         popUpOpen(response.erro);

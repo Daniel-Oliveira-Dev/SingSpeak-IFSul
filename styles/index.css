@@ -1,3 +1,11 @@
+/*
+Roxo: #6C00D7
+Roxo Escuro: #7100C7
+Branco: #EDEDF5
+Cinza: #424344
+Cinza Claro: #5F6162
+*/
+
 /* === Parte Principal === */
 
 html, body {
@@ -22,26 +30,27 @@ html, body {
 .popup {
     visibility: hidden;
     position: fixed;
-    top: 25%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    bottom: 5px;
+    background-color: #6C00D7;
     padding: 20px;
-    max-width: 400px;
-    border: 1px solid #898889;
+    max-width: 600px;
+    border: 1px solid #7100C7;
     border-radius: 25px;
-    background-color: white;
+    color: #EDEDF5;
+    font-weight: bold;
 }
 
 .popupContent {
     text-align: center;
-    padding: 5px 0;
+    padding: 5px 3px;
 }
 
 .popupCloseButton {
     width: 100%;
     display: flex;
     justify-content: center;
+    color: #7100C7;
+    margin-bottom: 3px;
 }
 
 .popupCloseButtonIcon:hover {
@@ -50,100 +59,126 @@ html, body {
 
 /* === Logo do Sistema === */
 
+@font-face {
+    font-family: "fonte-da-logo";
+    src: url("../assets/fonts/Billion Dreams.ttf");
+}
+
 .logo {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
+    justify-content: center;
+    width: 100%;
+}
+.logotitle {
+    display: flex;
+    flex-direction: column;
+    color: #EDEDF5;
+    font-family: fonte-da-logo;
 }
 .logoimage {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+}
+.logoname {
+    font-size: 75px;
+}
+.logomoto {
+    font-size: 25px;
 }
 
 /* === Formularios === */
 
+/* Div que guarda os forms*/
 .mainForms {
     display: flex;
     flex-direction: row;
     padding: 15px;
-    width: 50%;
-    height: 33%;
+    width: 80%;
+    height: 38%;
     margin-top: 5%;
-    margin-left: 5%;
     align-items: center;
     justify-content: space-around;
 }
 
+.formTitle {
+    color: #EDEDF5;
+}
 
+/* Classe Comum para Ambos os Forms */
 .accessForms {
     display: flex;
-    flex-direction: row; /* Mudei de 'column' para 'row' */
-    padding: 10px 5px;
-    border-radius: 25px;
-    text-align: left;
-    justify-content: space-evenly;
-    position: relative;
-    transition: 3s ease, transform 3s ease;
-    margin: 0;
-}
-
-.loginForm {
-    display: flex;
-    background-color: #292929;
-    width: 45%;
-    height: 100%;
     flex-direction: column;
     align-items: center;
-    color: #a2a2a2;
-    font-size: 18px;
-    border: 1px solid #515151;
-    margin: 0;
-}
-
-.signupForm {
-    display: flex;
-    background-color: #292929;
-    width: 45%;
+    color: #EDEDF5;
+    text-align: center;
+    font-family: fantasy;
+    border: 1px solid;
+    width: 30%;
     height: 100%;
-    flex-direction: column;
-    align-items: center;
-    color: #a2a2a2;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 16px;
+    background-color: #424344;
     font-size: 18px;
-    border: 1px solid #515151;
-    margin: 0;
 }
 
-#loginSubmit{
-    border: 1px solid white;
-    border-radius: 25px;
-    background-color: black;
-    color: white;
-    padding: 10px;
-}
-
-#signupSubmit{
-    border: 1px solid white;
-    border-radius: 25px;
-    background-color: black;
-    color: white;
-    padding: 10px;
-}
-
-input{
+.accessForms input, .accessForms input:focus, .accessForms input:active{
     background: transparent;
     border: none;
     outline: none;
-    border-bottom:solid 1px white;
+    border-bottom:solid 1px #EDEDF5;
+    color: #EDEDF5;
     padding-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-family: fantasy;
 }
 
-.selectedSignup {
-    background-color: blueviolet;
-    transform: translateX(-50%);
-    z-index: 1;
+.accessForms input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #6C00D7 inset;
+    -webkit-text-fill-color: #EDEDF5 !important;
 }
 
-.selectedLogin {
-    background-color: blueviolet;
-    transform: translateX(50%);
-    z-index: 1;
+.accessForms button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 10%;
+    margin: 5px 0;
+    border-radius: 15px;
+}
+
+.accessForms button:hover {
+    cursor: not-allowed;
+}
+
+/* Classe para um Form selecionado */
+
+.selectedForm {
+    background-color: #6C00D7;
+    border: #7100C7 4px solid;
+}
+
+.selectedForm button {
+    border-color: #7100C7;
+    color: #6C00D7;
+}
+
+.selectedForm button:hover {
+    cursor: pointer;
+}
+
+.selectedForm button:disabled:hover{
+    cursor: not-allowed;
+}
+
+/* Classe para Button desativado #Prioridade# */
+
+.accessForms button:disabled {
+    border: 1px solid #424344;
+    color: #424344;
+    background-color: #5F6162;
 }

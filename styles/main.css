@@ -1,3 +1,11 @@
+/*
+Roxo: #6C00D7
+Roxo Escuro: #7100C7
+Branco: #EDEDF5
+Cinza: #424344
+Cinza Claro: #5F6162
+*/
+
 /* === Parte Principal === */
 
 html, body {
@@ -18,7 +26,6 @@ html, body {
 }
 
 .leftSide {
-    background-color: hsl(0deg 0% 0%);
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -28,7 +35,6 @@ html, body {
 
 .rightSide {
     display: flex;
-    background-color: hsl(0deg 0% 0%);
     width: 40%;
     flex-direction: column;
     align-items: center;
@@ -39,27 +45,28 @@ html, body {
 .popup {
     visibility: hidden;
     position: fixed;
-    top: 25%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    bottom: 5px;
+    right: 5px;
+    background-color: #6C00D7;
     padding: 20px;
     max-width: 400px;
-    border: 1px solid #898889;
+    border: 1px solid #7100C7;
     border-radius: 25px;
-    background-color: white;
+    color: #EDEDF5;
+    font-weight: bold;
 }
 
 .popupContent {
     text-align: center;
-    padding: 5px 0;
+    padding: 5px 3px;
 }
 
 .popupCloseButton {
     width: 100%;
     display: flex;
     justify-content: center;
+    color: #7100C7;
+    margin-bottom: 3px;
 }
 
 .popupCloseButtonIcon:hover {
@@ -71,20 +78,30 @@ html, body {
 .sideBar {
     display: none;
     visibility: hidden;
-    color: white;
-    width: 25%;
+    color: #EDEDF5;
+    width: 20%;
     height: 100%;
     flex-direction: column;
     align-items: center;
-    background-color: #494949;
+    background-color: #424344;
     justify-content: space-between;
     font-size: larger;
     font-weight: 600;
-    border-right: 1px solid cadetblue;
+    border-right: 1px solid #7100C7;
+}
+
+.sideBarButton {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    height: 45px;
+    font-size: 25px !important;
 }
 
 .sideBarButton:hover {
     cursor: pointer;
+    color: #6C00D7;
 }
 
 .openSideBar {
@@ -93,22 +110,21 @@ html, body {
 }
 
 .sideBarOption {
-
-display: flex;
-
-padding: 5px 0;
-
-flex-direction: row;
-
-align-items: center;
-
-flex-wrap: nowrap;
-
-justify-content: flex-start;
+    display: flex;
+    padding: 5px 0;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
 .sideBarOption > span {
     margin-right: 5px;
+}
+
+.sideBarOption:hover {
+    color: #6C00D7;
+    cursor: pointer;
 }
 
 .sideBarLinks {
@@ -122,8 +138,8 @@ justify-content: flex-start;
 }
 
 .sideBarUsername {
-
-padding: 10px 0;
+    padding: 10px 0;
+    cursor: pointer;
 }
 
 /* === Lado Esquerdo === */
@@ -142,34 +158,16 @@ padding: 10px 0;
     margin: 0 0 30px 0;
 }
 
-.sideBarButton {
-    
-display: flex;
-    
-align-items: center;
-    
-flex-direction: row;
-    
-justify-content: center;
-    
-height: 45px;
-}
-
 .userlevel {
-
-width: 100%;
-
-text-align: center;
-
-font-size: larger;
-
-font-family: fangsong;
+    width: 100%;
+    text-align: center;
+    font-size: larger;
+    font-family: fangsong;
 }
 
 /* Lista de Musicas */
 
 .musicList {
-    background-color: hsl(0deg 0% 0%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -179,9 +177,9 @@ font-family: fangsong;
 
 .musicModel {
     
-background-color: #494949;
+background-color: #424344;
     
-color: white;
+color: #EDEDF5;
     
 display: flex;
     
@@ -197,7 +195,7 @@ margin: 10px 0;
     
 height: 60px;
     
-border: 3px solid antiquewhite;
+border: 3px solid #EDEDF5;
     
 border-radius: 30px;
     
@@ -210,9 +208,9 @@ border-bottom-left-radius: 0;
 
 .musicModel:hover {
     width: 100%;
-    color: black;
-    background-color: white;
-    border-color: black;
+    color: #6C00D7;
+    background-color: #EDEDF5;
+    border-color: #6C00D7;
 }
 
 /* Partes da Lista */
@@ -240,11 +238,12 @@ font-family: fantasy;
 
 .playButtonArea {
     margin: 3px 20px;
+    font-size: x-large !important;
+    font-weight: 900 !important;
 }
 
 .playButton {
-    font-size: larger;
-    font-weight: 900;
+    font-size: 30px !important;
 }
 
 .playButton:hover {
@@ -254,13 +253,14 @@ font-family: fantasy;
 /* Indisponivel */
 
 .unavailableMusic {
-    border-color: rgb(255 255 255);
-    color: rgb(141 141 141);
-    border-color: #898889;
+    color: #5F6162;
+    border-color: #5F6162;
 }
 
 .unavailableMusic:hover {
-    background-color: rgb(213 213 213);
+    background-color: #EDEDF5;
+    color: #424344;
+    border-color: #424344;
 }
 
 /* === Lado Direito === */
@@ -293,9 +293,9 @@ flex-direction: column;
 
 align-items: center;
 
-color: white;
+color: #EDEDF5;
 
-background-color: hsl(0deg 0% 23.14%);
+background-color: #424344;
 
 height: 90px;
 
@@ -306,6 +306,8 @@ margin: 40px 0;
 justify-content: space-evenly;
 
 border-radius: 35px;
+
+border: 1px solid #7100C7;
 }
 
 .musicArtist {

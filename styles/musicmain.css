@@ -1,3 +1,11 @@
+/*
+Roxo: #6C00D7
+Roxo Escuro: #7100C7
+Branco: #EDEDF5
+Cinza: #424344
+Cinza Claro: #5F6162
+*/
+
 /* === Parte Principal === */
 
 html, body {
@@ -17,7 +25,7 @@ html, body {
     flex-wrap: nowrap;
 }
     
-    .leftDiv {
+.leftDiv {
     
 width: 15%;
     
@@ -27,14 +35,17 @@ flex-direction: column;
     
 align-items: center;
     
-background-color: darkslategray;
+background-color: #6C00D7;
+color: #EDEDF5;
     
 margin: 10px 25px;
+border: 1px solid #7100C7;
+border-radius: 25px;
+overflow: hidden;
     }
     
-    .rightDiv {
-    
-width: 75%;
+.rightDiv {
+    width: 75%;
     
 display: flex;
     
@@ -42,8 +53,9 @@ flex-direction: column;
     
 align-items: center;
 
-background-color: blueviolet;
-margin: 10px 25px;
+background-color: rgba(137, 48, 221, 0);
+margin: 10px 0px;
+
     }
 
     /* === Sidebar === */
@@ -52,16 +64,16 @@ margin: 10px 25px;
     display: none;
     visibility: hidden;
     margin-left: 25px;
-    color: white;
+    color: #EDEDF5;
     width: 15%;
     height: 100%;
     flex-direction: column;
     align-items: center;
-    background-color: #494949;
+    background-color: #424344;
     justify-content: space-between;
     font-size: larger;
     font-weight: 600;
-    border-right: 1px solid cadetblue;
+    border-left: 1px solid #7100C7;
 }
 
 .sideBarButton:hover {
@@ -86,6 +98,10 @@ align-items: center;
 flex-wrap: nowrap;
 
 justify-content: flex-start;
+}
+
+.sideBarOption:hover{
+    color: #6C00D7;
 }
 
 .sideBarOption > span {
@@ -113,6 +129,8 @@ padding: 10px 0;
 /* Capa da Música */
 
     .musicCover {
+        border-radius: 25px;
+        overflow: hidden;
     }
     .musicCoverImage {
         width: 100%;
@@ -146,6 +164,7 @@ align-items: center;
 padding: 3px 0px;
 
 width: 100%;
+border-bottom: 1px solid;
 }
 
     .posicaoUsername {
@@ -154,7 +173,6 @@ text-align: center;
 
 
 
-border-bottom: 1px solid;
 
 }
 
@@ -165,47 +183,68 @@ text-align: center;
 
 /* === Youtube Video === */
 
-.youtubeVid {
+.youtubePlayer {
+    width: 100% !important;
+    height: 100% !important;
+}
 
+.youtubeFrame {
+    width: 100%;
+    height: 80%;
+    border-radius: 25px;
 }
 
 /* === Play Area === */
 
 .playArea{
-
-display: flex;
-
-align-items: center;
-
-justify-content: space-around;
-
-flex-direction: row;
+    margin: 15px 0;
+    display: flex;
+    width: 60%;
+    height: 20%;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    background-color: #424344;
+    font-size: large;
+    border-radius: 25px;
+    border: 1px solid #7100C7;
 }
 
 .playOptions {
 
-margin: 0 20px;
+margin: 0 25px;
+}
+
+.playButton {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    color: #EDEDF5;
+    align-content: center;
 }
 
 .playButtonIcon {
-    font-size: 110px !important;
+    font-size: 90px !important;
 }
 
 .playButtonIcon:hover {
     cursor: pointer;
-    font-size: 115px !important;
-    color: wheat;
+    color: #6C00D7;
+    font-size: 100px !important;
 }
 
-.musicInfo {
+/* Info das Musicas */
 
-display: flex;
+.musicInfo {
+    width: 50%;
+    display: flex;
 
 flex-direction: column;
 
 align-items: flex-start;
 
 justify-content: center;
+color: #EDEDF5;
 }
 
 .musicTitle {

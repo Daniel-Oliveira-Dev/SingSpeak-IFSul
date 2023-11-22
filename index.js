@@ -19,14 +19,19 @@ function verifySession() {
 
 // Ativa o pop up com a mensagem identificada
 function popUpOpen (mensagem) {
-  $(".popup").removeClass("animate__bounceOutUp");
-  $(".popupContent").text(mensagem);
-  $(".popup").css("visibility", "visible");
-  $(".popup").addClass("animate__bounceInDown");
-  $(".popupCloseButtonIcon").click(function() {
-    $(".popup").removeClass("animate__bounceInDown");
-    $(".popup").addClass("animate__bounceOutUp");
-  });
+  new Howl({
+        src: ['../assets/sounds/error.mp3'],
+        volume: 1.0 // Volume (de 0.0 a 1.0)
+    }).play();
+    $(".popup").removeClass("animate__zoomOutDown");
+    $(".popupContent").text(mensagem);
+    $(".popup").css("visibility", "visible");
+    $(".popup").addClass("animate__rubberBand");
+    setTimeout(function () {
+        $(".popup").removeClass("animate__rubberBand");
+        $(".popup").addClass("animate__zoomOutDown");
+        $(".userlevel").removeClass("animate__shakeX");
+    }, 2000);
 }
 
 // Funções jQuery
@@ -37,17 +42,34 @@ $(function(){
   verifySession();
 
   // Alterna a prioridade dos formulários
-  $(".loginForm").click(function(){
-    $(this).removeClass("formBehind").addClass("formFront");
-    $(".signupForm").removeClass("formFront").addClass("formBehind");
+  $(".signupFormBox").click(function () {
+    $(".signupFormBox").addClass("selectedForm");
+    $(".loginFormBox").removeClass("selectedForm");
+    $(".loginForm")[0].reset();
+    $(document).on("click", function(e) {
+      // Verifica se o clique não ocorreu dentro de um formulário com a classe "accessForms"
+      if (!$(e.target).closest(".accessForms").length) {
+          // Remove a classe "selectedForm" de todos os formulários
+          $(".accessForms").removeClass("selectedForm");
+      }
   });
-  $(".signupForm").click(function(){
-    $(this).removeClass("formBehind").addClass("formFront");
-    $(".loginForm").removeClass("formFront").addClass("formBehind");
+  });
+
+  $(".loginFormBox").click(function () {
+    $(".loginFormBox").addClass("selectedForm");
+    $(".signupFormBox").removeClass("selectedForm");
+    $(".signupForm")[0].reset();
+    $(document).on("click", function(e) {
+      // Verifica se o clique não ocorreu dentro de um formulário com a classe "accessForms"
+      if (!$(e.target).closest(".accessForms").length) {
+          // Remove a classe "selectedForm" de todos os formulários
+          $(".accessForms").removeClass("selectedForm");
+      }
+  });
   });
 
   // Verifica se os campos de login estão preenchidos para liberar o botão de Acessar
-  $("#loginForm input").change(function(){
+  $(".loginForm input").change(function(){
     if($("#loginPassword").val() && $("#loginUsername").val()) {
       $(".loginSubmit").prop("disabled", false);
     } else {
@@ -56,7 +78,7 @@ $(function(){
   });
 
   // Verifica se os campos de cadastro estão preenchidos para liberar o botão de Cadastrar
-  $("#signupForm input").change(function(){
+  $(".signupForm input").change(function(){
     if($("#signupPassword").val() && $("#signupUsername").val() && $("#signupEmail").val()) {
       $(".signupSubmit").prop("disabled", false);
     } else {
@@ -93,6 +115,11 @@ $(function(){
     let username = $("#signupUsername").val();
     let email = $("#signupEmail").val();
     let password = $("#signupPassword").val();
+    
+    if (password.length < 6) {
+      popUpOpen("Sua senha é muito curta! Mínimo de 6 caracteres.");
+      return;
+    }
 
     // Envia a solicitação AJAX para verificar o cadastro
     $.post('userCodes/registerUser.php', { signupUsername: username, signupEmail: email, signupPassword: password }, function(response) {
