@@ -18,10 +18,6 @@ function getMusicList() {
 
 // Ativa o pop up com a mensagem identificada
 function popUpOpen (mensagem) {
-    new Howl({
-        src: ['../assets/sounds/error.mp3'],
-        volume: 1.0 // Volume (de 0.0 a 1.0)
-    }).play();
     $(".popup").removeClass("animate__hinge");
     $(".popupContent").text(mensagem);
     $(".popup").css("visibility", "visible");
@@ -72,7 +68,8 @@ function verifySession() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                if (xhr.responseText === 'Sessão não encontrada') {
+                let responseJson = JSON.parse(xhr.responseText);
+                if (responseJson.erro) {
                   window.location.href = '/SingSpeak/index.html';
                 }
             }
@@ -91,6 +88,9 @@ function assembleUser() {
             if (xhr.status === 200) {
                 let responseJson = JSON.parse(xhr.responseText);
                 assignUserInfo(responseJson.userArray);
+                if (responseJson.accessOfDay === 1) {
+                    popUpOpen("Você recebeu 15 pontos por seu acesso diário!");
+                }
             }
         }
     };
@@ -146,13 +146,17 @@ function listMusics(arrayMusics) {
     // Encaminha o usuário para a página da música selecionada
     $(".playButton").click(function(){
         if ($(this).closest(".musicModel").hasClass("unavailableMusic")) {
+            new Howl({
+                src: ['../assets/sounds/error.mp3'],
+                volume: 0.5 // Volume (de 0.0 a 1.0)
+            }).play();
             popUpOpen("Você precisa subir de nível para acessar essa música!");
             $(".userlevel").addClass("animate__shakeX");
         } else {
             let idMusica = $(this).closest(".musicModel").attr("data-idMusica");
             new Howl({
                 src: ['../assets/sounds/decide.mp3'],
-                volume: 0.5, // Volume (de 0.0 a 1.0)
+                volume: 0.1, // Volume (de 0.0 a 1.0)
                 onend: function() {
                     goToPlayPage(idMusica);
                 }

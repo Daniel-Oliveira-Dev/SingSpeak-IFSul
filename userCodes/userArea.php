@@ -10,25 +10,6 @@ function givePoints($username, $addPontos) {
         $statement->bindParam(":points", $addPontos);
 
         $statement->execute();
-
-        //checkPointsToUpdateLevel($username);
-        
-    } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
-    }
-}
-
-// =asda=sd=ad=a=sda=dad=sa=da=d=ad=ad=a=da=d=ad=ad=a=da=da=d=a
-// Verifica se a pontuação do usuário do usuário modifica seu nível
-function checkPointsToUpdateLevel($username) {
-    include("../database-control/connection.php");
-    try {
-        $statement = $conexao->prepare("SELECT pontos, idnivel FROM usuario WHERE username = :username");
-
-        $statement->bindParam(":username", $username);
-        $statement->execute();
-
-        $resultadoUser = $statement->fetchAll(PDO::FETCH_ASSOC);
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -36,7 +17,7 @@ function checkPointsToUpdateLevel($username) {
 }
 
 // Verifica se o usuário terá o bônus diário
-function checkFirstOfDay($username) {
+function countAccessInDay($username) {
     include("../database-control/connection.php");
     try {
         $statement = $conexao->prepare("SELECT dataRegistro FROM logControl 
@@ -47,9 +28,7 @@ function checkFirstOfDay($username) {
 
         $statement->execute();
 
-        if ($statement->rowCount() == 0) {
-            givePoints($username, 15);
-        }
+        return $statement->rowCount();
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -60,8 +39,6 @@ function checkFirstOfDay($username) {
 function logGenerator($username, $action) {
     include("../database-control/connection.php");
     try {
-        checkFirstOfDay($username);
-
         $statement = $conexao->prepare("INSERT INTO logControl (tipoRegistro, idUsuario) 
         VALUES (:tipoRegistro, (SELECT idUsuario FROM usuario WHERE username LIKE :username))");
 
@@ -69,6 +46,10 @@ function logGenerator($username, $action) {
         $statement->bindParam(":tipoRegistro", $action);
 
         $statement->execute();
+
+        if (countAccessInDay($username) == 1) {
+            givePoints($username, 15);
+        }
         
     } catch (PDOException $err) {
         throw new Exception("Erro na execução da query: " . $err->getMessage());
@@ -230,8 +211,8 @@ function deactivateAccount($username) {
 function assembleUser($username) {
     include("../database-control/connection.php");
     try {
-        $statement = $conexao->prepare("SELECT username, email, dataCriacao, pontos, idNivel 
-        FROM usuario WHERE username = :username");
+        $statement = $conexao->prepare("SELECT u.username, u.email, DATE_FORMAT(u.dataCriacao, '%d/%m/%Y') AS dataFormatada, 
+        u.pontos, i.nomenclatura FROM usuario u JOIN nivel i ON u.idNivel = i.idNivel WHERE u.username = :username");
 
         $statement->bindParam(":username", $username);
 
@@ -242,9 +223,9 @@ function assembleUser($username) {
         $user = array(
             $resultado[0]['username'],
             $resultado[0]['email'],
-            $resultado[0]['dataCriacao'],
+            $resultado[0]['dataFormatada'],
             $resultado[0]['pontos'],
-            $resultado[0]['idNivel'],
+            $resultado[0]['nomenclatura'],
             userRankPlacement($username)
         );
 

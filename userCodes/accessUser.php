@@ -7,6 +7,17 @@ $senha = $_POST['loginPassword'];
 
 unset($_POST);
 
+function createSession($username) {
+    if (isset($_SESSION['accessGranted'])) {
+        throw new Exception("Não foi possível criar sua sessão pois já havia uma criada no servidor!");
+    }
+    $timeout = 60 * 30; // 60 segundos vezes a quantidade de minutos que quer durar a sessão
+    $dateTime = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+    $dateTime->add(new DateInterval("PT" . $timeout . "S"));
+    $_SESSION['expireAccess'] = $dateTime;
+    $_SESSION['accessGranted'] = $username;
+}
+
 // Valida o acesso verificando o banco de dados
 require "userArea.php";
 
@@ -16,7 +27,7 @@ try {
     // Gera o log de acesso do usuário
     logGenerator($username, "Login");
     // Inicia a sessão localmente
-    $_SESSION['accessGranted'] = $tentativa;
+    createSession($tentativa);
     echo json_encode(['sucesso' => "Sucesso!"]);
     exit();
 } catch (Exception $e) {

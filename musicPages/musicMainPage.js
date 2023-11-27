@@ -6,7 +6,8 @@ function verifySession() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                if (xhr.responseText === 'Sessão não encontrada') {
+                let responseJson = JSON.parse(xhr.responseText);
+                if (responseJson.erro) {
                   window.location.href = '../index.html';
                 }
             }

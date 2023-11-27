@@ -2,12 +2,26 @@
 
 // Insere as informações do usuário na página
 function assignUserInfo(arrayUser) {
-  $("#infoUsername").text($("#infoUsername").text() + " " + arrayUser[0]);
-  $("#infoEmail").text($("#infoEmail").text() + " " + arrayUser[1]);
-  $("#infoDataCriacao").text($("#infoDataCriacao").text() + " " + arrayUser[2]);
-  $("#infoPontos").text($("#infoPontos").text() + " " + arrayUser[3] + " pontos e está na posição " + arrayUser[5]);
-  $("#infoNivel").text($("#infoNivel").text() + " " + arrayUser[4]);
+  $(".infoUsername").text($(".infoUsername").text() + " " + arrayUser[0]);
+  $(".infoEmail").text(arrayUser[1]);
+  $(".infoDataCriacao").text($(".infoDataCriacao").text() + " " + arrayUser[2]);
+  $(".rankingScore").text(arrayUser[3] + " pontos");
+  $(".rankingPlacement").text(arrayUser[5] + "º lugar");
+  $(".levelName").text(arrayUser[4]);
   $(document).prop('title', arrayUser[0]);
+}
+
+// Abre o Pop Up
+function popupOpen(mensagem) {
+  $(".popup").removeClass("animate__backOutDown");
+  $(".configTabPopup").removeClass("hiddenConfig");
+  $(".popup").addClass("animate__rubberBand");
+  $(".popupContent").text(mensagem);
+  setTimeout(() => {
+    $(".popup").removeClass("animate__rubberBand");
+    $(".popup").addClass("animate__backOutDown");
+    $(".configTabPopup").addClass("hiddenConfig");
+  }, 3000);
 }
 
 // Verifica se a sessão está definida
@@ -16,9 +30,10 @@ function verifySession() {
   xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-              if (xhr.responseText === 'Sessão não encontrada') {
-                window.location.href = '/SingSpeak/index.html';
-              }
+            let responseJson = JSON.parse(xhr.responseText);
+            if (responseJson.erro) {
+              window.location.href = '../index.html';
+            }
           }
       }
   };
@@ -53,7 +68,7 @@ $(function(){
   assembleUser();
 
   // Encerra a sessão se o usuário clicar no botão "Sair"
-  $("#buttonLogout").click(function () {
+  $(".buttonLogout").click(function () {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -62,7 +77,7 @@ $(function(){
                 if (response.sucesso) {
                     window.location.href = '../index.html';
                 } else {
-                    alert(response.erro);
+                    popupOpen(response.erro);
                 }
             }
         }
@@ -77,47 +92,48 @@ $(function(){
     window.location.href = '../musicPages/main.html';
   })
 
-  // Ativa e desativa os botões de Configurações
-  $("#buttonConfig").click(function () {
-      $("#optionsConfig").toggleClass("hiddenElement");
-      $(".configForm").addClass("hiddenElement");
+  // Ativa e desativa a aba de Configurações
+  $(".configStartButton, .optionsExit").click(function () {
+    $(".configTabBackground").toggleClass("hiddenConfig");
   })
 
-  // Ativa e desativar o Formulário de Editar Username
-  $("#optionsUsername").click(function () {
-    $("#alterEmailDiv, #alterPasswordDiv, #deleteAccountDiv").addClass("hiddenElement");
-    $("#alterUsernameDiv").toggleClass("hiddenElement");
-  })
-
-  // Ativa e desativar o Formulário de Editar Email
-  $("#optionsEmail").click(function () {
-    $("#alterUsernameDiv, #alterPasswordDiv, #deleteAccountDiv").addClass("hiddenElement");
-    $("#alterEmailDiv").toggleClass("hiddenElement");
-  })
-
-  // Ativa e desativar o Formulário de Editar Senha
-  $("#optionsPassword").click(function () {
-    $("#alterUsernameDiv, #alterEmailDiv, #deleteAccountDiv").addClass("hiddenElement");
-    $("#alterPasswordDiv").toggleClass("hiddenElement");
-  })
-
-  // Ativa e desativar o Formulário de Apagar Conta
-  $("#optionsDelete").click(function () {
-    $("#alterUsernameDiv, #alterPasswordDiv, #alterEmailDiv").addClass("hiddenElement");
-    $("#deleteAccountDiv").toggleClass("hiddenElement");
-  })
-
-  // Verifica se os campos de Alterar Username estão preenchidos para liberar o botão de envio
-  $("#alterUsernameForm input").change(function(){
-    if($("#passwordConfirmUser").val() && $("#newUsername").val() && $("#newUsernameConfirm").val()) {
-      $("#newUsernameSubmit").prop("disabled", false);
-    } else {
-      $("#newUsernameSubmit").prop("disabled", true);
-    }
+  // Muda o formulário exibido baseado no clique nas opções
+  $(".buttonConfigMenu, #resetForm").click(function() {
+    $(".configForm").addClass("hiddenConfig");
+    $("form").each(function () {
+      this.reset();
+    });
+    let formtype = $(this).data("formtype");
+    $(".submitButton").prop("disabled", true);
+    $(".configForm[data-formtype='" + formtype + "']").removeClass("hiddenConfig");
   });
 
+  // Verifica se o formulário está com todos os campos preenchidos para liberar o botão de Enviar
+  $(".configFormArea input").change(function () {
+    let form = $(this).closest("form");
+    let todosPreenchidos = true;
+  
+    // Verifica cada input para ver se estão preenchidos
+    form.find("input").each(function () {
+      if ($(this).is(":checkbox") && !$(this).prop("checked")) {
+        todosPreenchidos = false;
+        return false;  // Sai do loop se encontrar um checkbox não marcado
+      } else if ($(this).val() === "") {
+        todosPreenchidos = false;
+        return false;  // Sai do loop se encontrar um campo de texto vazio
+      }
+    });    
+
+    form.parent().find(".submitButton").prop("disabled", !todosPreenchidos);
+  });
+
+  // Ativa o envio do formulário
+ $(".submitButton").click(function () {
+  $(this).parent().parent().find(".configFormArea").submit();
+ });
+
   // Envia o formulário para alterar o username
-  $("#alterUsernameForm").submit(function(event) {
+  $(".alterUsernameForm").submit(function(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
     // Obtenha os valores dos campos de entrada
@@ -126,7 +142,7 @@ $(function(){
     let newUsernameConfirmInput = $("#newUsernameConfirm").val();
 
     if (newUsernameConfirmInput != newUsernameInput) {
-      alert("Os nomes de usuário não coincidem!");
+      popupOpen("Os nomes de usuário não coincidem!");
       return;
     }
 
@@ -137,7 +153,7 @@ $(function(){
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
-        alert(response.erro);
+        popupOpen(response.erro);
       }
       if (response.sucesso) {
         window.location.reload();
@@ -145,17 +161,8 @@ $(function(){
     }, 'json');
   });
 
-  // Verifica se os campos de Alterar Email estão preenchidos para liberar o botão de envio
-  $("#alterEmailForm input").change(function(){
-    if($("#passwordConfirmEmail").val() && $("#newEmail").val() && $("#newEmailConfirm").val()) {
-      $("#newEmailSubmit").prop("disabled", false);
-    } else {
-      $("#newEmailSubmit").prop("disabled", true);
-    }
-  });
-
   // Envia o formulário para alterar o email
-  $("#alterEmailForm").submit(function(event) {
+  $(".alterEmailForm").submit(function(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
     // Obtenha os valores dos campos de entrada
@@ -164,7 +171,7 @@ $(function(){
     let newEmailConfirmInput = $("#newEmailConfirm").val();
 
     if (newEmailInput != newEmailConfirmInput) {
-      alert("Os endereços de email não coincidem");
+      popupOpen("Os endereços de email não coincidem");
       return;
     }
 
@@ -175,7 +182,7 @@ $(function(){
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
-        alert(response.erro);
+        popupOpen(response.erro);
       }
       if (response.sucesso) {
         window.location.reload();
@@ -183,17 +190,8 @@ $(function(){
     }, 'json');
   });
 
-  // Verifica se os campos de Alterar Senha estão preenchidos para liberar o botão de envio
-  $("#alterPasswordForm input").change(function(){
-    if($("#oldPassword").val() && $("#newPassword").val() && $("#newPasswordConfirm").val()) {
-      $("#newPasswordSubmit").prop("disabled", false);
-    } else {
-      $("#newPasswordSubmit").prop("disabled", true);
-    }
-  });
-
   // Envia o formulário para alterar a senha
-  $("#alterPasswordForm").submit(function(event) {
+  $(".alterPasswordForm").submit(function(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
     // Obtenha os valores dos campos de entrada
@@ -202,12 +200,12 @@ $(function(){
     let newPasswordConfirmInput = $("#newPasswordConfirm").val();
 
     if (newPasswordInput != newPasswordConfirmInput) {
-      alert("As senhas não coincidem");
+      popupOpen("As senhas não coincidem");
       return;
     }
 
     if (newPasswordInput === oldPasswordInput) {
-      alert("Sua nova senha precisa ser diferente da atual!");
+      popupOpen("Sua nova senha precisa ser diferente da atual!");
       return;
     }
 
@@ -218,7 +216,7 @@ $(function(){
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
-        alert(response.erro);
+        popupOpen(response.erro);
       }
       if (response.sucesso) {
         window.location.href = '../index.html';
@@ -226,17 +224,9 @@ $(function(){
     }, 'json');
   });
 
-  // Verifica se os campos de Deletar Conta estão preenchidos para liberar o botão de envio
-  $("#deleteAccountForm input").change(function(){
-    if($("#confirmPasswordOne").val() && $("#confirmPasswordTwo").val() && $("#confirmDeleteCheckbox").prop("checked")) {
-      $("#confirmDeleteAccountButton").prop("disabled", false);
-    } else {
-      $("#confirmDeleteAccountButton").prop("disabled", true);
-    }
-  });
 
   // Envia o formulário para deletar a conta
-  $("#deleteAccountForm").submit(function(event) {
+  $(".deleteAccountForm").submit(function(event) {
     event.preventDefault(); // Evita o comportamento padrão do formulário
 
     // Obtenha os valores dos campos de entrada
@@ -244,7 +234,7 @@ $(function(){
     let confirmPasswordTwoInput = $("#confirmPasswordTwo").val();
 
     if (confirmPasswordOneInput != confirmPasswordTwoInput) {
-      alert("As senhas não são iguais!");
+      popupOpen("As senhas não são iguais!");
       return;
     }
 
@@ -254,7 +244,7 @@ $(function(){
     }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
-        alert(response.erro);
+        popupOpen(response.erro);
       }
       if (response.sucesso) {
         window.location.href = '../index.html';

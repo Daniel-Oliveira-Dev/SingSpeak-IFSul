@@ -8,102 +8,156 @@
         <link rel="icon" href="../assets/logotipo.png">
         <link rel="stylesheet" href="../styles/userpage.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     </head>
     <body>
         <!-- Container que contém todos as informações da Página -->
-        <div id="mainDiv" name="mainDiv" class="mainDiv">
+        <div class="mainDiv">
 
             <!-- Container com a imagem da Tela de Usuário -->
-            <div id="containerHeader" name="containerHeader" class="containerHeader">
-                <div id="imageUserPage" name="imageUserPage" class="imageUserPage">
-                    <img id="imageUserPageFile" src="../assets/logotipo.png" alt="Imagem do Usuário">
+            <div class="userImageDiv">
+                <div class="userImageContainer">
+                    <img class="userImageContainerPhoto" src="../assets/logotipo.png" alt="Imagem do Usuário">
                 </div>
             </div>
 
-            <!-- Container com os dados do usuário -->
-            <div id="containerUserInfo" name="containerUserInfo" class="containerUserInfo">
-                <p id="infoUsername"> Seu nome de usuário é </p><br>
-                <p id="infoEmail"> Seu email é </p><br>
-                <p id="infoDataCriacao"> Você criou sua conta em </p><br>
-            </div>
-
-            <!-- Container com o Rank e o Nível do Usuário -->
-            <div id="containerRankNivelUser" name="containerRankNivelUser" class="containerRankNivelUser">
-                <p id="infoPontos"> Você tem </p><br>
-                <p id="infoNivel"> Você é do nível </p><br>
-            </div>
-
-            <!-- Container com os Botões "Sair" e "Configurações" -->
-            <div id="containerButtons" name="containerButtons" class="containerButtons">
-                <div id="buttonLogout" name="buttonLogout" class="buttonLogout buttonUserPage">
-                    <span class="material-symbols-outlined">logout</span>
-                    Sair
-                </div>
-                <div id="buttonMusics" name="buttonMusics" class="buttonMusics buttonUserPage">
-                    <span class="material-symbols-outlined">lyrics</span>
-                    Músicas
-                </div>
-                <div id="buttonConfig" name="buttonConfig" class="buttonConfig buttonUserPage">
-                    <span class="material-symbols-outlined">manage_accounts</span>
+            <div class="configStartButtonArea userPageChapters">
+                <div class="configStartButton">
+                    <span class="material-symbols-outlined configStartButtonIcon">settings</span>
                     Configurações
                 </div>
             </div>
 
-            <!-- Container para as opções de Configurações de Tela -->
-            <div id="optionsConfig" name="optionsConfig" class="optionsConfig hiddenElement">
-                <div id="optionsUsername" class="buttonUserPage">
-                    Alterar Username
+            <!-- Container com os dados do usuário -->
+            <div class="containerUserInfo userPageChapters">
+                <div class="infoUsername infoText">Hello, </div>
+                <div class="infoEmailJoin infoText">
+                    <span class="material-symbols-outlined infoEmailIcon">alternate_email</span>
+                    <div class="infoEmail"></div>
                 </div>
-                <div id="optionsEmail" class="buttonUserPage">
-                    Alterar Email
+                <div class="infoDataCriacao infoText">Você é membro desde </div>
+            </div>
+
+            <!-- Container com o Rank e o Nível do Usuário -->
+            <div class="rankingAndLevel userPageChapters">
+                <div class="rankingDiv rankingAndLevelDisplays">
+                    <span class="material-symbols-outlined rankingIcon">trophy</span>
+                    <div class="rankingPlacement"></div>
+                    <div class="rankingScore"></div>
                 </div>
-                <div id="optionsPassword" class="buttonUserPage">
-                    Alterar Senha
-                </div>
-                <div id="optionsDelete" class="buttonUserPage">
-                    Desativar Conta
+                <div class="levelDiv rankingAndLevelDisplays">
+                    <span class="material-symbols-outlined levelIcon">star</span>
+                    <div class="levelIntro">Nível</div>
+                    <div class="levelName"></div>
                 </div>
             </div>
 
-            <!-- Formulários Salvos na Memória -->
-            <div id="alterUsernameDiv" name="alterUsernameDiv" class="alterUsernameDiv configForm hiddenElement">
-                <form id="alterUsernameForm" name="alterUsernameForm" class="alterUsernameForm" action="/userCodes/alterUsername.php">
-                    <p> Alterar seu Username </p>
-                    <input id="passwordConfirmUser" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
-                    <input id="newUsername" type="text" size="15" maxlength="25" placeholder="Novo nome"> <br>
-                    <input id="newUsernameConfirm" type="text" size="15" maxlength="25" placeholder="Confirme novo nome"> <br>
-                    <input id="newUsernameSubmit" type="submit" value="Alterar Username" disabled>
-                </form>
+            <!-- Container com os Botões "Sair" e "Configurações" -->
+            <div class="containerButtons userPageChapters ">
+                <div class="buttonLogout buttonUserPage">
+                    <span class="material-symbols-outlined">logout</span>
+                    Sair
+                </div>
+                <div class="buttonMusics buttonUserPage">
+                    <span class="material-symbols-outlined">lyrics</span>
+                    Músicas
+                </div>
             </div>
-    
-            <div id="alterEmailDiv" name="alterEmailDiv" class="alterEmailDiv configForm hiddenElement">
-                <form id="alterEmailForm" name="alterEmailForm" class="alterEmailForm" action="userCodes/alterEmail.php">
-                    <p> Alterar seu Email </p>
-                    <input id="passwordConfirmEmail" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
-                    <input id="newEmail" type="text" size="15" maxlength="100" placeholder="Novo Email"> <br>
-                    <input id="newEmailConfirm" type="text" size="15" maxlength="100" placeholder="Confirme novo Email"> <br>
-                    <input id="newEmailSubmit" type="submit" value="Alterar Email" disabled>
-                </form>
-            </div>
-    
-            <div id="alterPasswordDiv" name="alterPasswordDiv" class="alterPasswordDiv configForm hiddenElement">
-                <form id="alterPasswordForm" name="alterPasswordForm" class="alterPasswordForm" action="alterPassword">
-                    <p> Alterar sua Senha </p>
-                    <input id="oldPassword" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
-                    <input id="newPassword" type="password" size="15" maxlength="25" placeholder="Nova senha"> <br>
-                    <input id="newPasswordConfirm" type="password" size="15" maxlength="25" placeholder="Confirme nova senha"> <br>
-                    <input id="newPasswordSubmit" type="submit" value="Alterar Senha" disabled>
-                </form>
-            </div>
-    
-            <div id="deleteAccountDiv" name="deleteAccountDiv" class="deleteAccountDiv configForm hiddenElement">
-                <form id="deleteAccountForm" name="deleteAccountForm" class="deleteAccountForm">
-                    <p> Desativar sua Conta </p>
-                    <input id="confirmPasswordOne" type="password" size="15" maxlength="25" placeholder="Senha atual"> <br>
-                    <input id="confirmPasswordTwo" type="password" size="15" maxlength="25" placeholder="Confirmar senha atual"> <br>
-                    <input id="confirmDeleteCheckbox" type="checkbox"> Confirmo que quero desativar minha conta! <br>
-                    <input id="confirmDeleteAccountButton" type="submit" value="Desativar Conta" disabled>
-                </form>
+        </div>
+        <!-- Container para a tela de Configurações -->
+        <div class="configTabBackground hiddenConfig">
+            <div class="configTabArea">
+                <div class="configTabButtons">
+                    <div class="optionsConfig hiddenElement">
+                        <div class="buttonConfigMenu optionsUsername" data-formtype="username">
+                            Alterar Username
+                        </div>
+                        <div class="buttonConfigMenu optionsEmail" data-formtype="email">
+                            Alterar Email
+                        </div>
+                        <div class="buttonConfigMenu optionsPassword" data-formtype="password">
+                            Alterar Senha
+                        </div>
+                        <div class="buttonConfigMenu optionsDelete" data-formtype="delete">
+                            Desativar Conta
+                        </div>
+                    </div>
+                    <div class="optionsExit">
+                        <span class="material-symbols-outlined optionsExitIcon">close</span> 
+                    </div>
+                </div>
+                <div class="configTabForms">
+                    <div class="alterUsernameDiv configForm" data-formtype="username">
+                        <div class="formTitle"> Alterar seu Username </div>
+                        <form class="configFormArea alterUsernameForm">
+                            <div class="formText">Insira seu novo nome de usuário:</div>
+                            <input id="newUsername" type="text" size="15" maxlength="25" >
+                            <div class="formText">Confirme seu novo nome de usuário:</div>
+                            <input id="newUsernameConfirm" type="text" size="15" maxlength="25" >
+                            <div class="formText">Confirme sua senha:</div>
+                            <input id="passwordConfirmUser" type="password" size="15" maxlength="25" >
+                        </form>
+                        <div class="formSubmitDiv">
+                            <input id="resetForm" type="reset" value="Limpar" data-formtype="username">
+                            <input id="newUsernameSubmit" type="submit" class="submitButton" value="Alterar" disabled>
+                        </div>
+                    </div>
+            
+                    <div class="alterEmailDiv configForm hiddenConfig" data-formtype="email">
+                        <div class="formTitle"> Alterar seu Email </div>
+                        <form class="configFormArea alterEmailForm">
+                            <div class="formText">Insira seu novo endereço de email:</div>
+                            <input id="newEmail" type="text" size="15" maxlength="100" >
+                            <div class="formText">Confirme seu novo endereço de email:</div>
+                            <input id="newEmailConfirm" type="text" size="15" maxlength="100" >
+                            <div class="formText">Confirme sua senha:</div>
+                            <input id="passwordConfirmEmail" type="password" size="15" maxlength="25" >
+                        </form>
+                        <div class="formSubmitDiv">
+                            <input id="resetForm" type="reset" value="Limpar" data-formtype="email">
+                            <input id="newEmailSubmit" type="submit" class="submitButton" value="Alterar" disabled>
+                        </div>
+                    </div>
+            
+                    <div class="alterPasswordDiv configForm hiddenConfig" data-formtype="password">
+                        <div class="formTitle"> Alterar sua Senha </div>
+                        <form class="configFormArea alterPasswordForm">
+                            <div class="formText">Confirme sua senha atual:</div>
+                            <input id="oldPassword" type="password" size="15" maxlength="25" >
+                            <div class="formText">Insira sua nova senha de acesso:</div>
+                            <input id="newPassword" type="password" size="15" maxlength="25" >
+                            <div class="formText">Confirme sua nova senha de acesso:</div>
+                            <input id="newPasswordConfirm" type="password" size="15" maxlength="25" >
+                        </form>
+                        <div class="formSubmitDiv">
+                            <input id="resetForm" type="reset" value="Limpar" data-formtype="password">
+                            <input id="newPasswordSubmit" type="submit" class="submitButton" value="Alterar" disabled>
+                        </div>
+                    </div>
+            
+                    <div class="deleteAccountDiv configForm hiddenConfig" data-formtype="delete">
+                        <div class="formTitle"> Desativar sua Conta </div>
+                        <form class="configFormArea deleteAccountForm">
+                            <div class="formText">Insira sua senha atual:</div>
+                            <input id="confirmPasswordOne" type="password" size="15" maxlength="25" >
+                            <div class="formText">Confirme sua senha atual:</div>
+                            <input id="confirmPasswordTwo" type="password" size="15" maxlength="25" >
+                            <div class="formCheckboxArea">
+                                <input id="confirmDeleteCheckbox" type="checkbox"> 
+                                <div class="formText">Confirmo que quero desativar minha conta!</div>
+                            </div>
+                        </form>
+                        <div class="formSubmitDiv">
+                            <input id="resetForm" type="reset" value="Limpar" data-formtype="delete">
+                            <input id="confirmDeleteAccountButton" type="submit" class="submitButton" value="Desativar Conta" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="configTabPopup hiddenConfig">
+                    <div class="popup animate__animated">
+                        <div class="popupContent"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

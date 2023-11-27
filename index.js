@@ -6,7 +6,8 @@ function verifySession() {
   xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-              if (xhr.responseText === 'Sessão ativa') {
+              let responseJson = JSON.parse(xhr.responseText);
+              if (responseJson.user) {
                 window.location.href = '/SingSpeak/musicPages/main.html';
               }
           }
@@ -20,7 +21,7 @@ function verifySession() {
 // Ativa o pop up com a mensagem identificada
 function popUpOpen (mensagem) {
   new Howl({
-        src: ['../assets/sounds/error.mp3'],
+        src: ['assets/sounds/error.mp3'],
         volume: 1.0 // Volume (de 0.0 a 1.0)
     }).play();
     $(".popup").removeClass("animate__zoomOutDown");
@@ -40,6 +41,24 @@ function popUpOpen (mensagem) {
 $(function(){
   // Verifica a sessão 
   verifySession();
+
+  // Easter Egg
+  let easterCounter = 0;
+  $(".logoimage").click(function () {
+    easterCounter++;
+
+    if (easterCounter == 3) {
+      $(".logoimage").addClass("animate__tada");
+      new Howl({
+        src: ['assets/sounds/you-win.mp3'],
+        volume: 1.0, // Volume (de 0.0 a 1.0)
+        onend: function () {
+          easterCounter = 0;
+          $(".logoimage").removeClass("animate__tada");
+        }
+    }).play();
+    }
+  })
 
   // Alterna a prioridade dos formulários
   $(".signupFormBox").click(function () {
@@ -95,7 +114,7 @@ $(function(){
     let password = $("#loginPassword").val();
 
     // Envia a solicitação AJAX para verificar o login
-    $.post('userCodes/acessUser.php', { loginUsername: username, loginPassword: password }, function(response) {
+    $.post('userCodes/accessUser.php', { loginUsername: username, loginPassword: password }, function(response) {
       if (response.erro) {
         // Exibir a mensagem de erro na página HTML
         popUpOpen(response.erro);

@@ -1,10 +1,13 @@
-/*
-Roxo: #6C00D7
-Roxo Escuro: #7100C7
-Branco: #EDEDF5
-Cinza: #424344
-Cinza Claro: #5F6162
-*/
+:root {
+    --roxo-claro: #6C00D7;
+    --roxo-escuro: #7100C7;
+    --branco: #EDEDF5;
+    --cinza: #333333;
+    --cinza-claro: #5F6162;
+    --cinza-mais-escuro: #141414;
+    --preto: #000000;
+    --transparente: #ffffff00;
+}
 
 /* === Parte Principal === */
 
@@ -15,7 +18,7 @@ html, body {
 }
 
 .mainDiv {
-    background-color: rgb(0, 0, 0);
+    background-color: var(--preto);
     height: 100%;
     width: 100%;
     display: flex;
@@ -120,7 +123,7 @@ html, body {
     justify-content: center;
     padding: 5px;
     border-radius: 16px;
-    background-color: #424344;
+    background-color: var(--cinza-mais-escuro);
     font-size: 18px;
 }
 

@@ -1,10 +1,13 @@
-/*
-Roxo: #6C00D7
-Roxo Escuro: #7100C7
-Branco: #EDEDF5
-Cinza: #424344
-Cinza Claro: #5F6162
-*/
+:root {
+    --roxo-claro: #6C00D7;
+    --roxo-escuro: #7100C7;
+    --branco: #EDEDF5;
+    --cinza: #333333;
+    --cinza-claro: #5F6162;
+    --cinza-mais-escuro: #141414;
+    --preto: #000000;
+    --transparente: #ffffff00;
+}
 
 /* === Parte Principal === */
 
@@ -12,59 +15,128 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-}
-
-.adasdasdasdasdasdadasdadasdadasdasdasdadadasdads {
-    background-color: rgb(0, 0, 0);
-    height: 100%;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: stretch;
-    flex-wrap: nowrap;
+    background-color: var(--preto);
 }
 
-/* Div Principal*/
 .mainDiv {
-    background-color: blueviolet;
-    margin: 20px 20% 0 20%;
-    padding-bottom: 10px;
+    border: 5px solid var(--cinza);
+    background-color: var(--cinza-mais-escuro);
+    margin: 20px 20%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
 }
+
+.userPageChapters {
+    margin: 20px 5%;
+}
+
+/* === Imagem === */
 
 /* Imagem */
-.containerHeader {
+.userImageDiv {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 0;
+    z-index: 10;
 }
 
-#imageUserPageFile {
+.userImageContainerPhoto {
     width: 100px;
     height: 100px;
+    border: 1px solid var(--roxo-escuro);
+    border-radius: 100%;
 }
 
-/* User Info */
+/* === Config Start Button ===*/
+
+.configStartButtonArea {
+    color: var(--branco);
+}
+
+.configStartButton {
+
+display: flex;
+
+align-items: center;
+
+justify-content: flex-start;
+
+font-size: 12px;
+
+margin-bottom: -15px !important;
+
+flex-direction: row-reverse;
+}
+
+.configStartButtonIcon {
+    
+font-size: 12px !important;
+    
+margin: 0 5px;
+}
+
+.configStartButton:hover {
+    cursor: pointer;
+    color: var(--roxo-claro);
+    font-size: 12px;
+}
+
+/* === User Info === */
+
 .containerUserInfo{
 
 display: flex;
 
 align-items: center;
 
-justify-content: center;
+justify-content: space-evenly;
 
 flex-direction: column;
 
-background-color: dimgray;
+background-color: var(--cinza-mais-escuro);
 
-margin: 10px 5%;
+border: 5px solid var(--cinza);
+color: var(--branco);
 
-border: solid;
+font-size: 16px;
 }
 
-/* Rank e Level */
-.containerRankNivelUser {
+.infoText {
+    margin: 10px 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoEmailJoin {
+
+display: flex;
+
+flex-direction: row;
+
+align-items: center;
+}
+
+.infoEmailIcon {
+
+font-size: 16px !important;
+
+margin: 0 2px;
+}
+
+.infoDataCriacao {
+
+}
+
+/* === Rank e Level === */
+.rankingAndLevel {
 
 display: flex;
 
@@ -74,70 +146,295 @@ justify-content: space-evenly;
 
 flex-direction: row;
 
-background-color: dimgray;
+background-color: var(--cinza-mais-escuro);
 
-border: solid;
-
-margin: 20px 5%;
 }
 
-/* Sair e Configurar */
+.rankingAndLevelDisplays {
+    
+width: 30%;
+    
+background-color: var(--roxo-escuro);
+    
+margin: 10px 5px;
+    
+height: 150px;
+    
+display: flex;
+    
+flex-direction: column;
+    
+align-items: center;
+    
+justify-content: space-around;
+border-radius: 25px;
+}
+
+.rankingIcon {
+    font-size: 60px !important;
+    cursor: default !important;
+}
+
+.levelIcon {
+    font-size: 60px !important;
+    cursor: default !important;
+}
+
+/* Buttons Uteis */
 .containerButtons {
 
 display: flex;
 
-border: solid;
-
-background-color: dimgray;
-
-margin: 5px 5%;
+align-items: center;
 
 justify-content: space-between;
+
+flex-direction: row;
 }
 
 .buttonUserPage {
-    display: flex;
-    width: 110px;
-    height: 40px;
-    margin: 5px;
-    align-items: center;
-    justify-content: center;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    background-color: brown;
-}
 
-.buttonLogout {
-    background-color: rgb(63, 189, 228);
-}
+background-color: var(--cinza-mais-escuro);
+color: var(--branco);
 
-.buttonConfig {
-    background-color: brown;
+display: flex;
+
+flex-direction: row;
+
+align-items: center;
+
+justify-content: center;
+
+flex-wrap: nowrap;
+
+width: 150px;
+
+height: 40px;
+
+border: 3px solid var(--roxo-escuro);
 }
 
 .buttonUserPage:hover {
     cursor: pointer;
+    background-color: var(--branco);
+    color: var(--roxo-escuro);
 }
 
-/* Opcoes de Configuracao */
+/* === Configs === */
+
+/* Aba Geral */
+
+.configTabBackground {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--transparente);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+}
+
+/* Options de Config*/
+
+.configTabArea {
+    margin: 20px 20%;
+    background-color: var(--preto);
+    height: -webkit-fill-available;
+}
+
+.configTabButtons {
+
+display: flex;
+
+justify-content: space-between;
+
+height: fit-content;
+}
+
 .optionsConfig {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-evenly;
-    background: aqua;
+    width: 100%;
     flex-direction: row;
-    margin: 0 5%;
 }
 
-/* Forms Control*/
-.configForm{
-    background-color: pink;
-    margin: 5%;
-    padding: 5px;
+.buttonConfigMenu{
+    width: 25%;
+    padding: 10px 4px;
+    text-align: center;
+    border: 2px solid var(--branco);
+    background-color: var(--cinza-mais-escuro);
+    color: var(--branco);
 }
 
-.hiddenElement {
+.buttonConfigMenu:hover{
+    cursor: pointer;
+    background-color: var(--branco);
+    color: var(--roxo-claro);
+    border-color: var(--roxo-escuro);
+}
+
+.optionsExitIcon {
+    font-size: 35px !important;
+    color: var(--branco) !important;
+}
+
+.optionsExitIcon:hover {
+    color: var(--roxo-claro) !important;
+}
+
+.optionsExit {
+    border: 2px solid var(--branco);
+    background-color: var(--cinza-mais-escuro);
+}
+
+.optionsExit:hover{
+    cursor: pointer;
+    border-color: var(--roxo-claro);
+    background-color: var(--branco);
+}
+
+/* Forms de Config */
+
+.configTabForms{
+    margin: 5px 0;
+padding: 10px;
+    
+color: var(--branco);
+    
+border: 3px solid var(--roxo-escuro);
+    
+background-color: var(--cinza-mais-escuro);
+}
+
+.configForm {
+    
+display: flex;
+    
+flex-direction: column;
+    
+flex-wrap: nowrap;
+    
+align-items: center;
+    
+text-align: center;
+}
+
+.configFormArea input, .configFormArea input:focus, .configFormArea input:active{
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom:solid 1px var(--branco);
+    color: var(--branco);
+    padding-top: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-family: fantasy;
+    width: 250px;
+}
+
+.configFormArea input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #6C00D7 inset;
+    -webkit-text-fill-color: var(--branco) !important;
+}
+
+.formTitle {
+
+font-size: x-large;
+
+font-weight: bold;
+
+margin: 15px 0;
+
+}
+
+.formText {
+
+font-size: large;
+
+margin: 5px 0;
+}
+
+.formCheckboxArea {
+    display: flex;
+    margin-top: 10px;
+}
+
+.formCheckboxArea input, .formCheckboxArea input:checked, input[type="checkbox"]:not(:checked) {
+    
+width: 20px;
+    
+margin: 0 10px;
+}
+
+.formSubmitDiv input {
+
+width: 150px;
+
+height: 30px;
+
+margin: 15px 0;
+
+background-color: var(--roxo-claro);
+
+border: 1px solid var(--roxo-escuro);
+}
+
+.formSubmitDiv input:hover {
+    background-color: var(--branco);
+    color: var(--roxo-escuro);
+}
+
+.formSubmitDiv input:disabled {
+    background-color: var(--cinza);
+    color: var(--preto);
+    cursor: not-allowed;
+}
+
+/* === Popup ===*/
+
+.configTabPopup {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.popup {
+    
+height: 50px;
+    
+max-width: 450px;
+    
+background-color: var(--roxo-claro);
+    
+border: 1px solid var(--roxo-escuro);
+    
+color: var(--branco);
+    
+text-align: center;
+font-weight: bold;
+    
+padding: 10px;
+    
+display: flex;
+    
+align-items: center;
+    
+justify-content: center;
+    
+word-wrap: break-word;
+    
+min-width: 200px;
+}
+
+/* Hidden Form Settings */
+
+.hiddenConfig {
     display: none;
-    visibility: hidden;
-    position: relative;
+    visibility: none;
 }
