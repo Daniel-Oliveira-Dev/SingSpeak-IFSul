@@ -2,11 +2,12 @@
     --roxo-claro: #6C00D7;
     --roxo-escuro: #7100C7;
     --branco: #EDEDF5;
-    --cinza: #424344;
+    --cinza: #333333;
     --cinza-claro: #5F6162;
+    --cinza-mais-escuro: #141414;
     --preto: #000000;
     --transparente: #ffffff00;
-}
+  }
 
 /* === Parte Principal === */
 
@@ -140,11 +141,11 @@ html, body {
     align-items: center;
     padding: 3px 0px;
     width: 100%;
-    border-bottom: 1px solid;
 }
 
 .posicaoUsername {
     text-align: center;
+    border-bottom: 1px solid var(--branco);
 }
 
 .posicaoPontuacao {

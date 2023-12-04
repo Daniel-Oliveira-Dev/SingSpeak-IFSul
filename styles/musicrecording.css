@@ -1,0 +1,102 @@
+:root {
+    --roxo-claro: #6C00D7;
+    --roxo-escuro: #7100C7;
+    --branco: #EDEDF5;
+    --cinza: #333333;
+    --cinza-claro: #5F6162;
+    --cinza-mais-escuro: #141414;
+    --preto: #000000;
+    --transparente: #ffffff00;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--preto);
+  }
+
+  .mainDiv {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .soundwave {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url("http://localhost/SingSpeak/assets/soundwave_background.png");
+    background-size: cover;
+    z-index: 1;
+  }
+
+  .centerArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 93%;
+    background-color: var(--cinza-mais-escuro);
+    margin: 20px 15%;
+    border: 3px solid var(--roxo-escuro);
+    border-radius: 15px;
+    z-index: 100;
+  }
+
+  .youtubePlayerContainer {
+    width: 100% !important;
+    height: 80% !important;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  #youtubePlayer {
+    width: 90%;
+    height: 90%;
+    border-radius: 25px;
+    margin: 5px 10px;
+    border: 3px solid var(--roxo-escuro);
+  }
+
+  .controlPanel{
+    background-color: var(--cinza);
+    border: 3px solid var(--roxo-escuro);
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 15%;
+    width: 80%;
+    margin: 20px 5px;
+  }
+
+  .controlPanel button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: var(--cinza-claro);
+    border: 1px solid var(--cinza-mais-escuro);
+    color: var(--branco);
+  }
+
+  .controlPanel button:not(:disabled):hover {
+    border-color: var(--roxo-escuro);
+    background-color: var(--roxo-claro);
+    color: var(--branco);
+    cursor: pointer;
+  }
+
+  .controlPanel button:disabled:hover, button:disabled {
+    cursor: not-allowed;
+    color: var(--cinza-mais-escuro);
+  }

@@ -4,10 +4,13 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const diff = require('diff');
+const stringSimilarity = require("string-similarity");
 
 const app = express();
 const port = 3000;
+
+// Variáveis importantes para o funcionamento geral do SingSpeak
+let arrayOriginalMusic = [];
 
 // Configurar o middleware body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,6 +19,81 @@ app.use(bodyParser.json());
 // Configurar o middleware multer para processar uploads de arquivos
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// Endpoint para obter o conteúdo do arquivo "session.txt"
+app.get('/getSessionData', (req, res) => {
+  const filePathSession = path.join(__dirname, 'session.txt');
+  
+  fs.readFile(filePathSession, 'utf-8', (err, data) => {
+    if (err) {
+      console.error('Erro ao ler o arquivo "session.txt":', err);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+// Leitura do arquivo que contém a letra original
+function lerArquivo(nomeArquivo) {
+  const filePath = path.join(__dirname, '../musicCodes/musicLyrics', nomeArquivo.toString());
+  const conteudoArquivo = fs.readFileSync(filePath, 'utf-8');
+  const linhas = conteudoArquivo.split(/\r?\n/);
+  return linhas;
+}
+
+// Rota para chamar a função de leitura do arquivo "session.txt"
+app.post('/generateOriginalLyricsArray', (req, res) => {
+  const { nomeArquivo } = req.body;
+  
+  try {
+      arrayOriginalMusic = extrairInformacoes(lerArquivo(nomeArquivo));
+      console.log(arrayOriginalMusic);
+  } catch (err) {
+      console.error('Erro ao ler a letra original:', err);
+      res.status(500).send('Erro ao ler a letra original: ' + err.message);
+  }
+});
+
+// Extrair Informações para o array de parágrafos
+function extrairInformacoes(linhas) {
+  const trechos = [];
+  let trechoAtual = null;
+
+  for (const linha of linhas) {
+      if (linha.startsWith("&&")) {
+          // Adiciona o trecho anterior à lista
+          if (trechoAtual !== null) {
+              trechos.push(trechoAtual);
+          }
+
+          // Novo trecho
+          trechoAtual = {
+              inicio: parseFloat(linha.substring(2)),
+              fim: null,
+              conteudo: "",
+              frasesTranscritas: []
+          };
+      } else if (linha.startsWith("@@")) {
+          // Fim do trecho
+          if (trechoAtual !== null) {
+              trechoAtual.fim = parseFloat(linha.substring(2));
+          }
+      } else {
+          // Linha no trecho
+          if (trechoAtual !== null) {
+              trechoAtual.conteudo += linha + " ";
+          }
+      }
+  }
+
+  // Último trecho
+  if (trechoAtual !== null) {
+      trechos.push(trechoAtual);
+  }
+
+  return trechos;
+}
+
 
 // Método para enviar um arquivo de áudio para o Deepgram
 function sendToDeepgram(buffer) {
@@ -41,16 +119,6 @@ function sendToDeepgram(buffer) {
       });
   });
 }
-
-// Lê os arquivos e limpa o conteúdo deles
-const readAndCleanFile = (filePath) => {
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  return fileContent.toLowerCase().replace(/[^\w\s]|_/g, '').trim();
-};
-
-// Acessa e limpa o arquivo da letra original
-const filePath1 = path.join(__dirname, '../musicCodes/musicLyrics', 'letraHeyJude.txt');
-const audioOriginalTranscrito = readAndCleanFile(filePath1);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/musicRecording.html');
@@ -78,6 +146,7 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
       .then((result) => {
         // Salva a transcrição que o Deepgram retornar em uma String
         let transcriptionResult = result.transcription.results.channels[0].alternatives[0].transcript;
+        console.log(result);
         // Salva a String em um arquivo .txt na mesma pasta que o áudio
         fs.writeFile(filePathTXT, transcriptionResult, (err) => {
           if (err) throw err;

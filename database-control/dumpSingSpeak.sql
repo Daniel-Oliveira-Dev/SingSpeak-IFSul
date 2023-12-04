@@ -37,9 +37,9 @@ FOREIGN KEY (idNivel) REFERENCES nivel (idNivel)
 );
 
 -- Inserindo os Primeiros Usuários
-INSERT INTO usuario (idUsuario, username, email, hash_senha, salt, pontos, dataCriacao) VALUES
-(1, "ApollyonDelta", "apollyondelta@gmail.com", "6a8549ffa9e5f3d33212d4f6a6489efac54c044fee7b5e50f17bd758bfc7c3d2", "28366fe35c44e1fb7f5b4dd70e41129fd4b339f3451c514566", 842593, "2003-11-20 00:00:00"),
-(2, "BLKZim", "miguelmigue806@gmail.com", "4499777917cff991370c40bcbab8ca2e511781acdeb29f4b2197e8114cb77723", "54d66750191b072fec7c6b70572775cc80a15b7620a89c68ee", 167310, "2004-03-03 00:00:00");
+INSERT INTO usuario (idUsuario, username, email, hash_senha, salt, pontos, dataCriacao, idNivel) VALUES
+(1, "ApollyonDelta", "apollyondelta@gmail.com", "6a8549ffa9e5f3d33212d4f6a6489efac54c044fee7b5e50f17bd758bfc7c3d2", "28366fe35c44e1fb7f5b4dd70e41129fd4b339f3451c514566", 842593, "2003-11-20 00:00:00", 3),
+(2, "BLKZim", "miguelmigue806@gmail.com", "4499777917cff991370c40bcbab8ca2e511781acdeb29f4b2197e8114cb77723", "54d66750191b072fec7c6b70572775cc80a15b7620a89c68ee", 167310, "2004-03-03 00:00:00", 2);
 
 -- Tabela de Logs
 CREATE TABLE logControl (
@@ -55,7 +55,6 @@ FOREIGN KEY (idUsuario) REFERENCES usuario (idUsuario)
 INSERT INTO logControl (tipoRegistro, dataRegistro, idUsuario) VALUES
 ("Login", "2003-11-20 00:00:00", 1), ("Logout", "2003-11-20 23:59:00", 1), 
 ("Login", "2004-03-03 00:00:00", 2), ("Logout", "2004-03-03 23:59:00", 2);
-
 
 -- Tabela de Músicas
 CREATE TABLE musica (

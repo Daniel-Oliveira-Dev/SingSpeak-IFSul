@@ -1,10 +1,12 @@
-/*
-Roxo: #6C00D7
-Roxo Escuro: #7100C7
-Branco: #EDEDF5
-Cinza: #424344
-Cinza Claro: #5F6162
-*/
+:root {
+    --roxo-claro: #6C00D7;
+    --roxo-escuro: #7100C7;
+    --branco: #EDEDF5;
+    --cinza: #424344;
+    --cinza-claro: #5F6162;
+    --preto: #000000;
+    --transparente: #ffffff00;
+}
 
 /* === Parte Principal === */
 

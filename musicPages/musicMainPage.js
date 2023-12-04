@@ -25,7 +25,6 @@ function assembleUser() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 let responseJson = JSON.parse(xhr.responseText);
-                console.log(responseJson.userArray);
                 assignUserInfo(responseJson.userArray);
             }
         }
@@ -48,11 +47,11 @@ function assembleMusic() {
                 if (xhr.status === 200) {
                     let responseJson = JSON.parse(xhr.responseText);
                     if (responseJson.erro) {
-                        $("body").css("visibility", "hidden");
+                        $("mainDiv").css("visibility", "hidden");
                         setTimeout(function() {
                             alert(responseJson.erro);
                         }, 10);
-                        window.location.href = '/SingSpeak/main.html';
+                        window.location.href = '/SingSpeak/musicPages/main.html';
                     }
                     if (responseJson.musicArray) {
                         assignMusicInfo(responseJson.musicArray);
@@ -90,7 +89,7 @@ function getMusicRanking() {
                 if (responseJson.rankArray && responseJson.rankArray.length > 0) {
                     rankRecordings(responseJson.rankArray);
                 } else {
-                    $(".posicaoUsername").text("Sem registros nesta música!");
+                    $(".posicaoPontuacao").text("Sem registros nesta música!");
                 }
             }
         }

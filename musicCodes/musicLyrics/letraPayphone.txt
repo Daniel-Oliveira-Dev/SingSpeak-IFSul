@@ -1,7 +1,11 @@
+&&0.0
 I'm at a payphone trying to call home
 All of my change I spent on you
 Where have the times gone, baby it's all wrong
 Where are the plans we made for two
+@@17.9
+
+&&18.0
 Yeah, I, I know it's hard to remember
 The people we used to be
 It's even harder to picture
@@ -9,6 +13,9 @@ That you're not here next to me
 You say it's too late to make it
 But is it too late to try
 And in our time that you wasted
+@@31.9
+
+&&32.0
 All of our bridges burned down
 I've wasted my nights
 You turned out the lights
@@ -16,14 +23,24 @@ Now I'm paralyzed
 Still stuck in that time
 When we called it love
 But even the sun sets in paradise
+@@50.9
+
+&&51.0
 I'm at a payphone trying to call home
 All of my change I spent on you
 Where have the times gone, baby it's all wrong
 Where are the plans we made for two
+@@68.9
+
+
+&&69.0
 If Happy Ever Afters did exist
 I would still be holding you like this
 All those fairy tales are full of shit
 One more fucking love song, I'll be sick
+@@86.9
+
+&&87.0
 Oh, you turned your back on tomorrow
 'Cause you forgot yesterday
 I gave you my love to borrow
@@ -31,6 +48,10 @@ But you just gave it away
 You can't expect me to be fine
 I don't expect you to care
 I know I've said it before
+@@102.9
+
+
+&&103.0
 But all of our bridges burned down
 I've wasted my nights
 You turned out the lights
@@ -38,15 +59,25 @@ Now I'm paralyzed
 Still stuck in that time
 When we called it love
 But even the sun sets in paradise
+@@121.9
+
+
+&&122.0
 I'm at a payphone trying to call home
 All of my change I spent on you
 Where have the times gone, baby it's all wrong
 Where are the plans we made for two?
+@@138.9
+
+&&139.0
 If Happy Ever Afters did exist
 I would still be holding you like this
 All those fairy tales are full of shit
 One more fucking love song, I'll be sick
 Now I'm at a payphone
+@@157.9
+
+&&158.0
 Man, fuck that shit
 I'll be out spending all this money
 While you're sitting round wondering
@@ -57,17 +88,26 @@ And all of my cars start with a push of a button
 Telling me the chances I blew up
 Or whatever you call it
 Switch the number to my phone
+@@171.9
+
+&&172.0
 So you never could call it
 Don't need my name on my show
 You can tell it I'm ballin'
 Swish, what a shame could have got picked
 Had a really good game but you missed your last shot
 So you talk about who you see at the top
+@@180.9
+
+&&181.0
 Or what you could have saw but sad to say it's over for
 Phantom pulled up valet open doors
 Wished I'd go away, got what you was looking for
 Now it's me who they want, so you can go and take
 That little piece of shit with you
+@@191.9
+
+&&192.0
 I'm at a payphone trying to call home
 All of my change I spent on you
 Where have the times gone, baby it's all wrong
@@ -77,3 +117,4 @@ I would still be holding you like this
 All those fairy tales are full of shit
 One more fucking love song, I'll be sick
 Now I'm at a payphone
+@@236.0
