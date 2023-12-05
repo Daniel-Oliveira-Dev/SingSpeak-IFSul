@@ -126,17 +126,6 @@ function givePontuation(updatedArrayOriginalMusic) {
   return arrayPoints;
 }
 
-function saveNewSessionFile(dataSession, arrayPontos) {
-  const conteudoParaSalvar = `${dataSession}\n${arrayPontos}`;
-  fs.writeFile(filePathSession, conteudoParaSalvar, (err) => {
-    if (err) {
-      console.error('Erro ao salvar o arquivo session.txt:', err);
-    } else {
-      console.log('Conteúdo salvo com sucesso em session.txt');
-    }
-  });
-}
-
 // Método para enviar um arquivo de áudio para o Deepgram
 function sendToDeepgram(buffer) {
   const deepgramApiKey = 'afeb102a44298094422c26b52c00632cef4b2724';
@@ -195,11 +184,11 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
         console.log("Array original convertido!");
         let arrayPontos = givePontuation(updatedArrayOriginalMusic);
         console.log("Pontuação gerada!");
-
-        saveNewSessionFile(dataSession, arrayPontos);
         
         // Deleta o arquivo de áudio
         fs.unlinkSync(filePath);
+
+        res.json({ success: arrayPontos });
         
       })
       .catch((error) => {

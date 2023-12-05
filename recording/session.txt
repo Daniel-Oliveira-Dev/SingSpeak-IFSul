@@ -1,2 +1,1 @@
-idMusica:4 username:ApollyonDelta codYouTube:DhAcERODM7g?si=mg3Zep-Wwrm0Hl2e lyrics:letraLoveLikeYou.txt
-0,0,0,0,0,0,0,0
+idMusica:2 username:ApollyonDelta codYouTube:W0DM5lcj6mw?si=gsuA9fkmNu4zBzV7 lyrics:letraBeliever.txt

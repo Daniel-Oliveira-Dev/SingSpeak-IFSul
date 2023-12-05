@@ -100,3 +100,17 @@
     cursor: not-allowed;
     color: var(--cinza-mais-escuro);
   }
+
+  .updaterContainer {
+    width: 90%;
+    height: 90%;
+    border-radius: 25px;
+    margin: 5px 10px;
+    border: 3px solid var(--roxo-escuro);
+    justify-content: space-around;
+    flex-direction: column;
+    color: var(--branco);
+    text-align: center;
+    font-weight: bold;
+    align-items: center;
+  }

@@ -13,6 +13,9 @@
     <div class="centerArea">
       <div class="youtubePlayerContainer">
         <iframe id="youtubePlayer" src="" frameborder="0" allowfullscreen="" allow="autoplay"></iframe>
+        <div class="updaterContainer" style="display: none;">
+          <div class="message"></div>
+        </div>
     </div>
     
     <div class="controlPanel">
@@ -27,10 +30,62 @@
   <script>
     let mediaRecorder;
     let chunks = [];
+    let messageDiv = $(".message").clone();
+    $(".message").remove();
 
     document.getElementById('startRecording').addEventListener('click', startRecording);
     document.getElementById('stopRecording').addEventListener('click', stopRecording);
 
+    function updaterDisplay(action) {
+      switch (action) {
+        case 1:
+          $("#youtubePlayer").remove();
+          $(".updaterContainer").css("display", "flex");
+          break;
+
+        case 2:
+          let messageSent = messageDiv.clone();
+          messageSent.text("Enviado para transcrição!");
+          messageSent.appendTo($(".updaterContainer"));
+          break;
+
+        case 3:
+          let messageAna = messageDiv.clone();
+          messageAna.text("Analisando sua transcrição!");
+          messageAna.appendTo($(".updaterContainer"));
+          break;
+
+        case 4:
+          let messageGer = messageDiv.clone();
+          messageGer.text("Gerando sua pontuação!");
+          messageGer.appendTo($(".updaterContainer"));
+          break;
+
+        default:
+          alert("Erro no switch");
+          break;
+      }
+    }
+
+    function gerarPontuacao(arrayPontos) {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                
+            }
+        }
+    };
+
+    // Criar um objeto FormData e adicionar o idMusica a ele
+    let formData = new FormData();
+    formData.append('arrayPontos', arrayPontos);
+
+    // Definir o método como POST e enviar o FormData
+    xhr.open('POST', 'http://localhost/SingSpeak/musicCodes/generatePoints.php', true);
+    xhr.send(formData);
+}
+    
     function startRecording() {
       navigator.mediaDevices.getUserMedia({ audio: true })
       .then((stream) => {
@@ -43,6 +98,7 @@
           };
 
           mediaRecorder.onstop = () => {
+          updaterDisplay(1);
           const blob = new Blob(chunks, { type: 'audio/wav' });
           const formData = new FormData();
           formData.append('audio', blob, 'recording.wav');
@@ -53,7 +109,16 @@
               timeout: 120000,
           })
           .then(response => response.json())
-          .then(data => console.log(data))
+          .then(data => {
+          // Verifica se a resposta contém a propriedade 'success'
+          if (data.success) {
+            updaterDisplay(3);
+            updaterDisplay(4);
+            gerarPontuacao(data.success);
+          } else {
+            alert("Erro ao processar a transcrição. Verifique o console para mais detalhes.");
+          }
+        })
           .catch(error => console.error('Erro:', error));
           };
 
@@ -69,6 +134,7 @@
 
     function stopRecording() {
       mediaRecorder.stop();
+      updaterDisplay(2);
       document.getElementById('startRecording').disabled = false;
       document.getElementById('stopRecording').disabled = true;
       document.getElementById("returnToMusic").disabled = false;
