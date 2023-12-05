@@ -1,1 +1,2 @@
-idMusica:6 username:BLKZim codYouTube:pcqDfTrk5LA?si=tc9PJipO7qBqu5-n lyrics:letraHeyJude.txt
+idMusica:4 username:ApollyonDelta codYouTube:DhAcERODM7g?si=mg3Zep-Wwrm0Hl2e lyrics:letraLoveLikeYou.txt
+0,0,0,0,0,0,0,0

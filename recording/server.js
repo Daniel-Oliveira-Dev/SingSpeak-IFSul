@@ -11,6 +11,7 @@ const port = 3000;
 
 // Variáveis importantes para o funcionamento geral do SingSpeak
 let arrayOriginalMusic = [];
+let dataSession = "";
 
 // Configurar o middleware body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,15 +20,15 @@ app.use(bodyParser.json());
 // Configurar o middleware multer para processar uploads de arquivos
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+const filePathSession = path.join(__dirname, 'session.txt');
 
 // Endpoint para obter o conteúdo do arquivo "session.txt"
 app.get('/getSessionData', (req, res) => {
-  const filePathSession = path.join(__dirname, 'session.txt');
-  
   fs.readFile(filePathSession, 'utf-8', (err, data) => {
     if (err) {
       console.error('Erro ao ler o arquivo "session.txt":', err);
     } else {
+      dataSession = JSON.parse(JSON.stringify(data));
       res.send(data);
     }
   });
@@ -47,7 +48,7 @@ app.post('/generateOriginalLyricsArray', (req, res) => {
   
   try {
       arrayOriginalMusic = extrairInformacoes(lerArquivo(nomeArquivo));
-      console.log(arrayOriginalMusic);
+      console.log("Letra original convertida com sucesso!");
   } catch (err) {
       console.error('Erro ao ler a letra original:', err);
       res.status(500).send('Erro ao ler a letra original: ' + err.message);
@@ -94,6 +95,47 @@ function extrairInformacoes(linhas) {
   return trechos;
 }
 
+function parseTranscriptionToOriginalLyricsArray(arrayOriginalMusic, arrayTranscriptionParagraphs) {
+  let arrayOriginalMusicCompleted = JSON.parse(JSON.stringify(arrayOriginalMusic));
+
+  arrayTranscriptionParagraphs.forEach(paragraph => {
+    paragraph.sentences.forEach(sentence => {
+      arrayOriginalMusicCompleted.forEach(originalParagraph => {
+        if (originalParagraph.inicio <= sentence.start && originalParagraph.fim >= sentence.end) {
+          // Adiciona uma cópia da frase transcrita
+          originalParagraph.frasesTranscritas.push(sentence.text.replace(/[.,;]/g, ''));
+        }
+      });
+    });
+  });
+
+  return arrayOriginalMusicCompleted;
+}
+
+function givePontuation(updatedArrayOriginalMusic) {
+  let arrayPoints = [];
+
+  const arrayCopiado = JSON.parse(JSON.stringify(updatedArrayOriginalMusic));
+
+  arrayCopiado.forEach(paragraph => {
+    let frasesTranscritas = paragraph.frasesTranscritas; // Acessa o array interno
+    let semelhanca = stringSimilarity.compareTwoStrings(paragraph.conteudo, frasesTranscritas.join(" "));
+    arrayPoints.push(semelhanca);
+  });
+
+  return arrayPoints;
+}
+
+function saveNewSessionFile(dataSession, arrayPontos) {
+  const conteudoParaSalvar = `${dataSession}\n${arrayPontos}`;
+  fs.writeFile(filePathSession, conteudoParaSalvar, (err) => {
+    if (err) {
+      console.error('Erro ao salvar o arquivo session.txt:', err);
+    } else {
+      console.log('Conteúdo salvo com sucesso em session.txt');
+    }
+  });
+}
 
 // Método para enviar um arquivo de áudio para o Deepgram
 function sendToDeepgram(buffer) {
@@ -138,19 +180,23 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
     // Salva o arquivo de áudio usando o caminho informado
     fs.writeFileSync(filePath, audioBuffer);
 
-    // Cria o caminho para salvar o arquivo .txt
-    const filePathTXT = path.join(__dirname, 'uploads', 'result.txt');
-
     // Envia para a Deepgram
     sendToDeepgram(audioBuffer)
       .then((result) => {
         // Salva a transcrição que o Deepgram retornar em uma String
-        let transcriptionResult = result.transcription.results.channels[0].alternatives[0].transcript;
-        console.log(result);
-        // Salva a String em um arquivo .txt na mesma pasta que o áudio
-        fs.writeFile(filePathTXT, transcriptionResult, (err) => {
-          if (err) throw err;
-        });
+        let transcriptionResult = result.transcription.results.channels[0].alternatives[0];
+        // console.log(transcriptionResult.transcript);
+        
+        let updatedArrayOriginalMusic = parseTranscriptionToOriginalLyricsArray(
+          arrayOriginalMusic,
+          transcriptionResult.paragraphs.paragraphs
+        );
+
+        console.log("Array original convertido!");
+        let arrayPontos = givePontuation(updatedArrayOriginalMusic);
+        console.log("Pontuação gerada!");
+
+        saveNewSessionFile(dataSession, arrayPontos);
         
         // Deleta o arquivo de áudio
         fs.unlinkSync(filePath);
