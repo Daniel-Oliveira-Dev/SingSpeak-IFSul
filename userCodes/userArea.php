@@ -12,7 +12,50 @@ function givePoints($username, $addPontos) {
         $statement->execute();
         
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar adicionar pontos na conta do usuário!");
+    }
+}
+
+// Verifica se o usuário precisa subir de nível
+function verifyLevelUpCondition($username) {
+    include("../database-control/connection.php");
+    try {
+        $statement = $conexao->prepare("SELECT u.pontos, u.idNivel, n.pontuacaoMax 
+        FROM usuario u JOIN nivel n ON n.idNivel = u.idNivel WHERE u.username LIKE :username");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+
+        $resultado = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($resultado[0]['idNivel'] == 3) {
+            return false;
+        }
+
+        if ($resultado[0]['pontos'] >= $resultado[0]["pontuacaoMax"]) {
+            return true;
+        }
+
+        return false;
+        
+    } catch (PDOException $err) {
+        throw new Exception("Erro ao tentar verificar se o usuário precisa subir de nível!");
+    }
+}
+
+// Sobe o nível do usuário
+function levelUp($username) {
+    include("../database-control/connection.php");
+    try {
+        $statement = $conexao->prepare("UPDATE usuario SET idNivel = (idNivel + 1) WHERE username LIKE :username");
+
+        $statement->bindParam(":username", $username);
+
+        $statement->execute();
+        
+    } catch (PDOException $err) {
+        throw new Exception("Erro ao tentar subir o nível do usuário!" . $err->getMessage());
     }
 }
 
@@ -31,7 +74,7 @@ function countAccessInDay($username) {
         return $statement->rowCount();
         
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar contar a quantidade de acessos no dia do usuário!");
     }
 }
 
@@ -46,13 +89,9 @@ function logGenerator($username, $action) {
         $statement->bindParam(":tipoRegistro", $action);
 
         $statement->execute();
-
-        if (countAccessInDay($username) == 1) {
-            givePoints($username, 15);
-        }
         
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar gerar um log de conta!");
     }
 }
 
@@ -84,7 +123,7 @@ function logIn($username, $senha) {
         return $user;
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar validar o login!");
     }
 }
 
@@ -101,7 +140,7 @@ function validateUsername($username) {
         }
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar validar um nome de usuário!");
     }
 }
 
@@ -118,7 +157,7 @@ function validateEmail($email) {
         }
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar validar um endereço de email!");
     }
 }
 
@@ -139,7 +178,7 @@ function insertUser($username, $email, $password) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar inserir um usuário no banco de dados!");
     }
 }
 
@@ -154,7 +193,7 @@ function alterUsername($oldUsername, $newUsername) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar alterar um nome de usuário!");
     }
 }
 
@@ -169,7 +208,7 @@ function alterEmail($username, $newEmail) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar alterar um endereço de email!");
     }
 }
 
@@ -188,7 +227,7 @@ function alterPassword($username, $newPassword) {
 
         $statement->execute();
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar alterar uma senha de acesso!");
     }
 }
 
@@ -203,7 +242,7 @@ function deactivateAccount($username) {
         $statement->execute();
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar marcar uma conta como desativada!");
     }
 }
 
@@ -232,7 +271,7 @@ function assembleUser($username) {
         return $user;
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar montar um registro de usuário!");
     }
 }
 
@@ -255,7 +294,7 @@ function userRankPlacement($username) {
         return $position;
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar gerar a posição do usuário no ranking geral de pontos!");
     }
 }
 
@@ -275,7 +314,7 @@ function getUserLevel($username) {
         return $resultado[0];
 
     } catch (PDOException $err) {
-        throw new Exception("Erro na execução da query: " . $err->getMessage());
+        throw new Exception("Erro ao tentar retornar o nível do usuário!");
     }
 }
 

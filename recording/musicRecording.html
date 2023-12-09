@@ -24,14 +24,24 @@
       <button id="returnToMusic"><span class="material-symbols-outlined">undo</span> Voltar</button>
     </div>
   </div>
+  <div class="levelUpArea levelUpInactive">
+    <div class="levelUpDiv">
+      <div class="levelUpContent"></div>
+      <div class="levelUpClose">Okay</div>
+    </div>
   </div>
+  </div>
+
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.core.min.js"></script>
   <script>
     let mediaRecorder;
     let chunks = [];
     let messageDiv = $(".message").clone();
     $(".message").remove();
+    let username = "";
+    let idMusica = 0;
 
     document.getElementById('startRecording').addEventListener('click', startRecording);
     document.getElementById('stopRecording').addEventListener('click', stopRecording);
@@ -67,12 +77,28 @@
       }
     }
 
+    // Avisa os pontos que recebeu
+    function levelUpAlarm(pontos) {
+      $(".levelUpArea").toggleClass("levelUpInactive");
+      $(".levelUpDiv").addClass("animate__bounce");
+      $(".levelUpContent").text("Você recebeu " + pontos + " pontos! Muito bem!");
+      $(".levelUpClose").click(function () {
+        window.location.href = 'http://localhost/SingSpeak/musicPages/main.html';
+      });
+    }
+
     function gerarPontuacao(arrayPontos) {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                
+              let responseJson = JSON.parse(xhr.responseText);
+              if (responseJson.erro) {
+                alert(responseJson.erro);
+              }
+              if (responseJson.points) {
+                levelUpAlarm(responseJson.points);
+              }
             }
         }
     };
@@ -80,6 +106,8 @@
     // Criar um objeto FormData e adicionar o idMusica a ele
     let formData = new FormData();
     formData.append('arrayPontos', arrayPontos);
+    formData.append('username', username);
+    formData.append('idMusica', idMusica);
 
     // Definir o método como POST e enviar o FormData
     xhr.open('POST', 'http://localhost/SingSpeak/musicCodes/generatePoints.php', true);
@@ -135,7 +163,6 @@
     function stopRecording() {
       mediaRecorder.stop();
       updaterDisplay(2);
-      document.getElementById('startRecording').disabled = false;
       document.getElementById('stopRecording').disabled = true;
       document.getElementById("returnToMusic").disabled = false;
     }
@@ -182,6 +209,9 @@
               // Envia para o servidor o nome do arquivo usado
               const nomeArquivo = arrayResultado.filter(item => item.chave === 'lyrics').map(item => item.valor);
               lerArquivoNoServidor(nomeArquivo);
+
+              idMusica = arrayResultado.filter(item => item.chave === 'idMusica').map(item => item.valor);
+              username = arrayResultado.filter(item => item.chave === 'username').map(item => item.valor);
           });
       }
 

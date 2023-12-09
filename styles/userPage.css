@@ -430,6 +430,8 @@ justify-content: center;
 word-wrap: break-word;
     
 min-width: 200px;
+
+border-radius: 25px;
 }
 
 /* Hidden Form Settings */

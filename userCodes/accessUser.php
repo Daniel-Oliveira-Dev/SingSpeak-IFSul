@@ -28,6 +28,10 @@ try {
     logGenerator($username, "Login");
     // Inicia a sessão localmente
     createSession($tentativa);
+    $_SESSION['amountLogins'] = countAccessInDay($username);
+    if (countAccessInDay($username) == 1) {
+        givePoints($username, 15);
+    }
     echo json_encode(['sucesso' => "Sucesso!"]);
     exit();
 } catch (Exception $e) {

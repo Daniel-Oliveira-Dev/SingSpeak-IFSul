@@ -148,7 +148,13 @@ $(function(){
 
     // Acessa o gravador de música
     $(".playButtonIcon").click(function () {
-        window.location.href = 'http://localhost:3000';
+        new Howl({
+            src: ['../assets/sounds/decide.mp3'],
+            volume: 0.1, // Volume (de 0.0 a 1.0)
+            onend: function() {
+                window.location.href = 'http://localhost:3000';
+            }
+        }).play();
     });
     
     // Redireciona para a página de músicas

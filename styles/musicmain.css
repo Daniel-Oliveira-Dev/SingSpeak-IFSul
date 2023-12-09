@@ -145,11 +145,11 @@ html, body {
 
 .posicaoUsername {
     text-align: center;
-    border-bottom: 1px solid var(--branco);
 }
 
 .posicaoPontuacao {
     text-align: center;
+    border-bottom: 1px solid var(--branco);
 }
 
 /* === Youtube Video === */

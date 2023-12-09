@@ -88,6 +88,9 @@ function assembleUser() {
             if (xhr.status === 200) {
                 let responseJson = JSON.parse(xhr.responseText);
                 assignUserInfo(responseJson.userArray);
+                if (responseJson.levelUp) {
+                    levelUpAlarm();
+                }
                 if (responseJson.accessOfDay === 1) {
                     popUpOpen("Você recebeu 15 pontos por seu acesso diário!");
                 }
@@ -98,6 +101,23 @@ function assembleUser() {
     xhr.open('GET', '../userCodes/getMusicPageUserInfo.php', true);
     xhr.send();
 }
+
+// Avisa o usuário que ele subiu de nível
+function levelUpAlarm() {
+    const sound = new Howl({
+        src: ['../assets/sounds/level_up.mp3'],
+        volume: 0.5, // Volume (de 0.0 a 1.0),
+        onplay: function () {
+            $(".levelUpArea").toggleClass("levelUpInactive");
+            $(".levelUpDiv").addClass("animate__bounce");
+            $(".levelUpContent").text("Parabéns! Você subiu de nível!");
+            $(".levelUpClose").click(function () {
+            window.location.reload();
+        });
+        }
+    }).play();
+}
+
   
 // Insere as informações do usuário na página
 function assignUserInfo(userArray) {

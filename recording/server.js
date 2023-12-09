@@ -181,8 +181,8 @@ app.post('/upload', upload.single('audio'), async (req, res) => {
           transcriptionResult.paragraphs.paragraphs
         );
 
-        console.log("Array original convertido!");
         let arrayPontos = givePontuation(updatedArrayOriginalMusic);
+
         console.log("Pontuação gerada!");
         
         // Deleta o arquivo de áudio

@@ -2,12 +2,12 @@
     --roxo-claro: #6C00D7;
     --roxo-escuro: #7100C7;
     --branco: #EDEDF5;
-    --cinza: #424344;
+    --cinza: #333333;
     --cinza-claro: #5F6162;
+    --cinza-mais-escuro: #141414;
     --preto: #000000;
     --transparente: #ffffff00;
-}
-
+  }
 /* === Parte Principal === */
 
 html, body {
@@ -287,3 +287,62 @@ html, body {
     font-size: x-large;
     font-weight: bolder;
 }
+
+  /* === levelUp ===*/
+  .levelUpArea {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+  }
+
+  .levelUpDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 15px;
+    max-width: 400px;
+    max-height: 200px;
+    min-height: 100px;
+    min-width: 200px;
+    background-color: var(--cinza-mais-escuro);
+    border: 3px solid var(--roxo-escuro);
+    border-radius: 25px;
+    color: var(--branco);
+  }
+
+  .levelUpContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .levelUpClose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    border: 1px solid var(--roxo-escuro);
+    background-color: var(--cinza-claro);
+    font-weight: bold;
+    border-radius: 15px;
+  }
+
+  .levelUpClose:hover {
+    cursor: pointer;
+    background-color: var(--branco);
+    color: var(--roxo-claro);
+  }
+
+  .levelUpInactive {
+    display: none;
+  }
